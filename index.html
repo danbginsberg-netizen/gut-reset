@@ -7,552 +7,196 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="theme-color" content="#2a4d42">
 <title>Gut Reset Tracker</title>
-<link rel="manifest" href="data:application/json,{%22name%22:%22Gut%20Reset%22,%22short_name%22:%22GutReset%22,%22start_url%22:%22.%22,%22display%22:%22standalone%22,%22background_color%22:%22%23f7f5f0%22,%22theme_color%22:%22%232a4d42%22}">
 <style>
-* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-body { font-family: 'Segoe UI', system-ui, -apple-system, sans-serif; background: linear-gradient(180deg, #f7f5f0, #eae6dd); min-height: 100vh; min-height: 100dvh; color: #2c2c2c; max-width: 480px; margin: 0 auto; overflow-x: hidden; }
-.header { background: linear-gradient(135deg, #3d6b5e, #2a4d42); padding: 20px 20px 14px; color: #fff; position: sticky; top: 0; z-index: 50; }
-.header-row { display: flex; justify-content: space-between; align-items: center; }
-.logo { display: flex; align-items: center; gap: 8px; }
-.logo-icon { font-size: 22px; }
-.logo-text { font-size: 20px; font-weight: 700; letter-spacing: -0.5px; }
-.status-badge { font-size: 11px; background: rgba(255,255,255,0.15); padding: 4px 12px; border-radius: 20px; font-weight: 500; display: flex; align-items: center; gap: 5px; }
-.status-dot { width: 7px; height: 7px; border-radius: 50%; display: inline-block; }
-.header-actions { display: flex; align-items: center; gap: 8px; }
-.gear-btn { background: rgba(255,255,255,0.15); border: none; color: #fff; border-radius: 8px; padding: 4px 10px; font-size: 14px; cursor: pointer; }
-.checkin-alert { display: flex; align-items: center; gap: 8px; width: 100%; background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.25); border-radius: 10px; padding: 10px 14px; margin-top: 12px; color: #fff; font-size: 13px; cursor: pointer; text-align: left; }
-.body-content { padding: 16px 16px 100px; }
-.toast { position: fixed; top: 80px; left: 50%; transform: translateX(-50%); background: #3d6b5e; color: #fff; padding: 8px 24px; border-radius: 20px; font-size: 14px; font-weight: 600; z-index: 200; transition: opacity 0.3s; }
-.toast.hidden { opacity: 0; pointer-events: none; }
-
-/* Timeline */
-.empty-state { text-align: center; padding: 60px 20px; }
-.empty-icon { font-size: 48px; margin-bottom: 12px; }
-.empty-title { font-size: 20px; font-weight: 700; color: #3d6b5e; margin-bottom: 8px; }
-.empty-text { font-size: 14px; color: #777; line-height: 1.5; }
-.date-group { margin-bottom: 20px; }
-.date-header { font-size: 13px; font-weight: 700; color: #3d6b5e; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; padding-left: 4px; }
-.entry-card { background: #fff; border-radius: 10px; padding: 12px 14px; margin-bottom: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.06); cursor: pointer; transition: background 0.15s; }
-.entry-card:active { background: #f9f7f3; }
-.entry-top { display: flex; align-items: flex-start; gap: 10px; }
-.entry-icon { font-size: 20px; margin-top: 1px; flex-shrink: 0; }
-.entry-info { flex: 1; min-width: 0; }
-.entry-title { font-size: 14px; font-weight: 600; }
-.entry-meta { font-size: 12px; color: #999; margin-top: 3px; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
-.entry-note { font-size: 12px; color: #777; margin-top: 6px; padding-left: 30px; font-style: italic; }
-.entry-edit-icon { font-size: 14px; color: #ccc; flex-shrink: 0; }
-.severity-badge { display: inline-block; padding: 1px 8px; border-radius: 10px; font-size: 11px; color: #fff; font-weight: 600; }
-.tap-hint { font-size: 11px; color: #bbb; text-align: center; margin-top: 8px; font-style: italic; }
-
-/* Edit panel */
-.edit-panel { background: #f9f7f3; border-radius: 8px; padding: 12px; margin-top: 8px; border-top: 1px solid #e8e4dc; }
-.edit-label { font-size: 11px; font-weight: 600; color: #3d6b5e; margin-bottom: 4px; display: block; }
-.edit-row { display: flex; gap: 8px; margin-top: 10px; }
-
-/* Forms */
-.section-title { font-size: 15px; font-weight: 700; color: #3d6b5e; margin-bottom: 12px; margin-top: 4px; }
-.sub-title { font-size: 13px; font-weight: 600; color: #666; margin-bottom: 8px; margin-top: 16px; }
-.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
-.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 16px; }
-.grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 6px; margin-bottom: 16px; }
-.preset-btn { display: flex; flex-direction: column; align-items: center; gap: 4px; padding: 12px 8px; background: #fff; border: 2px solid #e8e4dc; border-radius: 10px; cursor: pointer; font-size: 12px; font-weight: 500; color: #2c2c2c; font-family: inherit; transition: all 0.15s; }
-.preset-btn.active { border-color: #3d6b5e; background: #eef5f1; }
-.preset-btn:active { transform: scale(0.96); }
-.preset-icon { font-size: 24px; }
-.preset-label { font-size: 11px; text-align: center; line-height: 1.2; }
-.divider { text-align: center; font-size: 12px; color: #aaa; margin: 14px 0; }
-.text-input { width: 100%; padding: 12px 14px; border-radius: 10px; border: 2px solid #e8e4dc; font-size: 14px; background: #fff; outline: none; font-family: inherit; }
-.text-input:focus { border-color: #3d6b5e; }
-.time-label { font-size: 12px; color: #777; margin-top: 12px; margin-bottom: 4px; }
-.time-input { width: 100%; padding: 10px 14px; border-radius: 10px; border: 2px solid #e8e4dc; font-size: 14px; background: #fff; outline: none; font-family: inherit; }
-.btn-primary { width: 100%; padding: 14px; border-radius: 12px; border: none; background: linear-gradient(135deg, #3d6b5e, #4a8a74); color: #fff; font-size: 15px; font-weight: 700; cursor: pointer; margin-top: 16px; font-family: inherit; }
-.btn-primary:disabled { opacity: 0.4; }
-.btn-primary:active:not(:disabled) { transform: scale(0.98); }
-.btn-secondary { width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #ddd; background: transparent; color: #777; font-size: 14px; cursor: pointer; margin-top: 8px; font-family: inherit; }
-.btn-small { padding: 8px 16px; border-radius: 8px; border: 1px solid #ddd; background: #fff; color: #555; font-size: 13px; font-weight: 600; cursor: pointer; font-family: inherit; }
-.btn-danger { padding: 8px 16px; border-radius: 8px; border: none; background: #a83232; color: #fff; font-size: 13px; font-weight: 600; cursor: pointer; font-family: inherit; }
-.sym-btn { display: flex; align-items: center; gap: 8px; padding: 10px 12px; background: #fff; border: 2px solid #e8e4dc; border-radius: 10px; cursor: pointer; font-size: 13px; font-weight: 500; color: #2c2c2c; font-family: inherit; }
-.sym-btn.active { border-color: #c46a3a; background: #fdf4ef; }
-.stool-btn { display: flex; flex-direction: column; align-items: center; gap: 3px; padding: 10px 6px; background: #fff; border: 2px solid #e8e4dc; border-radius: 10px; cursor: pointer; font-size: 11px; font-weight: 500; color: #2c2c2c; font-family: inherit; }
-.stool-btn.active { border-color: #3d6b5e; background: #eef5f1; }
-.sev-row { display: flex; gap: 6px; margin-bottom: 16px; flex-wrap: wrap; }
-.sev-btn { flex: 1; min-width: 55px; padding: 8px 4px; border-radius: 8px; border: 2px solid #e8e4dc; background: #fff; cursor: pointer; font-size: 11px; font-weight: 600; color: #555; text-align: center; font-family: inherit; }
-.sev-btn.active { color: #fff; }
-.reminder { text-align: center; font-size: 12px; color: #999; margin-top: 12px; }
-
-/* Check-in */
-.checkin-header { text-align: center; margin-bottom: 24px; }
-.checkin-title { font-size: 20px; font-weight: 700; color: #3d6b5e; margin-top: 8px; }
-
-/* Insights */
-.insight-row { display: flex; align-items: center; gap: 10px; padding: 10px 0; border-bottom: 1px solid #eee; }
-.insight-bar { flex: 2; height: 8px; background: #eee; border-radius: 4px; overflow: hidden; }
-.insight-fill { height: 100%; border-radius: 4px; transition: width 0.3s; }
-.stat-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 10px; }
-.stat-card { background: #fff; border-radius: 10px; padding: 14px 10px; text-align: center; box-shadow: 0 1px 3px rgba(0,0,0,0.06); }
-.stat-num { font-size: 24px; font-weight: 700; color: #3d6b5e; }
-.stat-label { font-size: 11px; color: #999; margin-top: 4px; }
-.insight-empty { font-size: 13px; color: #999; padding: 16px 0; text-align: center; }
-
-/* Backup panel */
-.backup-panel { background: #fff; border-radius: 12px; padding: 16px; margin-bottom: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
-.backup-panel textarea { width: 100%; height: 60px; resize: none; font-size: 12px; }
-
-/* Overlay */
-.overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 300; display: flex; align-items: center; justify-content: center; padding: 20px; }
-.modal { background: #fff; border-radius: 14px; padding: 24px; max-width: 320px; width: 100%; text-align: center; }
-
-/* Bottom nav */
-.bottom-nav { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 480px; display: flex; background: #fff; border-top: 1px solid #e8e4dc; padding: 8px 0 env(safe-area-inset-bottom, 20px); z-index: 100; }
-.nav-btn { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 2px; background: none; border: none; cursor: pointer; padding: 6px 0; font-family: inherit; color: #aaa; }
-.nav-btn.active { color: #3d6b5e; }
-.nav-icon { font-size: 20px; }
-.nav-label { font-size: 10px; font-weight: 600; }
-
-.hidden { display: none; }
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:linear-gradient(180deg,#f7f5f0,#eae6dd);min-height:100vh;min-height:100dvh;color:#2c2c2c;max-width:480px;margin:0 auto;overflow-x:hidden}
+.header{background:linear-gradient(135deg,#3d6b5e,#2a4d42);padding:20px 20px 14px;color:#fff;position:sticky;top:0;z-index:50}
+.header-row{display:flex;justify-content:space-between;align-items:center}
+.logo{display:flex;align-items:center;gap:8px}
+.logo-text{font-size:20px;font-weight:700;letter-spacing:-0.5px}
+.status-badge{font-size:11px;background:rgba(255,255,255,0.15);padding:4px 12px;border-radius:20px;font-weight:500;display:flex;align-items:center;gap:5px}
+.status-dot{width:7px;height:7px;border-radius:50%;display:inline-block}
+.header-actions{display:flex;align-items:center;gap:8px}
+.gear-btn{background:rgba(255,255,255,0.15);border:none;color:#fff;border-radius:8px;padding:4px 10px;font-size:14px;cursor:pointer}
+.checkin-alert{display:flex;align-items:center;gap:8px;width:100%;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.25);border-radius:10px;padding:10px 14px;margin-top:12px;color:#fff;font-size:13px;cursor:pointer;text-align:left}
+.body-content{padding:16px 16px 100px}
+.toast{position:fixed;top:80px;left:50%;transform:translateX(-50%);background:#3d6b5e;color:#fff;padding:8px 24px;border-radius:20px;font-size:14px;font-weight:600;z-index:200;transition:opacity 0.3s}
+.toast.hidden{opacity:0;pointer-events:none}
+.morning-card{background:linear-gradient(135deg,#f0e6d3,#e8dcc8);border-radius:14px;padding:20px;margin-bottom:16px;text-align:center;border:2px solid #d4c4a8}
+.morning-title{font-size:16px;font-weight:700;color:#3d6b5e;margin-bottom:4px}
+.morning-sub{font-size:12px;color:#888;margin-bottom:14px}
+.morning-scores{display:flex;gap:8px;justify-content:center;flex-wrap:wrap}
+.morning-score-btn{width:52px;height:52px;border-radius:50%;border:3px solid #e8e4dc;background:#fff;cursor:pointer;font-size:20px;font-weight:700;display:flex;align-items:center;justify-content:center;font-family:inherit;transition:all 0.15s}
+.morning-score-btn:active{transform:scale(0.9)}
+.morning-label-row{display:flex;justify-content:space-between;margin-top:6px;font-size:10px;color:#999;padding:0 8px}
+.overnight-panel{background:linear-gradient(135deg,#1a2a3a,#0f1d2d);border-radius:14px;padding:24px 20px;text-align:center;color:#fff}
+.overnight-title{font-size:18px;font-weight:700;margin-bottom:4px}
+.overnight-sub{font-size:12px;color:rgba(255,255,255,0.5);margin-bottom:20px}
+.overnight-time{font-size:13px;color:rgba(255,255,255,0.6);margin-bottom:16px}
+.overnight-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}
+.overnight-btn{padding:16px 12px;border-radius:12px;border:2px solid rgba(255,255,255,0.15);background:rgba(255,255,255,0.08);color:#fff;cursor:pointer;font-size:14px;font-weight:500;font-family:inherit;display:flex;flex-direction:column;align-items:center;gap:6px;transition:all 0.15s}
+.overnight-btn.active{border-color:#c46a3a;background:rgba(196,106,58,0.2)}
+.overnight-btn:active{transform:scale(0.96)}
+.overnight-btn-icon{font-size:28px}
+.overnight-sev{display:flex;gap:8px;justify-content:center;margin-bottom:16px}
+.overnight-sev-btn{width:44px;height:44px;border-radius:50%;border:2px solid rgba(255,255,255,0.2);background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.7);cursor:pointer;font-size:11px;font-weight:600;font-family:inherit;display:flex;align-items:center;justify-content:center}
+.overnight-sev-btn.active{color:#fff}
+.overnight-submit{width:100%;padding:14px;border-radius:12px;border:none;background:linear-gradient(135deg,#c46a3a,#d4843a);color:#fff;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit}
+.overnight-submit:active{transform:scale(0.98)}
+.overnight-skip{width:100%;padding:10px;border:none;background:none;color:rgba(255,255,255,0.4);font-size:13px;cursor:pointer;margin-top:6px;font-family:inherit}
+.overnight-stool{display:flex;gap:8px;justify-content:center;margin-bottom:16px}
+.overnight-stool-btn{padding:8px 14px;border-radius:20px;border:2px solid rgba(255,255,255,0.15);background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.7);cursor:pointer;font-size:12px;font-family:inherit;display:flex;align-items:center;gap:4px}
+.overnight-stool-btn.active{border-color:#4a9e7d;background:rgba(74,158,125,0.2);color:#fff}
+.empty-state{text-align:center;padding:60px 20px}
+.empty-icon{font-size:48px;margin-bottom:12px}
+.empty-title{font-size:20px;font-weight:700;color:#3d6b5e;margin-bottom:8px}
+.empty-text{font-size:14px;color:#777;line-height:1.5}
+.date-group{margin-bottom:20px}
+.date-header{font-size:13px;font-weight:700;color:#3d6b5e;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;padding-left:4px}
+.entry-card{background:#fff;border-radius:10px;padding:12px 14px;margin-bottom:8px;box-shadow:0 1px 3px rgba(0,0,0,0.06);cursor:pointer;transition:background 0.15s}
+.entry-card:active{background:#f9f7f3}
+.entry-card.morning-entry{background:linear-gradient(135deg,#f7f3eb,#f0ebe0);border:1px solid #e0d5c0}
+.entry-card.overnight-entry{background:linear-gradient(135deg,#eef0f4,#e4e8ef);border:1px solid #cdd3de}
+.entry-top{display:flex;align-items:flex-start;gap:10px}
+.entry-icon{font-size:20px;margin-top:1px;flex-shrink:0}
+.entry-info{flex:1;min-width:0}
+.entry-title{font-size:14px;font-weight:600}
+.entry-meta{font-size:12px;color:#999;margin-top:3px;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.entry-note{font-size:12px;color:#777;margin-top:6px;padding-left:30px;font-style:italic}
+.entry-edit-icon{font-size:14px;color:#ccc;flex-shrink:0}
+.severity-badge{display:inline-block;padding:1px 8px;border-radius:10px;font-size:11px;color:#fff;font-weight:600}
+.tap-hint{font-size:11px;color:#bbb;text-align:center;margin-top:8px;font-style:italic}
+.edit-panel{background:#f9f7f3;border-radius:8px;padding:12px;margin-top:8px;border-top:1px solid #e8e4dc}
+.edit-label{font-size:11px;font-weight:600;color:#3d6b5e;margin-bottom:4px;display:block}
+.edit-row{display:flex;gap:8px;margin-top:10px}
+.section-title{font-size:15px;font-weight:700;color:#3d6b5e;margin-bottom:12px;margin-top:4px}
+.sub-title{font-size:13px;font-weight:600;color:#666;margin-bottom:8px;margin-top:16px}
+.food-category{font-size:12px;font-weight:600;color:#888;margin-top:16px;margin-bottom:8px;text-transform:uppercase;letter-spacing:0.5px}
+.food-category:first-child{margin-top:0}
+.grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px}
+.grid-4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:6px;margin-bottom:16px}
+.preset-btn{display:flex;flex-direction:column;align-items:center;gap:4px;padding:12px 8px;background:#fff;border:2px solid #e8e4dc;border-radius:10px;cursor:pointer;font-size:12px;font-weight:500;color:#2c2c2c;font-family:inherit;transition:all 0.15s}
+.preset-btn.active{border-color:#3d6b5e;background:#eef5f1}
+.preset-btn:active{transform:scale(0.96)}
+.preset-icon{font-size:24px}
+.preset-label{font-size:11px;text-align:center;line-height:1.2}
+.divider{text-align:center;font-size:12px;color:#aaa;margin:14px 0}
+.text-input{width:100%;padding:12px 14px;border-radius:10px;border:2px solid #e8e4dc;font-size:14px;background:#fff;outline:none;font-family:inherit}
+.text-input:focus{border-color:#3d6b5e}
+.time-label{font-size:12px;color:#777;margin-top:12px;margin-bottom:4px}
+.time-input{width:100%;padding:10px 14px;border-radius:10px;border:2px solid #e8e4dc;font-size:14px;background:#fff;outline:none;font-family:inherit}
+.btn-primary{width:100%;padding:14px;border-radius:12px;border:none;background:linear-gradient(135deg,#3d6b5e,#4a8a74);color:#fff;font-size:15px;font-weight:700;cursor:pointer;margin-top:16px;font-family:inherit}
+.btn-primary:disabled{opacity:0.4}
+.btn-primary:active:not(:disabled){transform:scale(0.98)}
+.btn-secondary{width:100%;padding:12px;border-radius:10px;border:1px solid #ddd;background:transparent;color:#777;font-size:14px;cursor:pointer;margin-top:8px;font-family:inherit}
+.btn-small{padding:8px 16px;border-radius:8px;border:1px solid #ddd;background:#fff;color:#555;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit}
+.btn-danger{padding:8px 16px;border-radius:8px;border:none;background:#a83232;color:#fff;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit}
+.sym-btn{display:flex;align-items:center;gap:8px;padding:10px 12px;background:#fff;border:2px solid #e8e4dc;border-radius:10px;cursor:pointer;font-size:13px;font-weight:500;color:#2c2c2c;font-family:inherit}
+.sym-btn.active{border-color:#c46a3a;background:#fdf4ef}
+.stool-btn{display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 6px;background:#fff;border:2px solid #e8e4dc;border-radius:10px;cursor:pointer;font-size:11px;font-weight:500;color:#2c2c2c;font-family:inherit}
+.stool-btn.active{border-color:#3d6b5e;background:#eef5f1}
+.sev-row{display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap}
+.sev-btn{flex:1;min-width:55px;padding:8px 4px;border-radius:8px;border:2px solid #e8e4dc;background:#fff;cursor:pointer;font-size:11px;font-weight:600;color:#555;text-align:center;font-family:inherit}
+.sev-btn.active{color:#fff}
+.reminder{text-align:center;font-size:12px;color:#999;margin-top:12px}
+.checkin-header{text-align:center;margin-bottom:24px}
+.checkin-title{font-size:20px;font-weight:700;color:#3d6b5e;margin-top:8px}
+.insight-row{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid #eee}
+.insight-bar{flex:2;height:8px;background:#eee;border-radius:4px;overflow:hidden}
+.insight-fill{height:100%;border-radius:4px;transition:width 0.3s}
+.stat-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.stat-card{background:#fff;border-radius:10px;padding:14px 10px;text-align:center;box-shadow:0 1px 3px rgba(0,0,0,0.06)}
+.stat-num{font-size:24px;font-weight:700;color:#3d6b5e}
+.stat-label{font-size:11px;color:#999;margin-top:4px}
+.insight-empty{font-size:13px;color:#999;padding:16px 0;text-align:center}
+.backup-panel{background:#fff;border-radius:12px;padding:16px;margin-bottom:16px;box-shadow:0 2px 8px rgba(0,0,0,0.1)}
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,0.4);z-index:300;display:flex;align-items:center;justify-content:center;padding:20px}
+.modal{background:#fff;border-radius:14px;padding:24px;max-width:320px;width:100%;text-align:center}
+.bottom-nav{position:fixed;bottom:0;left:50%;transform:translateX(-50%);width:100%;max-width:480px;display:flex;background:#fff;border-top:1px solid #e8e4dc;padding:8px 0 env(safe-area-inset-bottom,20px);z-index:100}
+.nav-btn{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;background:none;border:none;cursor:pointer;padding:6px 0;font-family:inherit;color:#aaa}
+.nav-btn.active{color:#3d6b5e}
+.nav-icon{font-size:20px}
+.nav-label{font-size:10px;font-weight:600}
+.hidden{display:none}
 </style>
 </head>
 <body>
-
-<div class="header">
-  <div class="header-row">
-    <div class="logo">
-      <span class="logo-icon">🌱</span>
-      <span class="logo-text">Gut Reset</span>
-    </div>
-    <div class="header-actions">
-      <div class="status-badge">
-        <span class="status-dot" id="statusDot" style="background:#4a9e7d"></span>
-        <span id="statusText">Saved</span>
-        <span id="entryCount" style="opacity:0.7"></span>
-      </div>
-      <button class="gear-btn" onclick="toggleBackup()">⚙️</button>
-    </div>
-  </div>
-  <div id="checkinAlert" class="checkin-alert hidden" onclick="showPendingCheckin()">
-    <span>⏰</span>
-    <span id="checkinAlertText"></span>
-    <span style="margin-left:auto">→</span>
-  </div>
-</div>
-
+<div class="header"><div class="header-row"><div class="logo"><span style="font-size:22px">🌱</span><span class="logo-text">Gut Reset</span></div><div class="header-actions"><div class="status-badge"><span class="status-dot" id="statusDot" style="background:#4a9e7d"></span><span id="statusText">Saved</span><span id="entryCount" style="opacity:0.7"></span></div><button class="gear-btn" onclick="toggleBackup()">⚙️</button></div></div><div id="checkinAlert" class="checkin-alert hidden" onclick="showPendingCheckin()"><span>⏰</span><span id="checkinAlertText"></span><span style="margin-left:auto">→</span></div></div>
 <div id="toast" class="toast hidden"></div>
-
-<div id="deleteOverlay" class="overlay hidden">
-  <div class="modal">
-    <div style="font-size:16px;font-weight:600;margin-bottom:16px">Delete this entry?</div>
-    <div style="display:flex;gap:10px;justify-content:center">
-      <button class="btn-small" onclick="hideDelete()">Cancel</button>
-      <button class="btn-danger" onclick="confirmDelete()">Delete</button>
-    </div>
-  </div>
-</div>
-
+<div id="deleteOverlay" class="overlay hidden"><div class="modal"><div style="font-size:16px;font-weight:600;margin-bottom:16px">Delete this entry?</div><div style="display:flex;gap:10px;justify-content:center"><button class="btn-small" onclick="hideDelete()">Cancel</button><button class="btn-danger" onclick="confirmDelete()">Delete</button></div></div></div>
 <div class="body-content" id="bodyContent"></div>
-
 <div class="bottom-nav">
-  <button class="nav-btn active" id="nav-timeline" onclick="switchTab('timeline')">
-    <span class="nav-icon">📋</span><span class="nav-label">Timeline</span>
-  </button>
-  <button class="nav-btn" id="nav-food" onclick="switchTab('food')">
-    <span class="nav-icon">🍽️</span><span class="nav-label">Food</span>
-  </button>
-  <button class="nav-btn" id="nav-symptom" onclick="switchTab('symptom')">
-    <span class="nav-icon">📝</span><span class="nav-label">Symptom</span>
-  </button>
-  <button class="nav-btn" id="nav-insights" onclick="switchTab('insights')">
-    <span class="nav-icon">📊</span><span class="nav-label">Insights</span>
-  </button>
+<button class="nav-btn active" id="nav-timeline" onclick="switchTab('timeline')"><span class="nav-icon">📋</span><span class="nav-label">Timeline</span></button>
+<button class="nav-btn" id="nav-food" onclick="switchTab('food')"><span class="nav-icon">🍽️</span><span class="nav-label">Food</span></button>
+<button class="nav-btn" id="nav-symptom" onclick="switchTab('symptom')"><span class="nav-icon">📝</span><span class="nav-label">Symptom</span></button>
+<button class="nav-btn" id="nav-overnight" onclick="switchTab('overnight')"><span class="nav-icon">🌙</span><span class="nav-label">Night</span></button>
+<button class="nav-btn" id="nav-insights" onclick="switchTab('insights')"><span class="nav-icon">📊</span><span class="nav-label">Insights</span></button>
 </div>
-
 <script>
-const STORAGE_KEY = "gut-reset-tracker-v1";
-const SYMPTOMS = [
-  {id:"bloating",label:"Bloating",icon:"🫧"},{id:"burning",label:"Burning",icon:"🔥"},
-  {id:"urgency",label:"Urgency",icon:"⚡"},{id:"gas",label:"Gas",icon:"💨"},
-  {id:"cramps",label:"Cramps",icon:"😣"},{id:"nausea",label:"Nausea",icon:"🤢"},
-  {id:"diarrhea",label:"Diarrhea",icon:"🚽"},{id:"pain",label:"Pain",icon:"🩹"}
-];
-const FOODS = [
-  {id:"broth",label:"Bone Broth",icon:"🍵"},{id:"rice",label:"White Rice",icon:"🍚"},
-  {id:"banana",label:"Banana",icon:"🍌"},{id:"zucchini",label:"Zucchini",icon:"🥒"},
-  {id:"salmon",label:"Salmon",icon:"🐟"},{id:"sweet_potato",label:"Sweet Potato",icon:"🍠"},
-  {id:"kombucha",label:"Kombucha",icon:"🫧"},{id:"peppermint_tea",label:"Peppermint Tea",icon:"🍃"},
-  {id:"throat_coat",label:"Throat Coat",icon:"🌿"},{id:"kefir",label:"Kefir/Yogurt",icon:"🥛"},
-  {id:"water",label:"Water",icon:"💧"},{id:"electrolyte",label:"Electrolyte",icon:"⚡"},
-  {id:"pepto",label:"Pepto-Bismol",icon:"💊"},{id:"glutamine",label:"L-Glutamine",icon:"💊"}
-];
-const SEV = [
-  {v:0,l:"None",c:"#4a9e7d"},{v:1,l:"Mild",c:"#8cb86e"},
-  {v:2,l:"Moderate",c:"#d4a843"},{v:3,l:"Severe",c:"#c46a3a"},{v:4,l:"Extreme",c:"#a83232"}
-];
-const STOOLS = [
-  {id:"solid",label:"Solid",icon:"✅"},{id:"soft",label:"Soft",icon:"🟡"},
-  {id:"loose",label:"Loose",icon:"🟠"},{id:"diarrhea",label:"Diarrhea",icon:"🔴"}
-];
-const CHK_WINDOWS = [{h:2,l:"2hr"},{h:6,l:"6hr"},{h:12,l:"12hr"},{h:24,l:"24hr"}];
-
-let entries = [];
-let currentTab = "timeline";
-let selectedFood = null;
-let selectedSymptoms = [];
-let selectedSev = 1;
-let selectedStool = null;
-let editingId = null;
-let deleteId = null;
-let pendingCheckins = [];
-let showBackup = false;
-
-// Storage
-function loadData() {
-  try {
-    const d = localStorage.getItem(STORAGE_KEY);
-    if (d) { entries = JSON.parse(d); }
-    updateStatus("ok");
-  } catch(e) { updateStatus("error"); }
-}
-function saveData() {
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(entries));
-    updateStatus("ok");
-  } catch(e) { updateStatus("error"); }
-}
-function updateStatus(s) {
-  const dot = document.getElementById("statusDot");
-  const txt = document.getElementById("statusText");
-  const cnt = document.getElementById("entryCount");
-  dot.style.background = s === "ok" ? "#4a9e7d" : "#a83232";
-  txt.textContent = s === "ok" ? "Saved" : "Error";
-  cnt.textContent = entries.length > 0 ? `(${entries.length})` : "";
-}
-
-// Utils
-const pad2 = n => String(n).padStart(2,"0");
-function fmtTime(iso) { return new Date(iso).toLocaleTimeString([],{hour:"numeric",minute:"2-digit"}); }
-function fmtDate(iso) {
-  const d = new Date(iso), t = new Date(), y = new Date(t);
-  y.setDate(y.getDate()-1);
-  if (d.toDateString()===t.toDateString()) return "Today";
-  if (d.toDateString()===y.toDateString()) return "Yesterday";
-  return d.toLocaleDateString([],{weekday:"short",month:"short",day:"numeric"});
-}
-function elapsed(iso) {
-  const m = Math.floor((Date.now()-new Date(iso).getTime())/60000);
-  if (m<1) return "just now"; if (m<60) return m+"m ago";
-  const h = Math.floor(m/60); return h<24 ? h+"h ago" : Math.floor(h/24)+"d ago";
-}
-function toLocal(iso) {
-  const d = new Date(iso);
-  return `${d.getFullYear()}-${pad2(d.getMonth()+1)}-${pad2(d.getDate())}T${pad2(d.getHours())}:${pad2(d.getMinutes())}`;
-}
-function flash(msg) {
-  const t = document.getElementById("toast");
-  t.textContent = msg; t.classList.remove("hidden");
-  setTimeout(() => t.classList.add("hidden"), 2000);
-}
-function groupEntries() {
-  const g = {};
-  entries.forEach(e => { const k = new Date(e.ts).toDateString(); if (!g[k]) g[k]=[]; g[k].push(e); });
-  return Object.entries(g).sort(([a],[b]) => new Date(b)-new Date(a))
-    .map(([ds,items]) => ({ds, label:fmtDate(items[0].ts), items:items.sort((a,b)=>new Date(b.ts)-new Date(a.ts))}));
-}
-
-// Check-ins
-function checkPending() {
-  const foods = entries.filter(e => e.type==="food");
-  pendingCheckins = [];
-  foods.forEach(f => {
-    CHK_WINDOWS.forEach(w => {
-      const due = new Date(f.ts).getTime() + w.h*3600000;
-      const now = Date.now();
-      const done = entries.some(e => e.type==="checkin" && e.fid===f.id && e.wh===w.h);
-      if (!done && now>=due && now<due+7200000) pendingCheckins.push({...w, fe:f});
-    });
-  });
-  const el = document.getElementById("checkinAlert");
-  const tx = document.getElementById("checkinAlertText");
-  if (pendingCheckins.length > 0 && currentTab !== "checkin") {
-    el.classList.remove("hidden");
-    tx.innerHTML = `${pendingCheckins[0].l} check-in due for <strong>${pendingCheckins[0].fe.food}</strong>`;
-  } else { el.classList.add("hidden"); }
-}
-
-// Nav
-function switchTab(tab) {
-  currentTab = tab;
-  document.querySelectorAll(".nav-btn").forEach(b => b.classList.remove("active"));
-  document.getElementById("nav-"+tab).classList.add("active");
-  editingId = null; selectedFood = null; selectedSymptoms = []; selectedSev = 1; selectedStool = null;
-  render();
-}
-
-function showPendingCheckin() {
-  currentTab = "checkin";
-  document.querySelectorAll(".nav-btn").forEach(b => b.classList.remove("active"));
-  render();
-}
-
-// Render
-function render() {
-  checkPending();
-  const body = document.getElementById("bodyContent");
-  if (currentTab === "timeline") renderTimeline(body);
-  else if (currentTab === "food") renderFood(body);
-  else if (currentTab === "symptom") renderSymptom(body);
-  else if (currentTab === "checkin") renderCheckin(body);
-  else if (currentTab === "insights") renderInsights(body);
-}
-
-function renderTimeline(el) {
-  let html = "";
-  if (showBackup) {
-    html += `<div class="backup-panel">
-      <div class="section-title">Backup & Restore</div>
-      <div style="font-size:12px;color:#777;margin-bottom:12px">${entries.length} entries stored on this device</div>
-      <button class="btn-primary" style="margin-top:0;font-size:13px;padding:12px" onclick="copyBackup()">📋 Copy Data to Clipboard</button>
-      <div style="font-size:11px;color:#999;text-align:center;margin-top:6px">Paste into a note as backup</div>
-      <div style="border-top:1px solid #eee;margin-top:14px;padding-top:14px">
-        <div style="font-size:13px;font-weight:600;color:#555;margin-bottom:6px">Restore from backup</div>
-        <textarea class="text-input" id="importArea" placeholder="Paste exported data here..." style="height:60px;resize:none;font-size:12px"></textarea>
-        <button class="btn-small" style="margin-top:8px;width:100%" onclick="importBackup()">Import Data</button>
-      </div>
-      <button class="btn-secondary" style="font-size:12px" onclick="toggleBackup()">Close</button>
-    </div>`;
-  }
-  if (entries.length === 0) {
-    html += `<div class="empty-state"><div class="empty-icon">📋</div><div class="empty-title">Start Tracking</div><div class="empty-text">Log your first food or symptom using the tabs below.</div></div>`;
-  } else {
-    const groups = groupEntries();
-    groups.forEach(g => {
-      html += `<div class="date-group"><div class="date-header">${g.label}</div>`;
-      g.items.forEach(e => {
-        const color = e.type==="food" ? "#4a9e7d" : e.type==="symptom" ? (SEV[e.sev]?.c||"#888") : "#6a8caf";
-        const icon = e.type==="food" ? e.icon : e.type==="symptom" ? "📝" : "🔔";
-        const title = e.type==="food" ? e.food : e.type==="symptom" ? ((e.syms||[]).map(s=>s.label).join(", ")+(e.stool?` · ${e.stool.label}`:"")) : `${e.wl} check: ${e.fl}`;
-        const sevBadge = (e.type==="symptom"||e.type==="checkin") ? `<span class="severity-badge" style="background:${SEV[e.sev]?.c}">${SEV[e.sev]?.l}</span>` : "";
-        const noteHtml = e.note ? `<div class="entry-note">${e.note}</div>` : "";
-        const chkSyms = e.type==="checkin" && e.syms?.length ? `<div class="entry-note">${e.syms.map(s=>`${s.icon} ${s.label}`).join(", ")}</div>` : "";
-        const editIcon = editingId===e.id ? "▲" : "✎";
-        let editHtml = "";
-        if (editingId === e.id) {
-          editHtml = `<div class="edit-panel" onclick="event.stopPropagation()">
-            <label class="edit-label">Adjust time</label>
-            <input type="datetime-local" class="text-input" style="padding:8px 10px;font-size:13px" id="editTime" value="${toLocal(e.ts)}">
-            <label class="edit-label" style="margin-top:8px">Note</label>
-            <input class="text-input" style="padding:8px 10px;font-size:13px" id="editNote" value="${e.note||""}" placeholder="Add a note...">
-            <div class="edit-row">
-              <button class="btn-small" onclick="saveEdit('${e.id}')">💾 Save</button>
-              <button class="btn-danger" onclick="showDelete('${e.id}')">🗑 Delete</button>
-            </div>
-          </div>`;
-        }
-        html += `<div class="entry-card" style="border-left:3px solid ${color}" onclick="toggleEdit('${e.id}')">
-          <div class="entry-top">
-            <span class="entry-icon">${icon}</span>
-            <div class="entry-info"><div class="entry-title">${title}</div>
-              <div class="entry-meta">${fmtTime(e.ts)} · ${elapsed(e.ts)} ${sevBadge}</div>
-            </div>
-            <span class="entry-edit-icon">${editIcon}</span>
-          </div>${noteHtml}${chkSyms}${editHtml}</div>`;
-      });
-      html += "</div>";
-    });
-    html += `<div class="tap-hint">Tap any entry to edit time or delete</div>`;
-  }
-  el.innerHTML = html;
-}
-
-function renderFood(el) {
-  let html = `<div class="section-title">What did you eat or drink?</div><div class="grid-3">`;
-  FOODS.forEach(f => {
-    html += `<button class="preset-btn ${selectedFood===f.id?'active':''}" onclick="selectFood('${f.id}')">
-      <span class="preset-icon">${f.icon}</span><span class="preset-label">${f.label}</span></button>`;
-  });
-  html += `</div><div class="divider">— or type custom —</div>
-    <input class="text-input" id="customFood" placeholder="e.g., crackers, bread, cereal..." oninput="selectedFood=null;renderFoodBtn()">
-    <input class="text-input" id="foodNote" placeholder="Notes (optional)" style="margin-top:8px">
-    <div class="time-label">⏰ When did you eat? (leave blank for now)</div>
-    <input type="datetime-local" class="time-input" id="foodTime">
-    <button class="btn-primary" id="foodSubmit" onclick="submitFood()">Log Food</button>
-    <div class="reminder">Check-in reminders at 2hr, 6hr, 12hr, and 24hr</div>`;
-  el.innerHTML = html;
-}
-
-function renderSymptom(el) {
-  let html = `<div class="section-title">What are you feeling?</div><div class="grid-2">`;
-  SYMPTOMS.forEach(s => {
-    const on = selectedSymptoms.includes(s.id);
-    html += `<button class="sym-btn ${on?'active':''}" onclick="toggleSymptom('${s.id}')">
-      <span style="font-size:18px">${s.icon}</span><span>${s.label}</span></button>`;
-  });
-  html += `</div><div class="sub-title">Bowel movement?</div><div class="grid-4">`;
-  STOOLS.forEach(s => {
-    html += `<button class="stool-btn ${selectedStool===s.id?'active':''}" onclick="toggleStool('${s.id}')">
-      <span style="font-size:18px">${s.icon}</span><span>${s.label}</span></button>`;
-  });
-  html += `</div>`;
-  if (selectedSymptoms.length > 0 || selectedStool) {
-    html += `<div class="section-title">Severity</div><div class="sev-row">`;
-    SEV.slice(1).forEach(s => {
-      const on = selectedSev===s.v;
-      html += `<button class="sev-btn ${on?'active':''}" style="${on?`background:${s.c};color:#fff;border-color:${s.c}`:''}" onclick="selectedSev=${s.v};render()">${s.l}</button>`;
-    });
-    html += `</div><input class="text-input" id="symNote" placeholder="Additional notes...">
-      <div class="time-label">⏰ When? (leave blank for now)</div>
-      <input type="datetime-local" class="time-input" id="symTime">
-      <button class="btn-primary" onclick="submitSymptom()">Log Symptoms</button>`;
-  }
-  el.innerHTML = html;
-}
-
-function renderCheckin(el) {
-  if (!pendingCheckins.length) {
-    el.innerHTML = `<div class="empty-state"><div class="empty-icon">✅</div><div class="empty-title">No Check-ins Due</div><div class="empty-text">Check-ins appear 2, 6, 12, and 24 hours after eating.</div></div>`;
-    return;
-  }
-  const p = pendingCheckins[0];
-  let html = `<div class="checkin-header"><div style="font-size:40px">🔔</div>
-    <div class="checkin-title">${p.l} Check-in</div>
-    <div style="font-size:14px;color:#555;margin-top:6px">How do you feel after <strong>${p.fe.food}</strong>?</div>
-    <div style="font-size:12px;color:#999;margin-top:4px">Eaten at ${fmtTime(p.fe.ts)}</div></div>`;
-  html += `<div class="section-title">Overall reaction</div><div class="sev-row">`;
-  SEV.forEach(s => {
-    const on = selectedSev===s.v;
-    html += `<button class="sev-btn ${on?'active':''}" style="${on?`background:${s.c};color:#fff;border-color:${s.c}`:''}" onclick="selectedSev=${s.v};render()">${s.l}</button>`;
-  });
-  html += `</div><div class="section-title">Any symptoms?</div><div class="grid-2">`;
-  SYMPTOMS.forEach(s => {
-    const on = selectedSymptoms.includes(s.id);
-    html += `<button class="sym-btn ${on?'active':''}" onclick="toggleSymptom('${s.id}')">
-      <span style="font-size:18px">${s.icon}</span><span>${s.label}</span></button>`;
-  });
-  html += `</div><button class="btn-primary" onclick="submitCheckin()">Submit Check-in</button>
-    <button class="btn-secondary" onclick="switchTab('timeline')">Skip for now</button>`;
-  el.innerHTML = html;
-}
-
-function renderInsights(el) {
-  const chks = entries.filter(e=>e.type==="checkin");
-  const fr = {};
-  chks.forEach(c => { if(!fr[c.fl]) fr[c.fl]=[]; fr[c.fl].push(c.sev); });
-  const scores = Object.entries(fr).map(([f,sv])=>({f,avg:sv.reduce((a,b)=>a+b,0)/sv.length,n:sv.length})).sort((a,b)=>a.avg-b.avg);
-  const sf = {};
-  entries.filter(e=>e.type==="symptom").forEach(e=>(e.syms||[]).forEach(s=>{sf[s.label]=(sf[s.label]||0)+1;}));
-  chks.forEach(c=>(c.syms||[]).forEach(s=>{sf[s.label]=(sf[s.label]||0)+1;}));
-
-  let html = `<div class="section-title">Food Tolerance Scores</div>`;
-  if (!scores.length) { html += `<div class="insight-empty">Complete check-ins after eating to build your tolerance profile.</div>`; }
-  else { scores.forEach(x => {
-    html += `<div class="insight-row"><div style="font-size:14px;font-weight:600;flex:1">${x.f}</div>
-      <div class="insight-bar"><div class="insight-fill" style="width:${(x.avg/4)*100}%;background:${SEV[Math.round(x.avg)]?.c}"></div></div>
-      <div style="font-size:12px;color:#777;width:80px;text-align:right">${SEV[Math.round(x.avg)]?.l} (${x.n})</div></div>`;
-  }); }
-  html += `<div class="section-title" style="margin-top:28px">Most Common Symptoms</div>`;
-  const sfArr = Object.entries(sf).sort(([,a],[,b])=>b-a);
-  if (!sfArr.length) { html += `<div class="insight-empty">Log symptoms to see patterns.</div>`; }
-  else { sfArr.forEach(([sym,ct]) => {
-    html += `<div class="insight-row"><div style="font-size:14px;font-weight:600;flex:1">${sym}</div><div style="font-size:12px;color:#777">${ct}×</div></div>`;
-  }); }
-  html += `<div class="section-title" style="margin-top:28px">Stats</div>
-    <div class="stat-grid">
-      <div class="stat-card"><div class="stat-num">${entries.length}</div><div class="stat-label">Total entries</div></div>
-      <div class="stat-card"><div class="stat-num">${entries.filter(e=>e.type==="food").length}</div><div class="stat-label">Foods logged</div></div>
-      <div class="stat-card"><div class="stat-num">${scores.length}</div><div class="stat-label">Foods scored</div></div>
-    </div>`;
-  if (entries.length) {
-    html += `<button class="btn-secondary" style="margin-top:24px;color:#a83232" onclick="if(confirm('Clear all data?')){entries=[];saveData();render();}">Reset All Data</button>`;
-  }
-  el.innerHTML = html;
-}
-
-// Actions
-function selectFood(id) { selectedFood = id; render(); }
-function toggleSymptom(id) {
-  const i = selectedSymptoms.indexOf(id);
-  if (i>=0) selectedSymptoms.splice(i,1); else selectedSymptoms.push(id);
-  render();
-}
-function toggleStool(id) { selectedStool = selectedStool===id ? null : id; render(); }
-function toggleEdit(id) { editingId = editingId===id ? null : id; render(); }
-
-function submitFood() {
-  const custom = document.getElementById("customFood")?.value || "";
-  const food = selectedFood ? FOODS.find(f=>f.id===selectedFood) : (custom ? {id:"c",label:custom,icon:"🍽️"} : null);
-  if (!food) return;
-  const timeVal = document.getElementById("foodTime")?.value;
-  const note = document.getElementById("foodNote")?.value || "";
-  entries.push({
-    id: "f"+Date.now(), type: "food",
-    ts: timeVal ? new Date(timeVal).toISOString() : new Date().toISOString(),
-    food: food.label, icon: food.icon, note
-  });
-  saveData(); selectedFood = null;
-  flash("✓ Food logged & saved"); switchTab("timeline");
-}
-
-function submitSymptom() {
-  if (!selectedSymptoms.length && !selectedStool) return;
-  const note = document.getElementById("symNote")?.value || "";
-  const timeVal = document.getElementById("symTime")?.value;
-  const syms = selectedSymptoms.map(id => SYMPTOMS.find(s=>s.id===id));
-  const stool = selectedStool ? STOOLS.find(s=>s.id===selectedStool) : null;
-  entries.push({
-    id: "s"+Date.now(), type: "symptom",
-    ts: timeVal ? new Date(timeVal).toISOString() : new Date().toISOString(),
-    syms, sev: selectedSev, note, stool
-  });
-  saveData(); selectedSymptoms = []; selectedSev = 1; selectedStool = null;
-  flash("✓ Symptoms logged & saved"); switchTab("timeline");
-}
-
-function submitCheckin() {
-  if (!pendingCheckins.length) return;
-  const p = pendingCheckins[0];
-  const syms = selectedSymptoms.map(id => SYMPTOMS.find(s=>s.id===id));
-  entries.push({
-    id: "c"+Date.now(), type: "checkin",
-    ts: new Date().toISOString(),
-    fid: p.fe.id, fl: p.fe.food, wh: p.h, wl: p.l,
-    sev: selectedSev, syms
-  });
-  saveData(); selectedSymptoms = []; selectedSev = 0;
-  flash("✓ Check-in saved"); switchTab("timeline");
-}
-
-function saveEdit(id) {
-  const time = document.getElementById("editTime")?.value;
-  const note = document.getElementById("editNote")?.value || "";
-  entries = entries.map(e => e.id===id ? {...e, ts: new Date(time).toISOString(), note} : e);
-  saveData(); editingId = null; flash("✓ Updated"); render();
-}
-
-function showDelete(id) { deleteId = id; document.getElementById("deleteOverlay").classList.remove("hidden"); }
-function hideDelete() { document.getElementById("deleteOverlay").classList.add("hidden"); }
-function confirmDelete() {
-  entries = entries.filter(e => e.id !== deleteId);
-  saveData(); editingId = null; hideDelete(); flash("✓ Deleted"); render();
-}
-
-function toggleBackup() { showBackup = !showBackup; render(); }
-function copyBackup() {
-  const data = JSON.stringify(entries, null, 2);
-  navigator.clipboard.writeText(data).then(() => flash("✓ Copied to clipboard!")).catch(() => {
-    const ta = document.createElement("textarea"); ta.value = data; document.body.appendChild(ta); ta.select(); document.execCommand("copy"); document.body.removeChild(ta);
-    flash("✓ Copied!");
-  });
-}
-function importBackup() {
-  const txt = document.getElementById("importArea")?.value;
-  try {
-    const parsed = JSON.parse(txt);
-    if (Array.isArray(parsed)) { entries = parsed; saveData(); showBackup = false; flash("✓ Imported "+parsed.length+" entries"); render(); }
-  } catch(e) { flash("⚠ Invalid data"); }
-}
-
-// Init
-loadData();
-render();
-setInterval(checkPending, 60000);
+const SK="gut-reset-tracker-v1";
+const SY=[{id:"bloating",label:"Bloating",icon:"🫧"},{id:"burning",label:"Burning",icon:"🔥"},{id:"urgency",label:"Urgency",icon:"⚡"},{id:"gas",label:"Gas",icon:"💨"},{id:"cramps",label:"Cramps",icon:"😣"},{id:"nausea",label:"Nausea",icon:"🤢"},{id:"diarrhea",label:"Diarrhea",icon:"🚽"},{id:"pain",label:"Pain",icon:"🩹"}];
+const F1=[{id:"broth",label:"Bone Broth",icon:"🍵"},{id:"rice",label:"White Rice",icon:"🍚"},{id:"banana",label:"Banana",icon:"🍌"},{id:"potato",label:"Boiled Potato",icon:"🥔"},{id:"water",label:"Water",icon:"💧"},{id:"electrolyte",label:"Electrolyte",icon:"⚡"}];
+const F2=[{id:"salmon",label:"Salmon",icon:"🐟"},{id:"chicken",label:"Chicken Breast",icon:"🍗"},{id:"sweet_potato",label:"Sweet Potato",icon:"🍠"},{id:"carrots",label:"Steamed Carrots",icon:"🥕"},{id:"eggs",label:"Scrambled Eggs",icon:"🥚"},{id:"oatmeal",label:"Plain Oatmeal",icon:"🥣"}];
+const FD=[{id:"kombucha",label:"Kombucha",icon:"🫧"},{id:"peppermint_tea",label:"Peppermint Tea",icon:"🍃"},{id:"throat_coat",label:"Throat Coat",icon:"🌿"},{id:"ginger_tea",label:"Ginger Tea",icon:"🫚"},{id:"kefir",label:"Kefir/Yogurt",icon:"🥛"},{id:"coconut_water",label:"Coconut Water",icon:"🥥"}];
+const FS=[{id:"pepto",label:"Pepto-Bismol",icon:"💊"},{id:"glutamine",label:"L-Glutamine",icon:"💊"},{id:"probiotic",label:"Probiotic",icon:"💊"}];
+const AF=[...F1,...F2,...FD,...FS];
+const SV=[{v:0,l:"None",c:"#4a9e7d"},{v:1,l:"Mild",c:"#8cb86e"},{v:2,l:"Moderate",c:"#d4a843"},{v:3,l:"Severe",c:"#c46a3a"},{v:4,l:"Extreme",c:"#a83232"}];
+const ST=[{id:"solid",label:"Solid",icon:"✅"},{id:"soft",label:"Soft",icon:"🟡"},{id:"loose",label:"Loose",icon:"🟠"},{id:"diarrhea",label:"Diarrhea",icon:"🔴"}];
+const MS=[{v:1,emoji:"😫",label:"Rough"},{v:2,emoji:"😕",label:"Poor"},{v:3,emoji:"😐",label:"Okay"},{v:4,emoji:"🙂",label:"Good"},{v:5,emoji:"😊",label:"Great"}];
+let E=[],ct="timeline",sf=null,ss=[],sv=1,sl=null,ei=null,di=null,pc=[],sb=false,os=[],ov=2,ol=null;
+function ld(){try{const d=localStorage.getItem(SK);if(d)E=JSON.parse(d);us("ok")}catch(e){us("error")}}
+function sd(){try{localStorage.setItem(SK,JSON.stringify(E));us("ok")}catch(e){us("error")}}
+function us(s){document.getElementById("statusDot").style.background=s==="ok"?"#4a9e7d":"#a83232";document.getElementById("statusText").textContent=s==="ok"?"Saved":"Error";document.getElementById("entryCount").textContent=E.length>0?"("+E.length+")":""}
+const p2=n=>String(n).padStart(2,"0");
+function ft(i){return new Date(i).toLocaleTimeString([],{hour:"numeric",minute:"2-digit"})}
+function fd(i){const d=new Date(i),t=new Date(),y=new Date(t);y.setDate(y.getDate()-1);if(d.toDateString()===t.toDateString())return"Today";if(d.toDateString()===y.toDateString())return"Yesterday";return d.toLocaleDateString([],{weekday:"short",month:"short",day:"numeric"})}
+function el(i){const m=Math.floor((Date.now()-new Date(i).getTime())/60000);if(m<1)return"just now";if(m<60)return m+"m ago";const h=Math.floor(m/60);return h<24?h+"h ago":Math.floor(h/24)+"d ago"}
+function tl(i){const d=new Date(i);return d.getFullYear()+"-"+p2(d.getMonth()+1)+"-"+p2(d.getDate())+"T"+p2(d.getHours())+":"+p2(d.getMinutes())}
+function fl(m){const t=document.getElementById("toast");t.textContent=m;t.classList.remove("hidden");setTimeout(()=>t.classList.add("hidden"),2000)}
+function ge(){const g={};E.forEach(e=>{const k=new Date(e.ts).toDateString();if(!g[k])g[k]=[];g[k].push(e)});return Object.entries(g).sort(([a],[b])=>new Date(b)-new Date(a)).map(([ds,items])=>({ds,label:fd(items[0].ts),items:items.sort((a,b)=>new Date(b.ts)-new Date(a.ts))}))}
+function hm(){const today=new Date().toDateString();return E.some(e=>e.type==="morning"&&new Date(e.ts).toDateString()===today)}
+function cp(){const foods=E.filter(e=>e.type==="food");pc=[];foods.forEach(f=>{const due=new Date(f.ts).getTime()+2*3600000,now=Date.now();const done=E.some(e=>e.type==="checkin"&&e.fid===f.id);if(!done&&now>=due&&now<due+7200000)pc.push({h:2,l:"2hr",fe:f})});const al=document.getElementById("checkinAlert"),tx=document.getElementById("checkinAlertText");if(pc.length>0&&ct!=="checkin"){al.classList.remove("hidden");tx.innerHTML="2hr check-in for <strong>"+pc[0].fe.food+"</strong>"}else al.classList.add("hidden")}
+function switchTab(t){ct=t;document.querySelectorAll(".nav-btn").forEach(b=>b.classList.remove("active"));const n=document.getElementById("nav-"+t);if(n)n.classList.add("active");ei=null;sf=null;ss=[];sv=1;sl=null;os=[];ov=2;ol=null;render()}
+function showPendingCheckin(){ct="checkin";document.querySelectorAll(".nav-btn").forEach(b=>b.classList.remove("active"));render()}
+function render(){cp();const b=document.getElementById("bodyContent");if(ct==="timeline")rTL(b);else if(ct==="food")rF(b);else if(ct==="symptom")rS(b);else if(ct==="overnight")rO(b);else if(ct==="checkin")rC(b);else if(ct==="insights")rI(b)}
+function rTL(x){let h="";if(sb){h+='<div class="backup-panel"><div class="section-title">Backup & Restore</div><div style="font-size:12px;color:#777;margin-bottom:12px">'+E.length+' entries on device</div><button class="btn-primary" style="margin-top:0;font-size:13px;padding:12px" onclick="cb()">📋 Copy Data to Clipboard</button><div style="font-size:11px;color:#999;text-align:center;margin-top:6px">Paste into a note as backup</div><div style="border-top:1px solid #eee;margin-top:14px;padding-top:14px"><div style="font-size:13px;font-weight:600;color:#555;margin-bottom:6px">Restore from backup</div><textarea class="text-input" id="importArea" placeholder="Paste exported data here..." style="height:60px;resize:none;font-size:12px"></textarea><button class="btn-small" style="margin-top:8px;width:100%" onclick="ib()">Import Data</button></div><button class="btn-secondary" style="font-size:12px" onclick="toggleBackup()">Close</button></div>'}
+if(!hm()){const hr=new Date().getHours();if(hr>=5&&hr<14){h+='<div class="morning-card"><div class="morning-title">☀️ Good Morning — How\'s your gut?</div><div class="morning-sub">Rate your overall gut feeling</div><div class="morning-scores">';MS.forEach(s=>{h+='<button class="morning-score-btn" onclick="lm('+s.v+')">'+s.emoji+'</button>'});h+='</div><div class="morning-label-row"><span>Rough</span><span>Great</span></div></div>'}}
+if(E.length===0){h+='<div class="empty-state"><div class="empty-icon">📋</div><div class="empty-title">Start Tracking</div><div class="empty-text">Log your first food or symptom using the tabs below.</div></div>'}else{ge().forEach(g=>{h+='<div class="date-group"><div class="date-header">'+g.label+'</div>';g.items.forEach(e=>{let c,ic,ti,ec="";if(e.type==="morning"){c="#d4a843";ic=MS[e.score-1]?.emoji||"☀️";ti="Morning: "+(MS[e.score-1]?.label||"");ec=" morning-entry"}else if(e.type==="overnight"){c="#6a7daf";ic="🌙";ti="Night: "+(e.syms||[]).map(s=>s.label).join(", ")+(e.stool?" · "+e.stool.label:"");ec=" overnight-entry"}else if(e.type==="food"){c="#4a9e7d";ic=e.icon;ti=e.food}else if(e.type==="symptom"){c=SV[e.sev]?.c||"#888";ic="📝";ti=(e.syms||[]).map(s=>s.label).join(", ")+(e.stool?" · "+e.stool.label:"")}else if(e.type==="checkin"){c="#6a8caf";ic="🔔";ti="2hr check: "+e.fl}else{c="#888";ic="📝";ti=e.type}
+const sb2=(e.type==="symptom"||e.type==="checkin"||e.type==="overnight")&&e.sev!==undefined?'<span class="severity-badge" style="background:'+SV[e.sev]?.c+'">'+SV[e.sev]?.l+'</span>':"";
+const mb=e.type==="morning"?'<span class="severity-badge" style="background:'+(e.score>=4?"#4a9e7d":e.score>=3?"#d4a843":"#c46a3a")+'">'+MS[e.score-1]?.label+'</span>':"";
+const nh=e.note?'<div class="entry-note">'+e.note+'</div>':"";
+const cs=(e.type==="checkin"||e.type==="overnight")&&e.syms?.length?'<div class="entry-note">'+e.syms.map(s=>s.icon+" "+s.label).join(", ")+'</div>':"";
+let eh="";if(ei===e.id){eh='<div class="edit-panel" onclick="event.stopPropagation()"><label class="edit-label">Adjust time</label><input type="datetime-local" class="text-input" style="padding:8px 10px;font-size:13px" id="editTime" value="'+tl(e.ts)+'"><label class="edit-label" style="margin-top:8px">Note</label><input class="text-input" style="padding:8px 10px;font-size:13px" id="editNote" value="'+(e.note||"")+'" placeholder="Add a note..."><div class="edit-row"><button class="btn-small" onclick="se(\''+e.id+'\')">💾 Save</button><button class="btn-danger" onclick="sD(\''+e.id+'\')">🗑 Delete</button></div></div>'}
+h+='<div class="entry-card'+ec+'" style="border-left:3px solid '+c+'" onclick="te(\''+e.id+'\')"><div class="entry-top"><span class="entry-icon">'+ic+'</span><div class="entry-info"><div class="entry-title">'+ti+'</div><div class="entry-meta">'+ft(e.ts)+' · '+el(e.ts)+' '+sb2+mb+'</div></div><span class="entry-edit-icon">'+(ei===e.id?"▲":"✎")+'</span></div>'+nh+cs+eh+'</div>'});h+="</div>"});h+='<div class="tap-hint">Tap any entry to edit or delete</div>'}x.innerHTML=h}
+function rF(x){let h='<div class="section-title">What did you eat or drink?</div><div class="food-category">🟢 Phase 1 — Base Foods</div><div class="grid-3">';F1.forEach(f=>{h+='<button class="preset-btn '+(sf===f.id?"active":"")+'" onclick="selectFood(\''+f.id+'\')"><span class="preset-icon">'+f.icon+'</span><span class="preset-label">'+f.label+'</span></button>'});h+='</div><div class="food-category">🟡 Phase 2 — Reintroduce</div><div class="grid-3">';F2.forEach(f=>{h+='<button class="preset-btn '+(sf===f.id?"active":"")+'" onclick="selectFood(\''+f.id+'\')"><span class="preset-icon">'+f.icon+'</span><span class="preset-label">'+f.label+'</span></button>'});h+='</div><div class="food-category">🍵 Drinks</div><div class="grid-3">';FD.forEach(f=>{h+='<button class="preset-btn '+(sf===f.id?"active":"")+'" onclick="selectFood(\''+f.id+'\')"><span class="preset-icon">'+f.icon+'</span><span class="preset-label">'+f.label+'</span></button>'});h+='</div><div class="food-category">💊 Supplements</div><div class="grid-3">';FS.forEach(f=>{h+='<button class="preset-btn '+(sf===f.id?"active":"")+'" onclick="selectFood(\''+f.id+'\')"><span class="preset-icon">'+f.icon+'</span><span class="preset-label">'+f.label+'</span></button>'});h+='</div><div class="divider">— or type custom —</div><input class="text-input" id="customFood" placeholder="e.g., crackers, bread, cereal..." oninput="sf=null"><input class="text-input" id="foodNote" placeholder="Notes (optional)" style="margin-top:8px"><div class="time-label">⏰ When? (leave blank for now)</div><input type="datetime-local" class="time-input" id="foodTime"><button class="btn-primary" onclick="subF()">Log Food</button><div class="reminder">2hr check-in reminder after logging</div>';x.innerHTML=h}
+function rS(x){let h='<div class="section-title">What are you feeling?</div><div class="grid-2">';SY.forEach(s=>{h+='<button class="sym-btn '+(ss.includes(s.id)?"active":"")+'" onclick="ts(\''+s.id+'\')"><span style="font-size:18px">'+s.icon+'</span><span>'+s.label+'</span></button>'});h+='</div><div class="sub-title">Bowel movement?</div><div class="grid-4">';ST.forEach(s=>{h+='<button class="stool-btn '+(sl===s.id?"active":"")+'" onclick="tsl(\''+s.id+'\')"><span style="font-size:18px">'+s.icon+'</span><span>'+s.label+'</span></button>'});h+='</div>';if(ss.length>0||sl){h+='<div class="section-title">Severity</div><div class="sev-row">';SV.slice(1).forEach(s=>{const on=sv===s.v;h+='<button class="sev-btn '+(on?"active":"")+'" style="'+(on?"background:"+s.c+";color:#fff;border-color:"+s.c:"")+'" onclick="sv='+s.v+';render()">'+s.l+'</button>'});h+='</div><input class="text-input" id="symNote" placeholder="Additional notes..."><div class="time-label">⏰ When? (leave blank for now)</div><input type="datetime-local" class="time-input" id="symTime"><button class="btn-primary" onclick="subS()">Log Symptoms</button>'}x.innerHTML=h}
+function rO(x){const ts2=new Date().toLocaleTimeString([],{hour:"numeric",minute:"2-digit"});let h='<div class="overnight-panel"><div class="overnight-title">🌙 Night Log</div><div class="overnight-sub">Quick log — minimal taps</div><div class="overnight-time">Right now: '+ts2+'</div><div class="overnight-grid">';SY.forEach(s=>{h+='<button class="overnight-btn '+(os.includes(s.id)?"active":"")+'" onclick="tos(\''+s.id+'\')"><span class="overnight-btn-icon">'+s.icon+'</span>'+s.label+'</button>'});h+='</div><div style="font-size:13px;color:rgba(255,255,255,0.5);margin-bottom:8px">Bowel movement?</div><div class="overnight-stool">';ST.forEach(s=>{h+='<button class="overnight-stool-btn '+(ol===s.id?"active":"")+'" onclick="tol(\''+s.id+'\')">'+s.icon+' '+s.label+'</button>'});h+='</div><div style="font-size:13px;color:rgba(255,255,255,0.5);margin-bottom:8px">How bad?</div><div class="overnight-sev">';SV.forEach(s=>{const on=ov===s.v;h+='<button class="overnight-sev-btn '+(on?"active":"")+'" style="'+(on?"background:"+s.c+";border-color:"+s.c:"")+'" onclick="ov='+s.v+';render()">'+s.l+'</button>'});h+='</div><button class="overnight-submit" onclick="subO()">Log & Go Back to Sleep</button><button class="overnight-skip" onclick="switchTab(\'timeline\')">Cancel</button></div>';if(!hm()){const hr=new Date().getHours();if(hr>=5&&hr<14){h+='<div class="morning-card" style="margin-top:16px"><div class="morning-title">☀️ Morning Status</div><div class="morning-sub">Rate your overall gut feeling</div><div class="morning-scores">';MS.forEach(s=>{h+='<button class="morning-score-btn" onclick="lm('+s.v+')">'+s.emoji+'</button>'});h+='</div><div class="morning-label-row"><span>Rough</span><span>Great</span></div></div>'}}x.innerHTML=h}
+function rC(x){if(!pc.length){x.innerHTML='<div class="empty-state"><div class="empty-icon">✅</div><div class="empty-title">No Check-ins Due</div><div class="empty-text">A 2-hour check-in appears after you log food.</div></div>';return}const p=pc[0];let h='<div class="checkin-header"><div style="font-size:40px">🔔</div><div class="checkin-title">2hr Check-in</div><div style="font-size:14px;color:#555;margin-top:6px">How do you feel after <strong>'+p.fe.food+'</strong>?</div><div style="font-size:12px;color:#999;margin-top:4px">Eaten at '+ft(p.fe.ts)+'</div></div><div class="section-title">Overall reaction</div><div class="sev-row">';SV.forEach(s=>{const on=sv===s.v;h+='<button class="sev-btn '+(on?"active":"")+'" style="'+(on?"background:"+s.c+";color:#fff;border-color:"+s.c:"")+'" onclick="sv='+s.v+';render()">'+s.l+'</button>'});h+='</div><div class="section-title">Any symptoms?</div><div class="grid-2">';SY.forEach(s=>{h+='<button class="sym-btn '+(ss.includes(s.id)?"active":"")+'" onclick="ts(\''+s.id+'\')"><span style="font-size:18px">'+s.icon+'</span><span>'+s.label+'</span></button>'});h+='</div><button class="btn-primary" onclick="subC()">Submit Check-in</button><button class="btn-secondary" onclick="switchTab(\'timeline\')">Skip</button>';x.innerHTML=h}
+function rI(x){const chks=E.filter(e=>e.type==="checkin");const fr={};chks.forEach(c=>{if(!fr[c.fl])fr[c.fl]=[];fr[c.fl].push(c.sev)});const sc=Object.entries(fr).map(([f,s])=>({f,avg:s.reduce((a,b)=>a+b,0)/s.length,n:s.length})).sort((a,b)=>a.avg-b.avg);const sf2={};E.filter(e=>e.type==="symptom"||e.type==="overnight").forEach(e=>(e.syms||[]).forEach(s=>{sf2[s.label]=(sf2[s.label]||0)+1}));chks.forEach(c=>(c.syms||[]).forEach(s=>{sf2[s.label]=(sf2[s.label]||0)+1}));const mo=E.filter(e=>e.type==="morning").sort((a,b)=>new Date(a.ts)-new Date(b.ts));let h="";if(mo.length>=2){h+='<div class="section-title">Morning Gut Trend</div><div style="display:flex;gap:4px;align-items:end;margin-bottom:20px;height:60px">';mo.slice(-14).forEach(m=>{const pct=(m.score/5)*100;const c=m.score>=4?"#4a9e7d":m.score>=3?"#d4a843":"#c46a3a";const d=new Date(m.ts);h+='<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:2px"><div style="font-size:9px;color:#999">'+MS[m.score-1]?.emoji+'</div><div style="width:100%;height:'+pct+'%;background:'+c+';border-radius:4px;min-height:4px"></div><div style="font-size:8px;color:#bbb">'+(d.getMonth()+1)+'/'+d.getDate()+'</div></div>'});h+='</div>'}
+h+='<div class="section-title">Food Tolerance</div>';if(!sc.length)h+='<div class="insight-empty">Complete 2hr check-ins to build tolerance profile.</div>';else sc.forEach(z=>{h+='<div class="insight-row"><div style="font-size:14px;font-weight:600;flex:1">'+z.f+'</div><div class="insight-bar"><div class="insight-fill" style="width:'+(z.avg/4*100)+'%;background:'+SV[Math.round(z.avg)]?.c+'"></div></div><div style="font-size:12px;color:#777;width:80px;text-align:right">'+SV[Math.round(z.avg)]?.l+' ('+z.n+')</div></div>'});
+h+='<div class="section-title" style="margin-top:28px">Common Symptoms</div>';const sa=Object.entries(sf2).sort(([,a],[,b])=>b-a);if(!sa.length)h+='<div class="insight-empty">Log symptoms to see patterns.</div>';else sa.forEach(([sym,ct2])=>{h+='<div class="insight-row"><div style="font-size:14px;font-weight:600;flex:1">'+sym+'</div><div style="font-size:12px;color:#777">'+ct2+'×</div></div>'});
+h+='<div class="section-title" style="margin-top:28px">Stats</div><div class="stat-grid"><div class="stat-card"><div class="stat-num">'+E.length+'</div><div class="stat-label">Total</div></div><div class="stat-card"><div class="stat-num">'+E.filter(e=>e.type==="food").length+'</div><div class="stat-label">Foods</div></div><div class="stat-card"><div class="stat-num">'+mo.length+'</div><div class="stat-label">Mornings</div></div></div>';
+if(E.length)h+='<button class="btn-secondary" style="margin-top:24px;color:#a83232" onclick="if(confirm(\'Clear all data?\')){E=[];sd();render()}">Reset All Data</button>';x.innerHTML=h}
+function selectFood(id){sf=id;render()}
+function ts(id){const i=ss.indexOf(id);if(i>=0)ss.splice(i,1);else ss.push(id);render()}
+function tsl(id){sl=sl===id?null:id;render()}
+function te(id){ei=ei===id?null:id;render()}
+function tos(id){const i=os.indexOf(id);if(i>=0)os.splice(i,1);else os.push(id);render()}
+function tol(id){ol=ol===id?null:id;render()}
+function lm(score){E.push({id:"m"+Date.now(),type:"morning",ts:new Date().toISOString(),score,note:""});sd();fl("☀️ Morning status logged");render()}
+function subF(){const cu=document.getElementById("customFood")?.value||"";const food=sf?AF.find(f=>f.id===sf):(cu?{id:"c",label:cu,icon:"🍽️"}:null);if(!food)return;const tv=document.getElementById("foodTime")?.value;const n=document.getElementById("foodNote")?.value||"";E.push({id:"f"+Date.now(),type:"food",ts:tv?new Date(tv).toISOString():new Date().toISOString(),food:food.label,icon:food.icon,note:n});sd();sf=null;fl("✓ Food logged");switchTab("timeline")}
+function subS(){if(!ss.length&&!sl)return;const n=document.getElementById("symNote")?.value||"";const tv=document.getElementById("symTime")?.value||"";E.push({id:"s"+Date.now(),type:"symptom",ts:tv?new Date(tv).toISOString():new Date().toISOString(),syms:ss.map(id=>SY.find(s=>s.id===id)),sev:sv,note:n,stool:sl?ST.find(s=>s.id===sl):null});sd();ss=[];sv=1;sl=null;fl("✓ Symptoms logged");switchTab("timeline")}
+function subO(){if(!os.length&&!ol)return;E.push({id:"n"+Date.now(),type:"overnight",ts:new Date().toISOString(),syms:os.map(id=>SY.find(s=>s.id===id)),sev:ov,stool:ol?ST.find(s=>s.id===ol):null,note:""});sd();os=[];ov=2;ol=null;fl("🌙 Night log saved");switchTab("timeline")}
+function subC(){if(!pc.length)return;const p=pc[0];E.push({id:"c"+Date.now(),type:"checkin",ts:new Date().toISOString(),fid:p.fe.id,fl:p.fe.food,wh:2,wl:"2hr",sev:sv,syms:ss.map(id=>SY.find(s=>s.id===id))});sd();ss=[];sv=0;fl("✓ Check-in saved");switchTab("timeline")}
+function se(id){const t=document.getElementById("editTime")?.value,n=document.getElementById("editNote")?.value||"";E=E.map(e=>e.id===id?{...e,ts:new Date(t).toISOString(),note:n}:e);sd();ei=null;fl("✓ Updated");render()}
+function sD(id){di=id;document.getElementById("deleteOverlay").classList.remove("hidden")}
+function hideDelete(){document.getElementById("deleteOverlay").classList.add("hidden")}
+function confirmDelete(){E=E.filter(e=>e.id!==di);sd();ei=null;hideDelete();fl("✓ Deleted");render()}
+function toggleBackup(){sb=!sb;render()}
+function cb(){const d=JSON.stringify(E,null,2);navigator.clipboard.writeText(d).then(()=>fl("✓ Copied!")).catch(()=>{const t=document.createElement("textarea");t.value=d;document.body.appendChild(t);t.select();document.execCommand("copy");document.body.removeChild(t);fl("✓ Copied!")})}
+function ib(){const t=document.getElementById("importArea")?.value;try{const p=JSON.parse(t);if(Array.isArray(p)){E=p;sd();sb=false;fl("✓ Imported "+p.length+" entries");render()}}catch(e){fl("⚠ Invalid data")}}
+ld();render();setInterval(cp,60000);
 </script>
 </body>
 </html>
