@@ -76,7 +76,7 @@ const F3=[{id:"plain_pasta",l:"Plain Pasta",i:"🍝"},{id:"blueberries",l:"Blueb
 const F4=[{id:"cereal",l:"Cereal",i:"🥣"},{id:"bread",l:"Bread",i:"🍞"},{id:"bagel",l:"Bagel",i:"🥯"},{id:"crackers",l:"Crackers",i:"🥨"},{id:"nuts",l:"Nuts",i:"🥜"},{id:"coffee",l:"Coffee",i:"☕"},{id:"granola_bar",l:"Granola Bar",i:"🍫"},{id:"pretzels",l:"Pretzels",i:"🥨"},{id:"trail_mix",l:"Trail Mix",i:"🥜"}];
 const F5=[{id:"pizza",l:"Pizza",i:"🍕"},{id:"breadsticks",l:"Breadsticks",i:"🥖"},{id:"pasta_sauce",l:"Pasta+Sauce",i:"🍝"},{id:"spicy",l:"Spicy",i:"🌶️"},{id:"sushi",l:"Sushi",i:"🍣"},{id:"fried",l:"Fried Food",i:"🍟"},{id:"cookies",l:"Sweets",i:"🍪"},{id:"sandwich",l:"Sandwich",i:"🥪"},{id:"restaurant",l:"Restaurant",i:"🍽️"}];
 const MEDS=[{id:"simethicone",l:"Gas-X",i:"💨",t:"gas/bloating"},{id:"pepto",l:"Pepto-Bismol",i:"🩹",t:"general GI"},{id:"loperamide",l:"Anti-Diarrhea",i:"🚽",t:"diarrhea"},{id:"ibuprofen",l:"Ibuprofen",i:"💊",t:"pain"},{id:"tylenol",l:"Tylenol",i:"💊",t:"pain"}];
-const ACTS=[{id:"breathing",l:"Breathing",i:"🫁"},{id:"stretching",l:"Stretch/Lymphatic",i:"🧘"},{id:"meditation",l:"Meditation",i:"🧠"},{id:"walking",l:"Walking",i:"🚶"},{id:"resting",l:"Resting",i:"🛋️"},{id:"massage",l:"Massage",i:"💆"},{id:"hot_shower",l:"Hot Shower",i:"🚿"},{id:"hot_tub",l:"Hot Tub",i:"♨️"}];
+const ACTS=[{id:"breathing",l:"Breathing",i:"🫁"},{id:"stretching",l:"Stretch/Lymphatic",i:"🧘"},{id:"meditation",l:"Meditation",i:"🧠"},{id:"walking",l:"Walking",i:"🚶"},{id:"resting",l:"Resting",i:"🛋️"},{id:"massage",l:"Massage",i:"💆"},{id:"hot_shower",l:"Hot Shower",i:"🚿"},{id:"hot_tub",l:"Hot Tub",i:"♨️"},{id:"pulsetto",l:"Pulsetto",i:"⚡"}];
 const AF=[...F1,...F2,...F3,...F4,...F5];
 const SV=[{v:0,l:"None",c:"#4a9e7d"},{v:1,l:"Mild",c:"#8cb86e"},{v:2,l:"Moderate",c:"#d4a843"},{v:3,l:"Severe",c:"#c46a3a"},{v:4,l:"Extreme",c:"#a83232"}];
 const STL=[{id:"solid",l:"Solid",i:"✅"},{id:"soft",l:"Soft",i:"🟡"},{id:"loose",l:"Loose",i:"🟠"},{id:"diarrhea",l:"Diarrhea",i:"🔴"}];
@@ -131,7 +131,7 @@ function subC(){if(!pc.length)return;const p=pc[0];E.push({id:"c"+Date.now(),typ
 // Action logging
 function logAct(id){const a=ACTS.find(x=>x.id===id);E.push({id:"act"+Date.now(),type:"action",ts:new Date().toISOString(),action:a.l,actionId:a.id,icon:a.i,symRef:apSymId,note:""});sd();showAP=false;fl("🌿 "+a.l+" logged");sT("tl")}
 function decAct(){showAP=false;sT("tl")}
-function snzAct(m){showAP=false;fl("⏰ Reminder in "+m+"min");const ref=apSymId;setTimeout(()=>{showAP=true;apSymId=ref;R()},m*6e4);sT("tl")}
+function snzAct(m){showAP=false;fl("⏰ Reminder in "+m+" min");const ref=apSymId;setTimeout(function(){var sent=sendNotif("🌿 Action Reminder","Time to take action for your symptoms. Tap to open.",function(){showAP=true;apSymId=ref;R()});if(!sent){showAP=true;apSymId=ref;R()}},m*60000);sT("tl")}
 
 function sE(id){const t=document.getElementById("eT")?.value,n=document.getElementById("eN")?.value||"";E=E.map(e=>e.id===id?{...e,ts:new Date(t).toISOString(),note:n}:e);sd();ei=null;fl("✓ Updated");R()}
 function sD(id){di=id;document.getElementById("dOv").classList.remove("h")}
@@ -155,7 +155,9 @@ h+='<div style="display:flex;gap:8px;margin-top:8px">';
 h+='</div></div>';x.innerHTML=h}
 
 // TIMELINE
-function rTL(x){let h="";if(sb){h+='<div class="bk-p"><div class="sec">Backup & Restore</div><button class="bp" style="margin-top:0;font-size:13px;padding:12px" onclick="cb()">📋 Copy</button><div style="border-top:1px solid #eee;margin-top:14px;padding-top:14px"><textarea class="ti" id="iA" placeholder="Paste..." style="height:60px;resize:none;font-size:12px"></textarea><button class="bsm" style="margin-top:8px;width:100%" onclick="ib()">Import</button></div><button class="bs" style="font-size:12px" onclick="tB()">Close</button></div>'}
+function rTL(x){let h="";if(sb){h+='<div class="bk-p"><div class="sec">Backup & Restore</div><button class="bp" style="margin-top:0;font-size:13px;padding:12px" onclick="cb()">📋 Copy</button><div style="border-top:1px solid #eee;margin-top:14px;padding-top:14px"><textarea class="ti" id="iA" placeholder="Paste..." style="height:60px;resize:none;font-size:12px"></textarea><button class="bsm" style="margin-top:8px;width:100%" onclick="ib()">Import</button></div><button class="bs" style="font-size:12px" onclick="tB()">Close</button>';
+if("Notification" in window){h+='<button class="bs" style="font-size:12px;margin-top:4px;color:#3d6b5e" onclick="Notification.requestPermission().then(p=>{fl(p===\x27granted\x27?\x27✅ Notifications enabled\x27:\x27❌ Notifications blocked\x27)})">🔔 '+(Notification.permission==="granted"?"Notifications ON ✅":"Enable Notifications")+'</button>'}
+h+='</div>'}
 const tr=gTr();if(tr.w&&tr.n>=3)h+='<div class="ta">⚠️ <strong>Symptoms trending up</strong> — return to Phase 1-2 foods. Use breathing/meditation to lower stress.</div>';
 if(!hM()){const hr=new Date().getHours();if(hr>=5&&hr<14){h+='<div class="m-card"><div class="m-ti">☀️ How is your gut?</div><div class="m-sub">Tap to rate</div><div class="m-sc">';MS.forEach(s=>{h+='<button class="m-btn" onclick="lM('+s.v+')">'+s.e+'</button>'});h+='</div><div class="m-lr"><span>Rough</span><span>Great</span></div></div>'}}
 if(!E.length){h+='<div class="emp"><div class="emp-i">📋</div><div class="emp-t">Start Tracking</div><div class="emp-x">Log food, meds, or symptoms below.</div></div>'}else{gE().forEach(g=>{h+='<div class="dg"><div class="dh">'+g.label+'</div>';g.items.forEach(e=>{let c,ic,ti,ec="";
@@ -245,4 +247,39 @@ if(E.length)h+='<button class="bs" style="margin-top:12px;color:#a83232" onclick
 x.innerHTML=h}
 
 ld();R();setInterval(cP,6e4);
+
+// Notification system
+function reqNotifPerm(){
+  if("Notification" in window && Notification.permission==="default"){
+    Notification.requestPermission();
+  }
+}
+reqNotifPerm();
+
+function sendNotif(title, body, onclick){
+  if("Notification" in window && Notification.permission==="granted"){
+    try{
+      const n=new Notification(title,{body:body,icon:"🌱",badge:"🌱",tag:"gut-reset-"+Date.now(),requireInteraction:true});
+      if(onclick) n.onclick=function(){window.focus();onclick();n.close()};
+      return true;
+    }catch(e){
+      // Fallback for contexts where Notification constructor fails
+      if("serviceWorker" in navigator && navigator.serviceWorker.controller){
+        navigator.serviceWorker.controller.postMessage({type:"notify",title,body});
+        return true;
+      }
+    }
+  }
+  return false;
+}
+
+// Also check for pending 2hr check-ins and notify
+function checkAndNotify(){
+  cP();
+  if(pc.length>0){
+    sendNotif("🔔 2hr Check-in Due","How do you feel after "+(pc[0].fe.food||"your meal")+"?",function(){sPC();R()});
+  }
+}
+setInterval(checkAndNotify, 120000); // Check every 2 min
+
 </script></body></html>
