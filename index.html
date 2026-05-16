@@ -90,6 +90,36 @@ const WR={gen:"2026-05-15",days:32,bench:{avgSev:10.3,avgBM:3.0,avgMorn:3.2,nigh
 risk:{suspect:["Pizza/Dough"],watch:["Nuts","Breadsticks","Potato","Bread","Eggs"],clear:["Salmon","Pasta","Chicken","Carrots","Rice","Broth","Ginger Tea"]},
 actions:["Dinner before 6:30pm","3-day gluten test","Evening stress protocol daily","Hot shower before bed","Peppermint tea at 9pm","Weekly data review"]};
 
+const WR_ARCHIVE=[
+{id:1,date:"May 9, 2026",days:"Apr 14 - May 9",entries:585,
+metrics:{sev:"10.0/day",bm:"3.0/day",morn:"3.3/5",stool:"3.5",stress:"18.8 (P1:6.9 P2:37.2)",sleep:"53"},
+findings:[
+"Stress surged 562% (7 to 39) starting Apr 30 — dominant driver",
+"Bimodal reaction: Wave 1 at 0-2hr, Wave 2 at 7-9hr",
+"82% of overnight wakes cluster at 4-6am",
+"Overnight stress strongest predictor of morning gut (r=-0.56)",
+"42% of urgency signals are false alarms",
+"Wheat/gluten pattern: pizza, bread, breadsticks flagged",
+"Stool consistency held solid (3.4-3.6) despite stress surge",
+"Snoring paradox: more snoring = fewer wakes (deep sleep marker)"
+],
+actions:["Dinner before 6:30pm","3-day gluten test","Evening stress protocol","Retrain urgency signals","Weekly data review"]},
+{id:2,date:"May 15, 2026",days:"May 10 - May 15",entries:790,
+metrics:{sev:"11.6/day",bm:"3.0/day",morn:"3.2/5",stool:"3.6",stress:"34.3 (16 days at 5x)",sleep:"46 (down from 53)"},
+findings:[
+"Stress plateau: 34.3 — barely down from 37.2, no regime break after 16 days",
+"Symptom frequency DOWN across all types (gas -62%, bloating -63%, cramps -100%)",
+"But severity per event UP (10.0 to 11.6) — fewer but harder episodes",
+"36 wellness actions taken vs 0 prior — compound interest building",
+"Sleep declining: 53 to 46, May 13 was 31 (worst recorded)",
+"Phase 4 foods introduced (bread, cereal, coffee) during peak stress",
+"Lag effect confirmed: actions reduce symptoms in hours, trend reversal takes 24-48hr",
+"May 11 worst day (sev 24) despite 8 actions — stress was pre-loaded"
+],
+actions:["Evening protocol (highest priority)","Pull back to Phase 2 diet","Maintain 6+ daily actions","Dinner before 6:30pm","Defer gluten test until stress <20","Sunday weekly export"]}
+];
+
+
 let E=[],ct="tl",mf=[],ss=[],sv=1,sl=null,ei=null,di=null,sb=false,os=[],ov=2,ol=null,selMeds=[],showAP=false,apSymId=null;
 function ld(){try{var d=localStorage.getItem(SK);if(d)E=JSON.parse(d);us("ok")}catch(e){us("error")}}
 function sd(){try{localStorage.setItem(SK,JSON.stringify(E));us("ok")}catch(e){us("error")}}
@@ -102,6 +132,16 @@ function fl(m){var t=document.getElementById("toast");t.textContent=m;t.classLis
 function gE(){var g={};E.forEach(function(e){var k=new Date(e.ts).toDateString();if(!g[k])g[k]=[];g[k].push(e)});return Object.entries(g).sort(function(a,b){return new Date(b[0])-new Date(a[0])}).map(function(x){return{ds:x[0],label:fd(x[1][0].ts),items:x[1].sort(function(a,b){return new Date(b.ts)-new Date(a.ts)})}})}
 function hM(){return E.some(function(e){return e.type==="morning"&&new Date(e.ts).toDateString()===new Date().toDateString()})}
 function gTr(){var n=Date.now(),d3=n-3*864e5;var r=E.filter(function(e){return(e.type==="symptom"||e.type==="overnight")&&new Date(e.ts).getTime()>d3});var o=E.filter(function(e){return(e.type==="symptom"||e.type==="overnight")&&new Date(e.ts).getTime()<=d3&&new Date(e.ts).getTime()>d3-3*864e5});var ra=r.length>0?r.reduce(function(a,e){return a+(e.sev||0)},0)/r.length:0;var oa=o.length>0?o.reduce(function(a,e){return a+(e.sev||0)},0)/o.length:0;return{ra:ra,oa:oa,w:ra>oa+.5,im:ra<oa-.3,n:r.length}}
+function getStressRegime(){
+var days={};E.forEach(function(e){if(e.type==="symptom"||e.type==="overnight"){var d=new Date(new Date(e.ts).getTime()-4*36e5).toDateString();if(!days[d])days[d]={sev:0,n:0};days[d].sev+=e.sev||0;days[d].n++}});
+var sorted=Object.entries(days).sort(function(a,b){return new Date(b[0])-new Date(a[0])});
+var streak=0;for(var i=0;i<sorted.length;i++){if(sorted[i][1].sev/Math.max(sorted[i][1].n,1)>1.2){streak++}else break}
+return streak}
+function getActionStreak(){
+var days={};E.forEach(function(e){if(e.type==="action"){var d=new Date(new Date(e.ts).getTime()-4*36e5).toDateString();days[d]=(days[d]||0)+1}});
+var sorted=Object.keys(days).sort(function(a,b){return new Date(b)-new Date(a)});
+var streak=0;for(var i=0;i<sorted.length;i++){if(days[sorted[i]]>=3){streak++}else break}
+return{streak:streak,today:days[new Date().toDateString()]||0}}
 function isStressTrend(){var n=Date.now(),d2=n-2*864e5;var r=E.filter(function(e){return(e.type==="symptom"||e.type==="overnight")&&new Date(e.ts).getTime()>d2});if(r.length<3)return false;return r.reduce(function(a,e){return a+(e.sev||0)},0)/r.length>1.5}
 function uPB(){var t=gTr();var p=document.getElementById("pBan");if(t.w&&t.n>=3){p.className="pb-ban w";p.innerHTML="\u26A0\uFE0F Symptoms trending up. Consider Phase 1-2 foods.";p.classList.remove("h")}else if(t.im&&t.n>=3){p.className="pb-ban g";p.innerHTML="\u2705 Improving. Safe to maintain.";p.classList.remove("h")}else p.classList.add("h")}
 function sT(t){ct=t;showAP=false;document.querySelectorAll(".nb").forEach(function(b){b.classList.remove("a")});var n=document.getElementById("n-"+t);if(n)n.classList.add("a");ei=null;mf=[];ss=[];sv=1;sl=null;os=[];ov=2;ol=null;selMeds=[];R()}
@@ -136,7 +176,7 @@ function rAP(x){var stress=isStressTrend();var h="<div style=\"padding:20px\">";
 h+="<div style=\"display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px\">";ACTS.forEach(function(a){var rec=stress&&(a.id==="breathing"||a.id==="meditation"||a.id==="hot_shower"||a.id==="pulsetto");h+="<button class=\"act-btn"+(rec?" rec":"")+"\" onclick=\"logAct('"+a.id+"')\"><span style=\"font-size:28px\">"+a.i+"</span><span>"+a.l+"</span>"+(rec?"<span style=\"font-size:10px;color:#2e7d32;font-weight:600\">\u2B50 Recommended</span>":"")+"</button>"});
 h+="</div><button class=\"bs\" onclick=\"decAct()\">Not right now</button><div style=\"display:flex;gap:8px;margin-top:8px\">";[5,10,15].forEach(function(m){h+="<button style=\"flex:1;padding:10px;border-radius:10px;border:1px solid #e8e4dc;background:#fff;color:#888;font-size:12px;cursor:pointer;font-family:inherit\" onclick=\"snzAct("+m+")\">\u23F0 "+m+"min</button>"});h+="</div></div>";x.innerHTML=h}
 
-function rTL(x){var h="";if(sb){h+="<div class=\"bk-p\"><div class=\"sec\">Backup & Restore</div><button class=\"bp\" style=\"margin-top:0;font-size:13px;padding:12px\" onclick=\"cb()\">\u{1F4CB} Copy to Clipboard</button><button class=\"bp\" style=\"margin-top:8px;font-size:13px;padding:12px;background:linear-gradient(135deg,#6a8caf,#4a6d8c)\" onclick=\"dlJSON()\">\u2B07\uFE0F Download JSON File</button><div style=\"border-top:1px solid #eee;margin-top:14px;padding-top:14px\"><textarea class=\"ti\" id=\"iA\" placeholder=\"Paste data...\" style=\"height:60px;resize:none;font-size:12px\"></textarea><button class=\"bsm\" style=\"margin-top:8px;width:100%\" onclick=\"ib()\">Import</button></div><button class=\"bs\" style=\"font-size:12px\" onclick=\"tB()\">Close</button></div>"}
+function rTL(x){var h="";if(sb){h+="<div class=\"bk-p\"><div class=\"sec\">Backup & Restore</div><button class=\"bp\" style=\"margin-top:0;font-size:13px;padding:12px\" onclick=\"cb()\">\u{1F4CB} Copy to Clipboard</button><button class=\"bp\" style=\"margin-top:8px;font-size:13px;padding:12px;background:linear-gradient(135deg,#6a8caf,#4a6d8c)\" onclick=\"dlJSON()\">\u2B07\uFE0F Download JSON File</button><div style=\"border-top:1px solid #eee;margin-top:14px;padding-top:14px\"><textarea class=\"ti\" id=\"iA\" placeholder=\"Paste data...\" style=\"height:60px;resize:none;font-size:12px\"></textarea><button class=\"bsm\" style=\"margin-top:8px;width:100%\" onclick=\"ib()\">Import</button></div><button class=\"bs\" style=\"font-size:12px\" onclick=\"tB()\">Close</button><div style=\"margin-top:16px;padding-top:14px;border-top:1px solid #eee\"><div style=\"font-size:13px;font-weight:700;color:#3d6b5e;margin-bottom:8px\">\u{1F4CB} Weekly Export Guide</div><div style=\"font-size:11px;color:#666;line-height:1.6\"><strong>Every Sunday:</strong><br>1. Tap Download JSON above<br>2. Samsung Health: Settings \u2192 Download personal data<br>3. Upload both to Google Drive folder<br>4. Share link with Claude for analysis<br>5. Updated app + report same day</div></div></div>"}
 var tr=gTr();if(tr.w&&tr.n>=3)h+="<div class=\"ta\">\u26A0\uFE0F <strong>Symptoms trending up</strong> \u2014 return to Phase 1-2 foods.</div>";
 if(!hM()){var hr=new Date().getHours();if(hr>=5&&hr<14){h+="<div class=\"m-card\"><div class=\"m-ti\">\u2600\uFE0F How is your gut?</div><div class=\"m-sub\">Tap to rate</div><div class=\"m-sc\">";MS.forEach(function(s){h+="<button class=\"m-btn\" onclick=\"lM("+s.v+")\">"+s.e+"</button>"});h+="</div><div class=\"m-lr\"><span>Rough</span><span>Great</span></div></div>"}}
 if(!E.length){h+="<div class=\"emp\"><div class=\"emp-i\">\u{1F4CB}</div><div class=\"emp-t\">Start Tracking</div><div class=\"emp-x\">Log food, meds, or symptoms.</div></div>"}else{
@@ -145,7 +185,9 @@ gE().forEach(function(g){h+="<div class=\"dg\"><div class=\"dh\">"+g.label+"</di
 var svb=(e.type==="symptom"||e.type==="overnight")&&e.sev!==undefined?"<span class=\"sb\" style=\"background:"+SV[e.sev].c+"\">"+SV[e.sev].l+"</span>":"";var mb=e.type==="morning"?"<span class=\"sb\" style=\"background:"+(e.score>=4?"#4a9e7d":e.score>=3?"#d4a843":"#c46a3a")+"\">"+MS[e.score-1].l+"</span>":"";var nh=e.note?"<div class=\"eno\">"+e.note+"</div>":"";var eh="";if(ei===e.id){eh="<div class=\"ep\" onclick=\"event.stopPropagation()\"><label class=\"el\">Time</label><input type=\"datetime-local\" class=\"ti\" style=\"padding:8px 10px;font-size:13px\" id=\"eT\" value=\""+tL(e.ts)+"\"><label class=\"el\" style=\"margin-top:8px\">Note</label><input class=\"ti\" style=\"padding:8px 10px;font-size:13px\" id=\"eN\" value=\""+(e.note||"")+"\" placeholder=\"Note...\"><div class=\"er\"><button class=\"bsm\" onclick=\"sE('"+e.id+"')\">Save</button><button class=\"bd\" onclick=\"sD('"+e.id+"')\">Delete</button></div></div>"}
 h+="<div class=\"ec"+ec+"\" style=\"border-left:3px solid "+c+"\" onclick=\"tE('"+e.id+"')\"><div class=\"et\"><span class=\"ei\">"+ic+"</span><div class=\"en\"><div class=\"eti\">"+ti+"</div><div class=\"eme\">"+ft(e.ts)+" \u00B7 "+el(e.ts)+" "+svb+mb+"</div></div><span class=\"eei\">"+(ei===e.id?"\u25B2":"\u270E")+"</span></div>"+nh+eh+"</div>"});h+="</div>"})}x.innerHTML=h}
 
-function rF(x){var tr=gTr();var h="<div class=\"sec\">Build Your Meal</div>";if(tr.w&&tr.n>=3)h+="<div class=\"ta\">\u26A0\uFE0F Stick to \u{1F7E2} Phase 1.</div>";h+="<div class=\"sel-meal\">";if(!mf.length)h+="<span class=\"sel-empty\">Tap foods below</span>";else mf.forEach(function(id){var f=AF.find(function(f2){return f2.id===id});if(f)h+="<span class=\"sel-chip\">"+f.i+" "+f.l+"<button onclick=\"event.stopPropagation();rmMF('"+id+"')\">x</button></span>"});h+="</div>";
+function rF(x){var tr=gTr();var h="<div class=\"sec\">Build Your Meal</div>";
+var regime2=getStressRegime();
+if(regime2>=3){h+="<div class=\"ta\">\u26A0\uFE0F Stress regime active ("+regime2+" days). Stick to Phase 1-2 foods. Avoid challenge foods until stress normalizes.</div>"}if(tr.w&&tr.n>=3)h+="<div class=\"ta\">\u26A0\uFE0F Stick to \u{1F7E2} Phase 1.</div>";h+="<div class=\"sel-meal\">";if(!mf.length)h+="<span class=\"sel-empty\">Tap foods below</span>";else mf.forEach(function(id){var f=AF.find(function(f2){return f2.id===id});if(f)h+="<span class=\"sel-chip\">"+f.i+" "+f.l+"<button onclick=\"event.stopPropagation();rmMF('"+id+"')\">x</button></span>"});h+="</div>";
 [{f:F1,l:"\u{1F7E2} Phase 1 \u2014 Gut Rest",n:"Return here when symptoms flare."},{f:F2,l:"\u{1F7E1} Phase 2 \u2014 Rebuild",n:"Lean protein, cooked veggies."},{f:F3,l:"\u{1F7E0} Phase 3 \u2014 Expand",n:"More variety. One new food/day."},{f:F4,l:"\u{1F534} Phase 4 \u2014 Challenge",n:"\u26A0\uFE0F Wheat/gluten flagged."},{f:F5,l:"\u26AB Phase 5 \u2014 Full Diet",n:"Complex meals. Track carefully."}].forEach(function(s){h+="<div class=\"fc\">"+s.l+"</div><div class=\"phase-info\">"+s.n+"</div><div class=\"g3\">";s.f.forEach(function(f){h+="<button class=\"pb "+(mf.includes(f.id)?"a":"")+"\" onclick=\"tMF('"+f.id+"')\"><span class=\"pi\">"+f.i+"</span><span class=\"pl\">"+f.l+"</span></button>"});h+="</div>"});
 h+="<div class=\"fc\">\u{1F964} Drinks</div><div class=\"g3\">";DRINKS.forEach(function(f){h+="<button class=\"pb "+(mf.includes(f.id)?"a":"")+"\" onclick=\"tMF('"+f.id+"')\"><span class=\"pi\">"+f.i+"</span><span class=\"pl\">"+f.l+"</span></button>"});h+="</div>";
 h+="<div class=\"dv\">\u2014 or custom \u2014</div><input class=\"ti\" id=\"cF\" placeholder=\"Type food...\" style=\"margin-bottom:8px\"><button class=\"bsm\" style=\"width:100%\" onclick=\"addCF()\">+ Add</button><input class=\"ti\" id=\"fN\" placeholder=\"Notes\" style=\"margin-top:8px\"><div class=\"tl2\">\u23F0 When?</div><input type=\"datetime-local\" class=\"tin\" id=\"fT\"><button class=\"bp\" onclick=\"subF()\" "+(mf.length?"":"disabled")+">Log "+mf.length+" item"+(mf.length!==1?"s":"")+"</button>";x.innerHTML=h}
@@ -184,6 +226,33 @@ return "<div class=\"wmc\"><div class=\"wmc-l\">"+label+"</div><div style=\"font
 var tr=gTr();if(tr.w&&tr.n>=3)h+="<div class=\"ta\">\u26A0\uFE0F <strong>3-Day: Worsening</strong> \u2014 Step back to Phase 1-2.</div>";
 else if(tr.im&&tr.n>=3)h+="<div class=\"ta tg\">\u2705 <strong>3-Day: Improving</strong></div>";
 
+// Stress regime alert
+var regime=getStressRegime();
+{h+="<div style=\"background:linear-gradient(135deg,"+(regime>=3?"#fef2f2,#fde8e8":"#f0f7f4,#e0efe8")+");border:1px solid "+(regime>=3?"#f5c6c6":"#a5d6a7")+";border-radius:12px;padding:14px;margin-bottom:12px\">"
++"<div style=\"display:flex;align-items:center;gap:10px\">"
++"<span style=\"font-size:24px\">"+(regime>=3?"\u{1F525}":"\u{1F9E0}")+"</span>"
++"<div><div style=\"font-size:14px;font-weight:700;color:"+(regime>=3?"#a83232":"#3d6b5e")+"\">Stress Regime: "+(regime>0?regime+" day"+(regime>1?"s":"")+" elevated":"No active regime")+"</div>"
++"<div style=\"font-size:11px;color:"+(regime>=3?"#8b2c2c":"#555")+";margin-top:2px\">"+(regime>=7?"Extended regime. Gut cannot heal. Prioritize evening protocol.":regime>=3?"Building. Increase actions to break the cycle.":"Keep it up. Actions are working.")+"</div></div></div></div>"}
+
+// Action streak
+var aStreak=getActionStreak();
+{h+="<div style=\"background:linear-gradient(135deg,#e8f5e9,#c8e6c9);border:1px solid #a5d6a7;border-radius:12px;padding:14px;margin-bottom:12px\"><div style=\"display:flex;align-items:center;gap:10px\"><span style=\"font-size:24px\">\u{1F4AA}</span><div><div style=\"font-size:14px;font-weight:700;color:#2e7d32\">Action Streak: "+(aStreak.streak>0?aStreak.streak+" day"+(aStreak.streak>1?"s":""):"Starting today")+"</div><div style=\"font-size:11px;color:#1b5e20;margin-top:2px\">Today: "+aStreak.today+" actions. "+(aStreak.streak>=3?"Compound interest is building! Keep going.":"3+ actions/day builds the streak.")+"</div></div></div></div>"}
+
+// Sleep score placeholder
+h+="<div class=\"ic\"><div class=\"ict\">\u{1F4A4} Sleep Score (from Ring)</div><div style=\"font-size:12px;color:#777\">Wk1 avg: <strong>53</strong> \u2192 Wk2 avg: <strong style=\"color:#c46a3a\">46</strong> (declining)</div><div style=\"font-size:11px;color:#999;margin-top:4px\">Updated weekly from Samsung Health export. Overnight stress (r=-0.56) is the #1 predictor of morning gut.</div></div>";
+
+// Lag effect visualization
+var lagData=[];
+var dayMap={};E.forEach(function(e){var d=new Date(new Date(e.ts).getTime()-4*36e5);var dk=d.toISOString().slice(0,10);if(!dayMap[dk])dayMap[dk]={acts:0,sev:0,sym:0};if(e.type==="action")dayMap[dk].acts++;if(e.type==="symptom"||e.type==="overnight"){dayMap[dk].sev+=e.sev||0;dayMap[dk].sym++}});
+var dkeys=Object.keys(dayMap).sort().slice(-14);
+if(dkeys.length>=5){
+h+="<div class=\"ic\"><div class=\"ict\">\u{1F550} Lag Effect: Actions \u2192 Next-Day Severity (24-48hr delay)</div><div style=\"font-size:10px;color:#999;margin-bottom:6px\">Green = actions taken, Red = next-day severity</div><div class=\"chart-row\">";
+for(var li=0;li<dkeys.length-1;li++){var acts=dayMap[dkeys[li]].acts;var nextSev=dayMap[dkeys[li+1]].sev;h+="<div style=\"flex:1;display:flex;flex-direction:column;gap:1px;align-items:stretch;justify-content:end\"><div class=\"chart-bar\" style=\"height:"+Math.min(acts*12,80)+"%;background:#4a9e7d;border-radius:2px\"></div><div class=\"chart-bar\" style=\"height:"+Math.min(nextSev*4,80)+"%;background:#c46a3a;border-radius:2px\"></div></div>"}
+h+="</div><div class=\"chart-labels\">";for(var li2=0;li2<dkeys.length-1;li2++){h+="<div class=\"chart-lbl\">"+dkeys[li2].slice(5)+"</div>"}
+h+="</div><div style=\"font-size:10px;color:#777;margin-top:6px;line-height:1.4\">Notice: high action days (tall green) often precede lower severity days (short red) 24-48hrs later. The inverse is also true \u2014 low action days precede severity spikes.</div></div>"}
+
+
+
 h+="<div class=\"wi\"><div class=\"ict\">\u{1F9E0} Your Week vs Benchmark</div><div style=\"font-size:10px;color:rgba(255,255,255,.5);margin-bottom:8px\">"+WR.gen+" combined analysis (Gut + Ring)</div><div class=\"wm\">";
 h+=bm(c7s,WR.bench.avgSev,"Daily Severity",true);
 h+=bm(c7b,WR.bench.avgBM,"Daily BMs",true);
@@ -202,6 +271,21 @@ h+="<div class=\"ic\"><div class=\"ict\">\u{1F37D}\uFE0F Food Risk</div><div sty
 
 h+="<div class=\"ic\" style=\"background:linear-gradient(135deg,#e8f5e9,#c8e6c9);border:1px solid #a5d6a7\"><div class=\"ict\" style=\"color:#2e7d32\">\u{1F3AF} Actions</div>";WR.actions.forEach(function(a,i){h+="<div style=\"font-size:12px;color:#1b5e20;padding:3px 0\"><strong>"+(i+1)+".</strong> "+a+"</div>"});h+="</div>";
 
+
+h+="<div class=\"ic\"><div class=\"ict\">\u{1F4D1} Weekly Reports Archive</div>";
+WR_ARCHIVE.slice().reverse().forEach(function(rpt){
+h+="<div style=\"border:1px solid #e8e4dc;border-radius:10px;padding:12px;margin-bottom:10px;cursor:pointer\" onclick=\"this.querySelector(\'._det\').style.display=this.querySelector(\'._det\').style.display===\'none\'?\'block\':\'none\'\"><div style=\"display:flex;justify-content:space-between;align-items:center\"><div><div style=\"font-size:14px;font-weight:700;color:#3d6b5e\">\u{1F4CA} "+rpt.date+"</div><div style=\"font-size:11px;color:#888\">"+rpt.days+" \u00B7 "+rpt.entries+" entries</div></div><span style=\"font-size:12px;color:#bbb\">\u25BC</span></div>";
+h+="<div class=\"_det\" style=\"display:none;margin-top:10px\">";
+h+="<div style=\"display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px\">";
+Object.entries(rpt.metrics).forEach(function(pair){h+="<div style=\"background:#f7f5f0;border-radius:6px;padding:6px 8px;font-size:11px\"><span style=\"color:#888\">"+pair[0]+": </span><strong>"+pair[1]+"</strong></div>"});
+h+="</div>";
+h+="<div style=\"font-size:12px;font-weight:600;color:#3d6b5e;margin:8px 0 4px\">Key Findings:</div>";
+rpt.findings.forEach(function(f){h+="<div style=\"font-size:11px;color:#555;padding:3px 0;padding-left:12px;position:relative\"><span style=\"position:absolute;left:0\">\u2022</span>"+f+"</div>"});
+h+="<div style=\"font-size:12px;font-weight:600;color:#2e7d32;margin:8px 0 4px\">Actions:</div>";
+rpt.actions.forEach(function(a,i){h+="<div style=\"font-size:11px;color:#1b5e20;padding:2px 0\">"+(i+1)+". "+a+"</div>"});
+h+="</div></div>"});
+h+="</div>";
+
 h+="<div style=\"margin-top:16px;padding-top:12px;border-top:2px solid #e8e4dc\"><div style=\"font-size:11px;color:#999;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px\">\u{1F4CA} Live Tracker</div></div>";
 
 if(mo.length>=2){h+="<div class=\"ic\"><div class=\"ict\">\u{1F4C8} Morning Trend</div><div class=\"chart-row\">";mo.slice(-14).forEach(function(m){var p=(m.score/5)*100;var c2=m.score>=4?"#4a9e7d":m.score>=3?"#d4a843":"#c46a3a";h+="<div class=\"chart-bar\" style=\"height:"+p+"%;background:"+c2+"\"></div>"});h+="</div><div class=\"chart-labels\">";mo.slice(-14).forEach(function(m){var d=new Date(m.ts);h+="<div class=\"chart-lbl\">"+(d.getMonth()+1)+"/"+d.getDate()+"</div>"});h+="</div></div>"}
@@ -216,5 +300,15 @@ if(E.length)h+="<button class=\"bs\" style=\"margin-top:12px;color:#a83232\" onc
 x.innerHTML=h}
 
 ld();R();
+
+// Evening protocol reminder (9pm check)
+function checkEvening(){
+var h2=new Date().getHours();
+if(h2===21){
+var today=new Date().toDateString();
+var doneTonight=E.some(function(e){return e.type==="action"&&new Date(e.ts).toDateString()===today&&new Date(e.ts).getHours()>=20});
+if(!doneTonight&&"Notification" in window&&Notification.permission==="granted"){
+try{new Notification("\u{1F319} Evening Wind-Down",{body:"Time for your evening protocol. Hot shower + peppermint tea + breathing.",tag:"evening-"+today})}catch(e){}}}}
+setInterval(checkEvening,300000);
 if("Notification" in window&&Notification.permission==="default")Notification.requestPermission();
 </script></body></html>
