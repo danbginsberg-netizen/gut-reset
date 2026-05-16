@@ -246,8 +246,10 @@ var lagData=[];
 var dayMap={};E.forEach(function(e){var d=new Date(new Date(e.ts).getTime()-4*36e5);var dk=d.toISOString().slice(0,10);if(!dayMap[dk])dayMap[dk]={acts:0,sev:0,sym:0};if(e.type==="action")dayMap[dk].acts++;if(e.type==="symptom"||e.type==="overnight"){dayMap[dk].sev+=e.sev||0;dayMap[dk].sym++}});
 var dkeys=Object.keys(dayMap).sort().slice(-14);
 if(dkeys.length>=5){
-h+="<div class=\"ic\"><div class=\"ict\">\u{1F550} Lag Effect: Actions \u2192 Next-Day Severity (24-48hr delay)</div><div style=\"font-size:10px;color:#999;margin-bottom:6px\">Green = actions taken, Red = next-day severity</div><div class=\"chart-row\">";
-for(var li=0;li<dkeys.length-1;li++){var acts=dayMap[dkeys[li]].acts;var nextSev=dayMap[dkeys[li+1]].sev;h+="<div style=\"flex:1;display:flex;flex-direction:column;gap:1px;align-items:stretch;justify-content:end\"><div class=\"chart-bar\" style=\"height:"+Math.min(acts*12,80)+"%;background:#4a9e7d;border-radius:2px\"></div><div class=\"chart-bar\" style=\"height:"+Math.min(nextSev*4,80)+"%;background:#c46a3a;border-radius:2px\"></div></div>"}
+h+="<div class=\"ic\"><div class=\"ict\">\u{1F550} Lag Effect: Actions \u2192 Next-Day Severity</div><div style=\"font-size:10px;color:#999;margin-bottom:6px\">Green = actions that day. Red = severity NEXT day. Tall green should precede short red.</div>";
+var lagMax=1;for(var lm=0;lm<dkeys.length-1;lm++){lagMax=Math.max(lagMax,dayMap[dkeys[lm]].acts,dayMap[dkeys[lm+1]].sev)}
+h+="<div style=\"display:flex;gap:3px;height:120px;align-items:end;margin:8px 0\">";
+for(var li=0;li<dkeys.length-1;li++){var acts=dayMap[dkeys[li]].acts;var nextSev=dayMap[dkeys[li+1]].sev;var aH=Math.max(lagMax>0?Math.round(acts/lagMax*100):0,3);var sH=Math.max(lagMax>0?Math.round(nextSev/lagMax*100):0,3);h+="<div style=\"flex:1;display:flex;gap:1px;align-items:end;height:100%\"><div style=\"flex:1;height:"+aH+"%;background:#4a9e7d;border-radius:3px 3px 0 0;min-height:3px\"></div><div style=\"flex:1;height:"+sH+"%;background:#c46a3a;border-radius:3px 3px 0 0;min-height:3px\"></div></div>"}
 h+="</div><div class=\"chart-labels\">";for(var li2=0;li2<dkeys.length-1;li2++){h+="<div class=\"chart-lbl\">"+dkeys[li2].slice(5)+"</div>"}
 h+="</div><div style=\"font-size:10px;color:#777;margin-top:6px;line-height:1.4\">Notice: high action days (tall green) often precede lower severity days (short red) 24-48hrs later. The inverse is also true \u2014 low action days precede severity spikes.</div></div>"}
 
