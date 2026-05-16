@@ -1,21 +1,19 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="theme-color" content="#2a4d42"><title>Gut Reset Tracker</title>
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="theme-color" content="#2a4d42"><title>Gut Reset Tracker</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}body{font-family:'Segoe UI',system-ui,sans-serif;background:linear-gradient(180deg,#f7f5f0,#eae6dd);min-height:100vh;color:#2c2c2c;max-width:480px;margin:0 auto;overflow-x:hidden}
 .hdr{background:linear-gradient(135deg,#3d6b5e,#2a4d42);padding:20px 20px 14px;color:#fff;position:sticky;top:0;z-index:50}.hdr-r{display:flex;justify-content:space-between;align-items:center}.logo{display:flex;align-items:center;gap:8px}.logo-t{font-size:20px;font-weight:700}.st-b{font-size:11px;background:rgba(255,255,255,.15);padding:4px 12px;border-radius:20px;font-weight:500;display:flex;align-items:center;gap:5px}.st-d{width:7px;height:7px;border-radius:50%}.hdr-a{display:flex;align-items:center;gap:8px}.g-btn{background:rgba(255,255,255,.15);border:none;color:#fff;border-radius:8px;padding:4px 10px;font-size:14px;cursor:pointer}
-.chk-al{display:flex;align-items:center;gap:8px;width:100%;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);border-radius:10px;padding:10px 14px;margin-top:12px;color:#fff;font-size:13px;cursor:pointer;text-align:left}
 .pb-ban{border:1px solid rgba(255,255,255,.2);border-radius:8px;padding:8px 12px;margin-top:10px;font-size:12px;color:#fff}.pb-ban.w{background:rgba(196,106,58,.2);border-color:rgba(196,106,58,.4)}.pb-ban.g{background:rgba(74,158,125,.15);border-color:rgba(74,158,125,.3)}
 .body{padding:16px 16px 100px}.toast{position:fixed;top:80px;left:50%;transform:translateX(-50%);background:#3d6b5e;color:#fff;padding:8px 24px;border-radius:20px;font-size:14px;font-weight:600;z-index:200;transition:opacity .3s}.toast.h{opacity:0;pointer-events:none}
 .m-card{background:linear-gradient(135deg,#f0e6d3,#e8dcc8);border-radius:14px;padding:20px;margin-bottom:16px;text-align:center;border:2px solid #d4c4a8}.m-ti{font-size:16px;font-weight:700;color:#3d6b5e;margin-bottom:4px}.m-sub{font-size:12px;color:#888;margin-bottom:14px}.m-sc{display:flex;gap:8px;justify-content:center}.m-btn{width:52px;height:52px;border-radius:50%;border:3px solid #e8e4dc;background:#fff;cursor:pointer;font-size:20px;display:flex;align-items:center;justify-content:center;font-family:inherit}.m-btn:active{transform:scale(.9)}.m-lr{display:flex;justify-content:space-between;margin-top:6px;font-size:10px;color:#999;padding:0 8px}
 .on-p{background:linear-gradient(135deg,#1a2a3a,#0f1d2d);border-radius:14px;padding:24px 20px;text-align:center;color:#fff}.on-ti{font-size:18px;font-weight:700;margin-bottom:4px}.on-sub{font-size:12px;color:rgba(255,255,255,.5);margin-bottom:20px}.on-g{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px}.on-btn{padding:16px 12px;border-radius:12px;border:2px solid rgba(255,255,255,.15);background:rgba(255,255,255,.08);color:#fff;cursor:pointer;font-size:14px;font-weight:500;font-family:inherit;display:flex;flex-direction:column;align-items:center;gap:6px}.on-btn.a{border-color:#c46a3a;background:rgba(196,106,58,.2)}.on-btn:active{transform:scale(.96)}.on-ic{font-size:28px}
 .on-sv{display:flex;gap:8px;justify-content:center;margin-bottom:16px}.on-sb{width:44px;height:44px;border-radius:50%;border:2px solid rgba(255,255,255,.2);background:rgba(255,255,255,.08);color:rgba(255,255,255,.7);cursor:pointer;font-size:11px;font-weight:600;font-family:inherit;display:flex;align-items:center;justify-content:center}.on-sb.a{color:#fff}
-.on-go{width:100%;padding:14px;border-radius:12px;border:none;background:linear-gradient(135deg,#c46a3a,#d4843a);color:#fff;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit}.on-sk{width:100%;padding:10px;border:none;background:none;color:rgba(255,255,255,.4);font-size:13px;cursor:pointer;margin-top:6px;font-family:inherit}
-.on-st{display:flex;gap:8px;justify-content:center;margin-bottom:16px;flex-wrap:wrap}.on-stb{padding:8px 14px;border-radius:20px;border:2px solid rgba(255,255,255,.15);background:rgba(255,255,255,.08);color:rgba(255,255,255,.7);cursor:pointer;font-size:12px;font-family:inherit;display:flex;align-items:center;gap:4px}.on-stb.a{border-color:#4a9e7d;background:rgba(74,158,125,.2);color:#fff}
+.on-go{width:100%;padding:14px;border-radius:12px;border:none;background:linear-gradient(135deg,#c46a3a,#d4843a);color:#fff;font-size:15px;font-weight:700;cursor:pointer;font-family:inherit}
+.on-st{display:flex;gap:8px;justify-content:center;margin-bottom:16px;flex-wrap:wrap}.on-stb{padding:8px 14px;border-radius:20px;border:2px solid rgba(255,255,255,.15);background:rgba(255,255,255,.08);color:rgba(255,255,255,.7);cursor:pointer;font-size:12px;font-family:inherit}.on-stb.a{border-color:#4a9e7d;background:rgba(74,158,125,.2);color:#fff}
 .emp{text-align:center;padding:60px 20px}.emp-i{font-size:48px;margin-bottom:12px}.emp-t{font-size:20px;font-weight:700;color:#3d6b5e;margin-bottom:8px}.emp-x{font-size:14px;color:#777;line-height:1.5}
 .dg{margin-bottom:20px}.dh{font-size:13px;font-weight:700;color:#3d6b5e;text-transform:uppercase;letter-spacing:.5px;margin-bottom:8px;padding-left:4px}
-.ec{background:#fff;border-radius:10px;padding:12px 14px;margin-bottom:8px;box-shadow:0 1px 3px rgba(0,0,0,.06);cursor:pointer}.ec:active{background:#f9f7f3}.ec.me{background:linear-gradient(135deg,#f7f3eb,#f0ebe0);border:1px solid #e0d5c0}.ec.oe{background:linear-gradient(135deg,#eef0f4,#e4e8ef);border:1px solid #cdd3de}.ec.ae{background:linear-gradient(135deg,#e8f5e9,#dcedc8);border:1px solid #a5d6a7}.ec.mde{background:linear-gradient(135deg,#f3eef8,#ece5f3);border:1px solid #d4c4e8}
+.ec{background:#fff;border-radius:10px;padding:12px 14px;margin-bottom:8px;box-shadow:0 1px 3px rgba(0,0,0,.06);cursor:pointer}.ec:active{background:#f9f7f3}.ec.ae{background:linear-gradient(135deg,#e8f5e9,#dcedc8);border:1px solid #a5d6a7}.ec.mde{background:linear-gradient(135deg,#f3eef8,#ece5f3);border:1px solid #d4c4e8}.ec.me{background:linear-gradient(135deg,#f7f3eb,#f0ebe0);border:1px solid #e0d5c0}
 .et{display:flex;align-items:flex-start;gap:10px}.ei{font-size:20px;margin-top:1px;flex-shrink:0}.en{flex:1;min-width:0}.eti{font-size:14px;font-weight:600}.eme{font-size:12px;color:#999;margin-top:3px;display:flex;align-items:center;gap:6px;flex-wrap:wrap}.eno{font-size:12px;color:#777;margin-top:6px;padding-left:30px;font-style:italic}.eei{font-size:14px;color:#ccc;flex-shrink:0}
 .sb{display:inline-block;padding:1px 8px;border-radius:10px;font-size:11px;color:#fff;font-weight:600}
-.th{font-size:11px;color:#bbb;text-align:center;margin-top:8px;font-style:italic}
 .ep{background:#f9f7f3;border-radius:8px;padding:12px;margin-top:8px;border-top:1px solid #e8e4dc}.el{font-size:11px;font-weight:600;color:#3d6b5e;margin-bottom:4px;display:block}.er{display:flex;gap:8px;margin-top:10px}
 .sec{font-size:15px;font-weight:700;color:#3d6b5e;margin-bottom:12px;margin-top:4px}
 .fc{font-size:12px;font-weight:600;color:#888;margin-top:16px;margin-bottom:8px;text-transform:uppercase;letter-spacing:.5px}.fc:first-child{margin-top:0}
@@ -24,7 +22,7 @@
 .sel-chip{display:inline-flex;align-items:center;gap:4px;background:#3d6b5e;color:#fff;padding:3px 10px;border-radius:16px;font-size:12px;font-weight:500}.sel-chip button{background:none;border:none;color:rgba(255,255,255,.7);cursor:pointer;font-size:14px;padding:0 0 0 4px}
 .sel-empty{font-size:12px;color:#999;font-style:italic}
 .g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}.g2{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px}.g4{display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:6px;margin-bottom:16px}
-.pb{display:flex;flex-direction:column;align-items:center;gap:4px;padding:12px 8px;background:#fff;border:2px solid #e8e4dc;border-radius:10px;cursor:pointer;font-size:12px;font-weight:500;color:#2c2c2c;font-family:inherit}.pb.a{border-color:#3d6b5e;background:#eef5f1}.pb:active{transform:scale(.96)}.pi{font-size:24px}.pl{font-size:11px;text-align:center;line-height:1.2}
+.pb{display:flex;flex-direction:column;align-items:center;gap:4px;padding:12px 8px;background:#fff;border:2px solid #e8e4dc;border-radius:10px;cursor:pointer;font-size:12px;font-weight:500;font-family:inherit}.pb.a{border-color:#3d6b5e;background:#eef5f1}.pb:active{transform:scale(.96)}.pi{font-size:24px}.pl{font-size:11px;text-align:center;line-height:1.2}
 .dv{text-align:center;font-size:12px;color:#aaa;margin:14px 0}
 .ti{width:100%;padding:12px 14px;border-radius:10px;border:2px solid #e8e4dc;font-size:14px;background:#fff;outline:none;font-family:inherit}.ti:focus{border-color:#3d6b5e}
 .tl2{font-size:12px;color:#777;margin-top:12px;margin-bottom:4px}.tin{width:100%;padding:10px 14px;border-radius:10px;border:2px solid #e8e4dc;font-size:14px;background:#fff;outline:none;font-family:inherit}
@@ -32,18 +30,15 @@
 .bs{width:100%;padding:12px;border-radius:10px;border:1px solid #ddd;background:transparent;color:#777;font-size:14px;cursor:pointer;margin-top:8px;font-family:inherit}
 .bsm{padding:8px 16px;border-radius:8px;border:1px solid #ddd;background:#fff;color:#555;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit}
 .bd{padding:8px 16px;border-radius:8px;border:none;background:#a83232;color:#fff;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit}
-.syb{display:flex;align-items:center;gap:8px;padding:10px 12px;background:#fff;border:2px solid #e8e4dc;border-radius:10px;cursor:pointer;font-size:13px;font-weight:500;color:#2c2c2c;font-family:inherit}.syb.a{border-color:#c46a3a;background:#fdf4ef}
+.syb{display:flex;align-items:center;gap:8px;padding:10px 12px;background:#fff;border:2px solid #e8e4dc;border-radius:10px;cursor:pointer;font-size:13px;font-weight:500;font-family:inherit}.syb.a{border-color:#c46a3a;background:#fdf4ef}
 .stb{display:flex;flex-direction:column;align-items:center;gap:3px;padding:10px 6px;background:#fff;border:2px solid #e8e4dc;border-radius:10px;cursor:pointer;font-size:11px;font-weight:500;font-family:inherit}.stb.a{border-color:#3d6b5e;background:#eef5f1}
 .svr{display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap}.svb{flex:1;min-width:55px;padding:8px 4px;border-radius:8px;border:2px solid #e8e4dc;background:#fff;cursor:pointer;font-size:11px;font-weight:600;color:#555;text-align:center;font-family:inherit}.svb.a{color:#fff}
-.rem{text-align:center;font-size:12px;color:#999;margin-top:12px}
-.ch{text-align:center;margin-bottom:24px}.cht{font-size:20px;font-weight:700;color:#3d6b5e;margin-top:8px}
 .med-btn{display:flex;flex-direction:column;align-items:center;gap:4px;padding:14px 8px;background:#f3eef8;border:2px solid #d4c4e8;border-radius:10px;cursor:pointer;font-size:12px;font-weight:500;font-family:inherit}.med-btn.a{border-color:#7b5ea7;background:#ece5f3}.med-btn:active{transform:scale(.96)}
-.act-btn{display:flex;flex-direction:column;align-items:center;gap:6px;padding:16px 12px;background:#fff;border:2px solid #e8e4dc;border-radius:12px;cursor:pointer;font-size:13px;font-weight:500;font-family:inherit;color:#2c2c2c}.act-btn.rec{background:linear-gradient(135deg,#e8f5e9,#c8e6c9);border-color:#4a9e7d}.act-btn:active{transform:scale(.96)}
+.act-btn{display:flex;flex-direction:column;align-items:center;gap:6px;padding:16px 12px;background:#fff;border:2px solid #e8e4dc;border-radius:12px;cursor:pointer;font-size:13px;font-weight:500;font-family:inherit}.act-btn.rec{background:linear-gradient(135deg,#e8f5e9,#c8e6c9);border-color:#4a9e7d}.act-btn:active{transform:scale(.96)}
 .ic{background:#fff;border-radius:12px;padding:16px;margin-bottom:12px;box-shadow:0 1px 4px rgba(0,0,0,.06)}.ict{font-size:14px;font-weight:700;color:#3d6b5e;margin-bottom:10px}
 .ir{display:flex;align-items:center;gap:10px;padding:8px 0;border-bottom:1px solid #f0f0f0}.ir:last-child{border-bottom:none}
 .ib{flex:2;height:8px;background:#eee;border-radius:4px;overflow:hidden}.if2{height:100%;border-radius:4px}
 .chart-row{display:flex;gap:2px;align-items:end;height:80px;margin-bottom:4px}.chart-bar{flex:1;border-radius:3px 3px 0 0;min-height:2px}.chart-labels{display:flex;gap:2px}.chart-lbl{flex:1;font-size:8px;color:#bbb;text-align:center}
-.ti2{display:flex;align-items:center;gap:10px;padding:10px 0;border-bottom:1px solid #f0f0f0}.tf{font-size:14px;font-weight:600;flex:1}.ts2{font-size:12px;font-weight:600;padding:3px 10px;border-radius:12px;color:#fff}.td{font-size:11px;color:#999}
 .sg{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}.sc{background:#fff;border-radius:10px;padding:14px 10px;text-align:center;box-shadow:0 1px 3px rgba(0,0,0,.06)}.sn2{font-size:24px;font-weight:700;color:#3d6b5e}.sl{font-size:11px;color:#999;margin-top:4px}
 .bk-p{background:#fff;border-radius:12px;padding:16px;margin-bottom:16px;box-shadow:0 2px 8px rgba(0,0,0,.1)}
 .ov{position:fixed;inset:0;background:rgba(0,0,0,.4);z-index:300;display:flex;align-items:center;justify-content:center;padding:20px}.md2{background:#fff;border-radius:14px;padding:24px;max-width:320px;width:100%;text-align:center}
@@ -52,234 +47,174 @@
 .h{display:none}
 .ta{background:linear-gradient(135deg,#fef2f2,#fde8e8);border:1px solid #f5c6c6;border-radius:10px;padding:12px;margin-bottom:12px;font-size:12px;color:#8b2c2c;line-height:1.4}.ta.tg{background:linear-gradient(135deg,#e8f5e9,#c8e6c9);border-color:#a5d6a7;color:#1b5e20}
 .wi{background:linear-gradient(135deg,#2a4d42,#3d6b5e);color:#fff;border:none;border-radius:12px;padding:16px;margin-bottom:12px}.wi .ict{color:#c8e6c9}
-.wm{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin:10px 0}.wmc{background:rgba(255,255,255,.1);border-radius:8px;padding:10px;text-align:center}.wmc-l{font-size:10px;color:rgba(255,255,255,.6)}.wmc-b{font-size:9px;color:rgba(255,255,255,.4);margin:2px 0}.wmc-v{font-size:16px}
+.wm{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin:10px 0}.wmc{background:rgba(255,255,255,.1);border-radius:8px;padding:10px;text-align:center}.wmc-l{font-size:10px;color:rgba(255,255,255,.6)}.wmc-b{font-size:9px;color:rgba(255,255,255,.4);margin:2px 0}.wmc-v{font-size:14px;font-weight:700}
 .wf{padding:8px 0;border-bottom:1px solid rgba(255,255,255,.1);display:flex;gap:8px;align-items:start;font-size:12px}.wf:last-child{border-bottom:none}
+.bm-label{font-size:11px;font-weight:600;padding:2px 8px;border-radius:4px;display:inline-block;margin-top:4px}
 </style></head><body>
-<div class="hdr"><div class="hdr-r"><div class="logo"><span style="font-size:22px">🌱</span><span class="logo-t">Gut Reset</span></div><div class="hdr-a"><div class="st-b"><span class="st-d" id="sDot" style="background:#4a9e7d"></span><span id="sTxt">Saved</span><span id="sCnt" style="opacity:.7"></span></div><button class="g-btn" onclick="tB()">⚙️</button></div></div><div id="cAl" class="chk-al h" onclick="sPC()"><span>⏰</span><span id="cAlT"></span><span style="margin-left:auto">→</span></div><div id="pBan" class="pb-ban h"></div></div>
+<div class="hdr"><div class="hdr-r"><div class="logo"><span style="font-size:22px">🌱</span><span class="logo-t">Gut Reset</span></div><div class="hdr-a"><div class="st-b"><span class="st-d" id="sDot" style="background:#4a9e7d"></span><span id="sTxt">Saved</span><span id="sCnt" style="opacity:.7"></span></div><button class="g-btn" onclick="tB()">&#9881;&#65039;</button></div></div><div id="pBan" class="pb-ban h"></div></div>
 <div id="toast" class="toast h"></div>
 <div id="dOv" class="ov h"><div class="md2"><div style="font-size:16px;font-weight:600;margin-bottom:16px">Delete?</div><div style="display:flex;gap:10px;justify-content:center"><button class="bsm" onclick="hD()">Cancel</button><button class="bd" onclick="cD()">Delete</button></div></div></div>
 <div class="body" id="bc"></div>
 <div class="bn">
-<button class="nb a" id="n-tl" onclick="sT('tl')"><span class="ni">📋</span><span class="nl">Timeline</span></button>
-<button class="nb" id="n-fd" onclick="sT('fd')"><span class="ni">🍽️</span><span class="nl">Food</span></button>
-<button class="nb" id="n-md" onclick="sT('md')"><span class="ni">💊</span><span class="nl">Meds</span></button>
-<button class="nb" id="n-sy" onclick="sT('sy')"><span class="ni">📝</span><span class="nl">Symptom</span></button>
-<button class="nb" id="n-on" onclick="sT('on')"><span class="ni">🌙</span><span class="nl">Night</span></button>
-<button class="nb" id="n-in" onclick="sT('in')"><span class="ni">📊</span><span class="nl">Insights</span></button>
+<button class="nb a" id="n-tl" onclick="sT('tl')"><span class="ni">&#128203;</span><span class="nl">Timeline</span></button>
+<button class="nb" id="n-fd" onclick="sT('fd')"><span class="ni">&#127869;&#65039;</span><span class="nl">Food</span></button>
+<button class="nb" id="n-md" onclick="sT('md')"><span class="ni">&#128138;</span><span class="nl">Meds</span></button>
+<button class="nb" id="n-sy" onclick="sT('sy')"><span class="ni">&#128221;</span><span class="nl">Symptom</span></button>
+<button class="nb" id="n-on" onclick="sT('on')"><span class="ni">&#127769;</span><span class="nl">Night</span></button>
+<button class="nb" id="n-in" onclick="sT('in')"><span class="ni">&#128202;</span><span class="nl">Insights</span></button>
 </div>
 <script>
 const SK="gut-reset-tracker-v1";
-const SY=[{id:"bloating",label:"Bloating",icon:"🫧"},{id:"burning",label:"Burning",icon:"🔥"},{id:"urgency",label:"Urgency",icon:"⚡"},{id:"gas",label:"Gas",icon:"💨"},{id:"cramps",label:"Cramps",icon:"😣"},{id:"nausea",label:"Nausea",icon:"🤢"},{id:"diarrhea",label:"Diarrhea",icon:"🚽"},{id:"constipation",label:"Constipation",icon:"🧱"},{id:"pain",label:"Pain",icon:"🩹"}];
-const F1=[{id:"broth",l:"Bone Broth",i:"🍵"},{id:"rice",l:"White Rice",i:"🍚"},{id:"banana",l:"Banana",i:"🍌"},{id:"potato",l:"Boiled Potato",i:"🥔"},{id:"ginger_tea",l:"Ginger Tea",i:"🫚"},{id:"peppermint_tea",l:"Peppermint Tea",i:"🍃"},{id:"water",l:"Water",i:"💧"},{id:"electrolyte",l:"Electrolyte",i:"⚡"},{id:"jello",l:"Jello",i:"🍮"}];
-const F2=[{id:"chicken",l:"Chicken",i:"🍗"},{id:"carrots",l:"Carrots",i:"🥕"},{id:"eggs",l:"Eggs",i:"🥚"},{id:"salmon",l:"Salmon",i:"🐟"},{id:"spinach",l:"Spinach",i:"🥬"},{id:"oatmeal",l:"Oatmeal",i:"🥣"},{id:"kombucha",l:"Kombucha",i:"🫧"},{id:"sweet_potato",l:"Sweet Potato",i:"🍠"},{id:"kefir",l:"Kefir",i:"🥛"}];
-const F3=[{id:"plain_pasta",l:"Plain Pasta",i:"🍝"},{id:"blueberries",l:"Blueberries",i:"🫐"},{id:"white_fish",l:"White Fish",i:"🐠"},{id:"olive_oil",l:"Olive Oil",i:"🫒"},{id:"edamame",l:"Edamame",i:"🫛"},{id:"raw_salad",l:"Salad",i:"🥗"},{id:"veg_soup",l:"Soup",i:"🍲"},{id:"avocado",l:"Avocado",i:"🥑"},{id:"squash",l:"Squash",i:"🎃"}];
-const F4=[{id:"cereal",l:"Cereal",i:"🥣"},{id:"bread",l:"Bread",i:"🍞"},{id:"bagel",l:"Bagel",i:"🥯"},{id:"crackers",l:"Crackers",i:"🥨"},{id:"nuts",l:"Nuts",i:"🥜"},{id:"coffee",l:"Coffee",i:"☕"},{id:"granola_bar",l:"Granola Bar",i:"🍫"},{id:"pretzels",l:"Pretzels",i:"🥨"},{id:"trail_mix",l:"Trail Mix",i:"🥜"}];
-const F5=[{id:"pizza",l:"Pizza",i:"🍕"},{id:"breadsticks",l:"Breadsticks",i:"🥖"},{id:"pasta_sauce",l:"Pasta+Sauce",i:"🍝"},{id:"spicy",l:"Spicy",i:"🌶️"},{id:"sushi",l:"Sushi",i:"🍣"},{id:"fried",l:"Fried Food",i:"🍟"},{id:"cookies",l:"Sweets",i:"🍪"},{id:"sandwich",l:"Sandwich",i:"🥪"},{id:"restaurant",l:"Restaurant",i:"🍽️"}];
-const MEDS=[{id:"simethicone",l:"Gas-X",i:"💨",t:"gas/bloating"},{id:"pepto",l:"Pepto-Bismol",i:"🩹",t:"general GI"},{id:"loperamide",l:"Anti-Diarrhea",i:"🚽",t:"diarrhea"},{id:"ibuprofen",l:"Ibuprofen",i:"💊",t:"pain"},{id:"tylenol",l:"Tylenol",i:"💊",t:"pain"}];
-const ACTS=[{id:"breathing",l:"Breathing",i:"🫁"},{id:"stretching",l:"Stretch/Lymphatic",i:"🧘"},{id:"meditation",l:"Meditation",i:"🧠"},{id:"walking",l:"Walking",i:"🚶"},{id:"resting",l:"Resting",i:"🛋️"},{id:"massage",l:"Massage",i:"💆"},{id:"hot_shower",l:"Hot Shower",i:"🚿"},{id:"hot_tub",l:"Hot Tub",i:"♨️"},{id:"pulsetto",l:"Pulsetto",i:"⚡"}];
-const AF=[...F1,...F2,...F3,...F4,...F5];
+const SY=[{id:"bloating",label:"Bloating",icon:"\u{1FAE7}"},{id:"burning",label:"Burning",icon:"\u{1F525}"},{id:"urgency",label:"Urgency",icon:"\u26A1"},{id:"gas",label:"Gas",icon:"\u{1F4A8}"},{id:"cramps",label:"Cramps",icon:"\u{1F623}"},{id:"nausea",label:"Nausea",icon:"\u{1F922}"},{id:"diarrhea",label:"Diarrhea",icon:"\u{1F6BD}"},{id:"constipation",label:"Constipation",icon:"\u{1F9F1}"},{id:"pain",label:"Pain",icon:"\u{1FA79}"}];
+const F1=[{id:"broth",l:"Bone Broth",i:"\u{1F375}"},{id:"rice",l:"White Rice",i:"\u{1F35A}"},{id:"banana",l:"Banana",i:"\u{1F34C}"},{id:"potato",l:"Boiled Potato",i:"\u{1F954}"},{id:"jello",l:"Jello",i:"\u{1F36E}"}];
+const F2=[{id:"chicken",l:"Chicken",i:"\u{1F357}"},{id:"carrots",l:"Carrots",i:"\u{1F955}"},{id:"eggs",l:"Eggs",i:"\u{1F95A}"},{id:"salmon",l:"Salmon",i:"\u{1F41F}"},{id:"spinach",l:"Spinach",i:"\u{1F96C}"},{id:"oatmeal",l:"Oatmeal",i:"\u{1F963}"},{id:"sweet_potato",l:"Sweet Potato",i:"\u{1F360}"}];
+const F3=[{id:"plain_pasta",l:"Plain Pasta",i:"\u{1F35D}"},{id:"blueberries",l:"Blueberries",i:"\u{1FAD0}"},{id:"white_fish",l:"White Fish",i:"\u{1F420}"},{id:"olive_oil",l:"Olive Oil",i:"\u{1FAD2}"},{id:"edamame",l:"Edamame",i:"\u{1FAD9}"},{id:"raw_salad",l:"Salad",i:"\u{1F957}"},{id:"veg_soup",l:"Soup",i:"\u{1F372}"},{id:"avocado",l:"Avocado",i:"\u{1F951}"}];
+const F4=[{id:"cereal",l:"Cereal",i:"\u{1F963}"},{id:"bread",l:"Bread",i:"\u{1F35E}"},{id:"bagel",l:"Bagel",i:"\u{1F96F}"},{id:"crackers",l:"Crackers",i:"\u{1F968}"},{id:"nuts",l:"Nuts",i:"\u{1F95C}"},{id:"granola_bar",l:"Granola Bar",i:"\u{1F36B}"},{id:"pretzels",l:"Pretzels",i:"\u{1F968}"}];
+const F5=[{id:"pizza",l:"Pizza",i:"\u{1F355}"},{id:"breadsticks",l:"Breadsticks",i:"\u{1F956}"},{id:"pasta_sauce",l:"Pasta+Sauce",i:"\u{1F35D}"},{id:"spicy",l:"Spicy",i:"\u{1F336}\uFE0F"},{id:"sushi",l:"Sushi",i:"\u{1F363}"},{id:"fried",l:"Fried Food",i:"\u{1F35F}"},{id:"sandwich",l:"Sandwich",i:"\u{1F96A}"},{id:"restaurant",l:"Restaurant",i:"\u{1F37D}\uFE0F"}];
+const DRINKS=[{id:"water",l:"Water",i:"\u{1F4A7}"},{id:"electrolyte",l:"Electrolyte",i:"\u26A1"},{id:"peppermint_tea",l:"Peppermint Tea",i:"\u{1F343}"},{id:"ginger_tea",l:"Ginger Tea",i:"\u{1FADA}"},{id:"kombucha",l:"Kombucha",i:"\u{1FAE7}"},{id:"coffee",l:"Coffee",i:"\u2615"},{id:"kefir",l:"Kefir",i:"\u{1F95B}"}];
+const MEDS=[{id:"simethicone",l:"Gas-X",i:"\u{1F4A8}",t:"gas/bloating"},{id:"pepto",l:"Pepto-Bismol",i:"\u{1FA79}",t:"general GI"},{id:"loperamide",l:"Anti-Diarrhea",i:"\u{1F6BD}",t:"diarrhea"},{id:"ibuprofen",l:"Ibuprofen",i:"\u{1F48A}",t:"pain"},{id:"tylenol",l:"Tylenol",i:"\u{1F48A}",t:"pain"}];
+const ACTS=[{id:"breathing",l:"Breathing",i:"\u{1FAC1}"},{id:"stretching",l:"Stretch/Lymphatic",i:"\u{1F9D8}"},{id:"meditation",l:"Meditation",i:"\u{1F9E0}"},{id:"walking",l:"Walking",i:"\u{1F6B6}"},{id:"resting",l:"Resting",i:"\u{1F6CB}\uFE0F"},{id:"massage",l:"Massage",i:"\u{1F486}"},{id:"hot_shower",l:"Hot Shower",i:"\u{1F6BF}"},{id:"hot_tub",l:"Hot Tub",i:"\u2668\uFE0F"},{id:"pulsetto",l:"Pulsetto",i:"\u26A1"}];
+const AF=[...F1,...F2,...F3,...F4,...F5,...DRINKS];
 const SV=[{v:0,l:"None",c:"#4a9e7d"},{v:1,l:"Mild",c:"#8cb86e"},{v:2,l:"Moderate",c:"#d4a843"},{v:3,l:"Severe",c:"#c46a3a"},{v:4,l:"Extreme",c:"#a83232"}];
-const STL=[{id:"solid",l:"Solid",i:"✅"},{id:"soft",l:"Soft",i:"🟡"},{id:"loose",l:"Loose",i:"🟠"},{id:"diarrhea",l:"Diarrhea",i:"🔴"}];
-const MS=[{v:1,e:"😫",l:"Rough"},{v:2,e:"😕",l:"Poor"},{v:3,e:"😐",l:"Okay"},{v:4,e:"🙂",l:"Good"},{v:5,e:"😊",l:"Great"}];
-const WR={gen:"2026-05-09",days:26,bench:{avgSev:10.3,avgBM:3.0,avgMorn:3.2,nightStress:7},findings:[
-{i:"⚠️",t:"Stress 562% Surge",b:"Ring stress 7→39 starting Apr 30. Dominant driver.",s:"high"},
-{i:"🌙",t:"Overnight Stress r=-0.56",b:"Strongest predictor: overnight Ring stress → morning gut score. Evening routine IS gut treatment.",s:"high"},
-{i:"⏰",t:"4am Wake Cluster",b:"82% of significant wakes at 4-6am. Dinner timing shifts this window.",s:"high"},
-{i:"🔬",t:"Bimodal Reaction",b:"0-2hr mechanical + 7-9hr fermentation. Dinner → morning symptoms.",s:"med"},
-{i:"🍕",t:"Wheat/Gluten Flag",b:"Pizza 🔴, breadsticks 🟡, bread 🟡. 3-day isolation test needed.",s:"high"},
-{i:"✅",t:"Stool Held Solid",b:"3.4-3.6 consistency despite stress. Diet protocol works.",s:"good"},
-{i:"💓",t:"Vagus Nerve",b:"Lower HR = more gut symptoms (r=-0.43). Parasympathetic → motility.",s:"info"},
-{i:"😤",t:"Snoring Paradox",b:"More snoring = fewer wakes (r=-0.42). Snoring means deep sleep achieved.",s:"info"}],
+const STL=[{id:"solid",l:"Solid",i:"\u2705"},{id:"soft",l:"Soft",i:"\u{1F7E1}"},{id:"loose",l:"Loose",i:"\u{1F7E0}"},{id:"diarrhea",l:"Diarrhea",i:"\u{1F534}"}];
+const MS=[{v:1,e:"\u{1F62B}",l:"Rough"},{v:2,e:"\u{1F615}",l:"Poor"},{v:3,e:"\u{1F610}",l:"Okay"},{v:4,e:"\u{1F642}",l:"Good"},{v:5,e:"\u{1F60A}",l:"Great"}];
+const WR={gen:"2026-05-15",days:32,bench:{avgSev:10.3,avgBM:3.0,avgMorn:3.2,nightStress:7},findings:[
+{i:"\u26A0\uFE0F",t:"Stress Still Elevated",b:"Ring stress Phase 3 (May 10-15): 34.3 vs Phase 1: 6.9. Two weeks at 5x baseline with no recovery.",s:"high"},
+{i:"\u{1F319}",t:"Overnight Stress r=-0.56",b:"Strongest predictor of morning gut. Currently 32.7 — needs to return to single digits.",s:"high"},
+{i:"\u23F0",t:"4am Wake Cluster",b:"82% of wakes at 4-6am. Dinner before 6:30pm shifts this window.",s:"high"},
+{i:"\u{1F62A}",t:"Sleep Declining: 53 to 46",b:"Sleep score dropped this week. May 13 was 31 (worst recorded). Compounding stress.",s:"high"},
+{i:"\u{1F355}",t:"Wheat/Gluten Flag",b:"Pizza, breadsticks, bread all elevated. 3-day isolation test still pending.",s:"med"},
+{i:"\u2705",t:"Stool Held Solid",b:"3.4-3.6 consistency despite stress. Diet protocol is working.",s:"good"},
+{i:"\u{1F4A4}",t:"Snoring Paradox",b:"More snoring = fewer wakes. Snoring means deep sleep achieved.",s:"info"},
+{i:"\u{1F4D0}",t:"Recovery Lag 24-48hr",b:"Stress reduction actions show immediate symptom relief but trend reversal takes 1-2 days.",s:"info"}],
 risk:{suspect:["Pizza/Dough"],watch:["Nuts","Breadsticks","Potato","Bread","Eggs"],clear:["Salmon","Pasta","Chicken","Carrots","Rice","Broth","Ginger Tea"]},
-actions:["Dinner before 6:30pm","3-day gluten test","Evening stress protocol (breathing/meditation)","Hot shower before bed","Retrain urgency (10min wait)","Peppermint tea at 9pm"]};
+actions:["Dinner before 6:30pm","3-day gluten test","Evening stress protocol daily","Hot shower before bed","Peppermint tea at 9pm","Weekly data review"]};
 
-let E=[],ct="tl",mf=[],ss=[],sv=1,sl=null,ei=null,di=null,pc=[],sb=false,os=[],ov=2,ol=null,selMeds=[],showAP=false,apSymId=null;
-function ld(){try{const d=localStorage.getItem(SK);if(d)E=JSON.parse(d);us("ok")}catch(e){us("error")}}
+let E=[],ct="tl",mf=[],ss=[],sv=1,sl=null,ei=null,di=null,sb=false,os=[],ov=2,ol=null,selMeds=[],showAP=false,apSymId=null;
+function ld(){try{var d=localStorage.getItem(SK);if(d)E=JSON.parse(d);us("ok")}catch(e){us("error")}}
 function sd(){try{localStorage.setItem(SK,JSON.stringify(E));us("ok")}catch(e){us("error")}}
 function us(s){document.getElementById("sDot").style.background=s==="ok"?"#4a9e7d":"#a83232";document.getElementById("sTxt").textContent=s==="ok"?"Saved":"Error";document.getElementById("sCnt").textContent=E.length>0?"("+E.length+")":""}
-const p2=n=>String(n).padStart(2,"0");
 function ft(i){return new Date(i).toLocaleTimeString([],{hour:"numeric",minute:"2-digit"})}
-function fd(i){const d=new Date(i),t=new Date(),y=new Date(t);y.setDate(y.getDate()-1);if(d.toDateString()===t.toDateString())return"Today";if(d.toDateString()===y.toDateString())return"Yesterday";return d.toLocaleDateString([],{weekday:"short",month:"short",day:"numeric"})}
-function el(i){const m=Math.floor((Date.now()-new Date(i).getTime())/60000);if(m<1)return"now";if(m<60)return m+"m";const h=Math.floor(m/60);return h<24?h+"h":Math.floor(h/24)+"d"}
-function tL(i){const d=new Date(i);return d.getFullYear()+"-"+p2(d.getMonth()+1)+"-"+p2(d.getDate())+"T"+p2(d.getHours())+":"+p2(d.getMinutes())}
-function fl(m){const t=document.getElementById("toast");t.textContent=m;t.classList.remove("h");setTimeout(()=>t.classList.add("h"),2000)}
-function gE(){const g={};E.forEach(e=>{const k=new Date(e.ts).toDateString();if(!g[k])g[k]=[];g[k].push(e)});return Object.entries(g).sort(([a],[b])=>new Date(b)-new Date(a)).map(([ds,items])=>({ds,label:fd(items[0].ts),items:items.sort((a,b)=>new Date(b.ts)-new Date(a.ts))}))}
-function hM(){return E.some(e=>e.type==="morning"&&new Date(e.ts).toDateString()===new Date().toDateString())}
-function gTr(){const n=Date.now(),d3=n-3*864e5;const r=E.filter(e=>(e.type==="symptom"||e.type==="overnight")&&new Date(e.ts).getTime()>d3);const o=E.filter(e=>(e.type==="symptom"||e.type==="overnight")&&new Date(e.ts).getTime()<=d3&&new Date(e.ts).getTime()>d3-3*864e5);const ra=r.length>0?r.reduce((a,e)=>a+(e.sev||0),0)/r.length:0;const oa=o.length>0?o.reduce((a,e)=>a+(e.sev||0),0)/o.length:0;return{ra,oa,w:ra>oa+.5,im:ra<oa-.3,n:r.length}}
-function isStressTrend(){const n=Date.now(),d2=n-2*864e5;const r=E.filter(e=>(e.type==="symptom"||e.type==="overnight")&&new Date(e.ts).getTime()>d2);if(r.length<3)return false;return r.reduce((a,e)=>a+(e.sev||0),0)/r.length>1.5}
-function uPB(){const t=gTr();const p=document.getElementById("pBan");if(t.w&&t.n>=3){p.className="pb-ban w";p.innerHTML="⚠️ Symptoms trending up. Consider Phase 1-2 foods.";p.classList.remove("h")}else if(t.im&&t.n>=3){p.className="pb-ban g";p.innerHTML="✅ Improving. Safe to maintain.";p.classList.remove("h")}else p.classList.add("h")}
-function cP(){const foods=E.filter(e=>e.type==="food"||e.type==="meal");pc=[];foods.forEach(f=>{const due=new Date(f.ts).getTime()+72e5,now=Date.now();const done=E.some(e=>e.type==="checkin"&&e.fid===f.id);if(!done&&now>=due&&now<due+72e5)pc.push({fe:f})});const al=document.getElementById("cAl"),tx=document.getElementById("cAlT");if(pc.length>0&&ct!=="ck"){al.classList.remove("h");tx.innerHTML="2hr: <strong>"+(pc[0].fe.food||"meal")+"</strong>"}else al.classList.add("h")}
-function sT(t){ct=t;showAP=false;document.querySelectorAll(".nb").forEach(b=>b.classList.remove("a"));const n=document.getElementById("n-"+t);if(n)n.classList.add("a");ei=null;mf=[];ss=[];sv=1;sl=null;os=[];ov=2;ol=null;selMeds=[];R()}
-function sPC(){ct="ck";showAP=false;document.querySelectorAll(".nb").forEach(b=>b.classList.remove("a"));R()}
-function R(){cP();uPB();const b=document.getElementById("bc");if(showAP){rAP(b);return}if(ct==="tl")rTL(b);else if(ct==="fd")rF(b);else if(ct==="md")rMD(b);else if(ct==="sy")rS(b);else if(ct==="on")rO(b);else if(ct==="ck")rC(b);else if(ct==="in")rI(b)}
-function tMF(id){const i=mf.indexOf(id);if(i>=0)mf.splice(i,1);else mf.push(id);R()}
-function rmMF(id){mf=mf.filter(x=>x!==id);R()}
-function tSy(id){const i=ss.indexOf(id);if(i>=0)ss.splice(i,1);else ss.push(id);R()}
+function fd(i){var d=new Date(i),t=new Date(),y=new Date(t);y.setDate(y.getDate()-1);if(d.toDateString()===t.toDateString())return"Today";if(d.toDateString()===y.toDateString())return"Yesterday";return d.toLocaleDateString([],{weekday:"short",month:"short",day:"numeric"})}
+function el(i){var m=Math.floor((Date.now()-new Date(i).getTime())/60000);if(m<1)return"now";if(m<60)return m+"m";var h=Math.floor(m/60);return h<24?h+"h":Math.floor(h/24)+"d"}
+function tL(i){var d=new Date(i),p=function(n){return String(n).padStart(2,"0")};return d.getFullYear()+"-"+p(d.getMonth()+1)+"-"+p(d.getDate())+"T"+p(d.getHours())+":"+p(d.getMinutes())}
+function fl(m){var t=document.getElementById("toast");t.textContent=m;t.classList.remove("h");setTimeout(function(){t.classList.add("h")},2000)}
+function gE(){var g={};E.forEach(function(e){var k=new Date(e.ts).toDateString();if(!g[k])g[k]=[];g[k].push(e)});return Object.entries(g).sort(function(a,b){return new Date(b[0])-new Date(a[0])}).map(function(x){return{ds:x[0],label:fd(x[1][0].ts),items:x[1].sort(function(a,b){return new Date(b.ts)-new Date(a.ts)})}})}
+function hM(){return E.some(function(e){return e.type==="morning"&&new Date(e.ts).toDateString()===new Date().toDateString()})}
+function gTr(){var n=Date.now(),d3=n-3*864e5;var r=E.filter(function(e){return(e.type==="symptom"||e.type==="overnight")&&new Date(e.ts).getTime()>d3});var o=E.filter(function(e){return(e.type==="symptom"||e.type==="overnight")&&new Date(e.ts).getTime()<=d3&&new Date(e.ts).getTime()>d3-3*864e5});var ra=r.length>0?r.reduce(function(a,e){return a+(e.sev||0)},0)/r.length:0;var oa=o.length>0?o.reduce(function(a,e){return a+(e.sev||0)},0)/o.length:0;return{ra:ra,oa:oa,w:ra>oa+.5,im:ra<oa-.3,n:r.length}}
+function isStressTrend(){var n=Date.now(),d2=n-2*864e5;var r=E.filter(function(e){return(e.type==="symptom"||e.type==="overnight")&&new Date(e.ts).getTime()>d2});if(r.length<3)return false;return r.reduce(function(a,e){return a+(e.sev||0)},0)/r.length>1.5}
+function uPB(){var t=gTr();var p=document.getElementById("pBan");if(t.w&&t.n>=3){p.className="pb-ban w";p.innerHTML="\u26A0\uFE0F Symptoms trending up. Consider Phase 1-2 foods.";p.classList.remove("h")}else if(t.im&&t.n>=3){p.className="pb-ban g";p.innerHTML="\u2705 Improving. Safe to maintain.";p.classList.remove("h")}else p.classList.add("h")}
+function sT(t){ct=t;showAP=false;document.querySelectorAll(".nb").forEach(function(b){b.classList.remove("a")});var n=document.getElementById("n-"+t);if(n)n.classList.add("a");ei=null;mf=[];ss=[];sv=1;sl=null;os=[];ov=2;ol=null;selMeds=[];R()}
+function R(){uPB();var b=document.getElementById("bc");if(showAP){rAP(b);return}if(ct==="tl")rTL(b);else if(ct==="fd")rF(b);else if(ct==="md")rMD(b);else if(ct==="sy")rS(b);else if(ct==="on")rO(b);else if(ct==="in")rI(b)}
+function tMF(id){var i=mf.indexOf(id);if(i>=0)mf.splice(i,1);else mf.push(id);R()}
+function rmMF(id){mf=mf.filter(function(x){return x!==id});R()}
+function tSy(id){var i=ss.indexOf(id);if(i>=0)ss.splice(i,1);else ss.push(id);R()}
 function tSl(id){sl=sl===id?null:id;R()}
 function tE(id){ei=ei===id?null:id;R()}
-function tOS(id){const i=os.indexOf(id);if(i>=0)os.splice(i,1);else os.push(id);R()}
+function tOS(id){var i=os.indexOf(id);if(i>=0)os.splice(i,1);else os.push(id);R()}
 function tOL(id){ol=ol===id?null:id;R()}
-function tMed(id){const i=selMeds.indexOf(id);if(i>=0)selMeds.splice(i,1);else selMeds.push(id);R()}
-function lM(v){E.push({id:"m"+Date.now(),type:"morning",ts:new Date().toISOString(),score:v,note:""});sd();fl("☀️ Logged");R()}
-function addCF(){const v=document.getElementById("cF")?.value?.trim();if(!v)return;AF.push({id:"c_"+Date.now(),l:v,i:"🍽️"});mf.push(AF[AF.length-1].id);R()}
-function subF(){if(!mf.length)return;const tv=document.getElementById("fT")?.value;const n=document.getElementById("fN")?.value||"";const ts=tv?new Date(tv).toISOString():new Date().toISOString();if(mf.length===1){const f=AF.find(x=>x.id===mf[0]);E.push({id:"f"+Date.now(),type:"food",ts,food:f.l,icon:f.i,note:n})}else{const foods=mf.map(id=>AF.find(x=>x.id===id)).filter(Boolean);E.push({id:"ml"+Date.now(),type:"meal",ts,foods:foods.map(f=>({id:f.id,l:f.l,i:f.i})),note:n});foods.forEach((f,i)=>{E.push({id:"f"+Date.now()+i,type:"food",ts,food:f.l,icon:f.i,note:i===0?n:""})})}sd();mf=[];fl("✓ Logged");sT("tl")}
-function subMed(){if(!selMeds.length)return;const tv=document.getElementById("medTime")?.value;const n=document.getElementById("medNote")?.value||"";const ts=tv?new Date(tv).toISOString():new Date().toISOString();selMeds.forEach(id=>{const m=MEDS.find(x=>x.id===id);E.push({id:"med"+Date.now()+Math.random(),type:"med",ts,med:m.l,medId:m.id,icon:m.i,note:n})});sd();selMeds=[];fl("💊 Logged");sT("tl")}
-// Symptom submission → show action prompt
-function subS(){if(!ss.length&&!sl)return;const n=document.getElementById("sN")?.value||"";const tv=document.getElementById("sTime")?.value||"";const sid="s"+Date.now();E.push({id:sid,type:"symptom",ts:tv?new Date(tv).toISOString():new Date().toISOString(),syms:ss.map(id=>SY.find(s=>s.id===id)),sev:sv,note:n,stool:sl?STL.find(s=>s.id===sl):null});sd();ss=[];sv=1;sl=null;fl("✓ Symptoms logged");showAP=true;apSymId=sid;R()}
-function subO(){if(!os.length&&!ol)return;E.push({id:"n"+Date.now(),type:"overnight",ts:new Date().toISOString(),syms:os.map(id=>SY.find(s=>s.id===id)),sev:ov,stool:ol?STL.find(s=>s.id===ol):null,note:""});sd();os=[];ov=2;ol=null;fl("🌙 Saved");sT("tl")}
-function subC(){if(!pc.length)return;const p=pc[0];E.push({id:"c"+Date.now(),type:"checkin",ts:new Date().toISOString(),fid:p.fe.id,fl:p.fe.food||"meal",wh:2,wl:"2hr",sev:sv,syms:ss.map(id=>SY.find(s=>s.id===id))});sd();ss=[];sv=0;fl("✓ Saved");sT("tl")}
-// Action logging
-function logAct(id){const a=ACTS.find(x=>x.id===id);E.push({id:"act"+Date.now(),type:"action",ts:new Date().toISOString(),action:a.l,actionId:a.id,icon:a.i,symRef:apSymId,note:""});sd();showAP=false;fl("🌿 "+a.l+" logged");sT("tl")}
+function tMed(id){var i=selMeds.indexOf(id);if(i>=0)selMeds.splice(i,1);else selMeds.push(id);R()}
+function lM(v){E.push({id:"m"+Date.now(),type:"morning",ts:new Date().toISOString(),score:v,note:""});sd();fl("\u2600\uFE0F Logged");R()}
+function addCF(){var v=document.getElementById("cF");if(!v||!v.value.trim())return;AF.push({id:"c_"+Date.now(),l:v.value.trim(),i:"\u{1F37D}\uFE0F"});mf.push(AF[AF.length-1].id);R()}
+function subF(){if(!mf.length)return;var tv=document.getElementById("fT");var n=document.getElementById("fN");var ts=tv&&tv.value?new Date(tv.value).toISOString():new Date().toISOString();var note=n?n.value||"":"";if(mf.length===1){var f=AF.find(function(x){return x.id===mf[0]});E.push({id:"f"+Date.now(),type:"food",ts:ts,food:f.l,icon:f.i,note:note})}else{var foods=mf.map(function(id){return AF.find(function(x){return x.id===id})}).filter(Boolean);E.push({id:"ml"+Date.now(),type:"meal",ts:ts,foods:foods.map(function(f){return{id:f.id,l:f.l,i:f.i}}),note:note})}sd();mf=[];fl("\u2713 Logged");sT("tl")}
+function subMed(){if(!selMeds.length)return;var tv=document.getElementById("medTime");var n=document.getElementById("medNote");var ts=tv&&tv.value?new Date(tv.value).toISOString():new Date().toISOString();selMeds.forEach(function(id){var m=MEDS.find(function(x){return x.id===id});E.push({id:"med"+Date.now()+Math.random(),type:"med",ts:ts,med:m.l,medId:m.id,icon:m.i,note:n?n.value||"":""})});sd();selMeds=[];fl("\u{1F48A} Logged");sT("tl")}
+function subS(){if(!ss.length&&!sl)return;var n=document.getElementById("sN");var tv=document.getElementById("sTime");var sid="s"+Date.now();E.push({id:sid,type:"symptom",ts:tv&&tv.value?new Date(tv.value).toISOString():new Date().toISOString(),syms:ss.map(function(id){return SY.find(function(s){return s.id===id})}),sev:sv,note:n?n.value||"":"",stool:sl?STL.find(function(s){return s.id===sl}):null});sd();ss=[];sv=1;sl=null;fl("\u2713 Logged");showAP=true;apSymId=sid;R()}
+function subO(){if(!os.length&&!ol)return;E.push({id:"n"+Date.now(),type:"overnight",ts:new Date().toISOString(),syms:os.map(function(id){return SY.find(function(s){return s.id===id})}),sev:ov,stool:ol?STL.find(function(s){return s.id===ol}):null,note:""});sd();os=[];ov=2;ol=null;fl("\u{1F319} Saved");sT("tl")}
+function logAct(id){var a=ACTS.find(function(x){return x.id===id});E.push({id:"act"+Date.now(),type:"action",ts:new Date().toISOString(),action:a.l,actionId:a.id,icon:a.i,symRef:apSymId,note:""});sd();showAP=false;fl("\u{1F33F} "+a.l+" logged");sT("tl")}
 function decAct(){showAP=false;sT("tl")}
-function snzAct(m){showAP=false;fl("⏰ Reminder in "+m+" min");const ref=apSymId;setTimeout(function(){var sent=sendNotif("🌿 Action Reminder","Time to take action for your symptoms. Tap to open.",function(){showAP=true;apSymId=ref;R()});if(!sent){showAP=true;apSymId=ref;R()}},m*60000);sT("tl")}
-
-function sE(id){const t=document.getElementById("eT")?.value,n=document.getElementById("eN")?.value||"";E=E.map(e=>e.id===id?{...e,ts:new Date(t).toISOString(),note:n}:e);sd();ei=null;fl("✓ Updated");R()}
+function snzAct(m){showAP=false;fl("\u23F0 Reminder in "+m+" min");var ref=apSymId;setTimeout(function(){showAP=true;apSymId=ref;R()},m*60000);sT("tl")}
+function sE(id){var t=document.getElementById("eT");var n=document.getElementById("eN");E=E.map(function(e){return e.id===id?Object.assign({},e,{ts:new Date(t.value).toISOString(),note:n.value||""}):e});sd();ei=null;fl("\u2713 Updated");R()}
 function sD(id){di=id;document.getElementById("dOv").classList.remove("h")}
 function hD(){document.getElementById("dOv").classList.add("h")}
-function cD(){E=E.filter(e=>e.id!==di);sd();ei=null;hD();fl("Deleted");R()}
+function cD(){E=E.filter(function(e){return e.id!==di});sd();ei=null;hD();fl("Deleted");R()}
 function tB(){sb=!sb;R()}
-function cb(){navigator.clipboard.writeText(JSON.stringify(E,null,2)).then(()=>fl("✓ Copied!")).catch(()=>{const t=document.createElement("textarea");t.value=JSON.stringify(E);document.body.appendChild(t);t.select();document.execCommand("copy");document.body.removeChild(t);fl("✓ Copied!")})}
-function ib(){try{const p=JSON.parse(document.getElementById("iA")?.value);if(Array.isArray(p)){E=p;sd();sb=false;fl("✓ Imported "+p.length);R()}}catch(e){fl("⚠ Invalid")}}
+function cb(){navigator.clipboard.writeText(JSON.stringify(E,null,2)).then(function(){fl("\u2713 Copied!")}).catch(function(){fl("Copy failed")})}
+function dlJSON(){var blob=new Blob([JSON.stringify(E,null,2)],{type:"application/json"});var url=URL.createObjectURL(blob);var a=document.createElement("a");a.href=url;a.download="gut-tracker-"+new Date().toISOString().slice(0,10)+".json";a.click();URL.revokeObjectURL(url);fl("\u2B07\uFE0F Downloaded")}
+function ib(){try{var p=JSON.parse(document.getElementById("iA").value);if(Array.isArray(p)){E=p;sd();sb=false;fl("\u2713 Imported "+p.length);R()}}catch(e){fl("\u26A0 Invalid")}}
 
-// ACTION PROMPT (shown after symptom logging)
-function rAP(x){
-const stress=isStressTrend();
-let h='<div style="padding:20px">';
-if(stress){h+='<div style="background:linear-gradient(135deg,#fef2f2,#fde8e8);border:1px solid #f5c6c6;border-radius:12px;padding:16px;margin-bottom:16px;text-align:center"><div style="font-size:16px;font-weight:700;color:#a83232;margin-bottom:6px">⚠️ Stress Trend Detected</div><div style="font-size:13px;color:#8b2c2c;line-height:1.5">Ring data shows overnight stress directly controls morning gut. Taking action now can break the cycle.</div><div style="font-size:14px;font-weight:700;color:#a83232;margin-top:10px">Recommended actions:</div></div>'}
-else{h+='<div style="text-align:center;margin-bottom:16px"><div style="font-size:40px;margin-bottom:8px">🌿</div><div style="font-size:18px;font-weight:700;color:#3d6b5e">Taking any action?</div><div style="font-size:12px;color:#888;margin-top:4px">Log what you are doing to manage symptoms</div></div>'}
-h+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px">';
-ACTS.forEach(a=>{const rec=stress&&(a.id==="breathing"||a.id==="meditation"||a.id==="hot_shower");h+='<button class="act-btn'+(rec?" rec":"")+'" onclick="logAct(\x27'+a.id+'\x27)"><span style="font-size:28px">'+a.i+'</span><span>'+a.l+'</span>'+(rec?'<span style="font-size:10px;color:#2e7d32;font-weight:600">⭐ Recommended</span>':'')+'</button>'});
-h+='</div><button class="bs" onclick="decAct()">Not right now</button>';
-h+='<div style="display:flex;gap:8px;margin-top:8px">';
-[5,10,15].forEach(m=>{h+='<button style="flex:1;padding:10px;border-radius:10px;border:1px solid #e8e4dc;background:#fff;color:#888;font-size:12px;cursor:pointer;font-family:inherit" onclick="snzAct('+m+')">⏰ '+m+'min</button>'});
-h+='</div></div>';x.innerHTML=h}
+function rAP(x){var stress=isStressTrend();var h="<div style=\"padding:20px\">";if(stress){h+="<div style=\"background:linear-gradient(135deg,#fef2f2,#fde8e8);border:1px solid #f5c6c6;border-radius:12px;padding:16px;margin-bottom:16px;text-align:center\"><div style=\"font-size:16px;font-weight:700;color:#a83232;margin-bottom:6px\">\u26A0\uFE0F Stress Trend Detected</div><div style=\"font-size:13px;color:#8b2c2c;line-height:1.5\">Your Ring data shows overnight stress directly controls morning gut. Taking action now can break the cycle.</div><div style=\"font-size:14px;font-weight:700;color:#a83232;margin-top:10px\">Recommended actions:</div></div>"}else{h+="<div style=\"text-align:center;margin-bottom:16px\"><div style=\"font-size:40px;margin-bottom:8px\">\u{1F33F}</div><div style=\"font-size:18px;font-weight:700;color:#3d6b5e\">Taking any action?</div><div style=\"font-size:12px;color:#888;margin-top:4px\">Log what you are doing to manage symptoms</div></div>"}
+h+="<div style=\"display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:16px\">";ACTS.forEach(function(a){var rec=stress&&(a.id==="breathing"||a.id==="meditation"||a.id==="hot_shower"||a.id==="pulsetto");h+="<button class=\"act-btn"+(rec?" rec":"")+"\" onclick=\"logAct('"+a.id+"')\"><span style=\"font-size:28px\">"+a.i+"</span><span>"+a.l+"</span>"+(rec?"<span style=\"font-size:10px;color:#2e7d32;font-weight:600\">\u2B50 Recommended</span>":"")+"</button>"});
+h+="</div><button class=\"bs\" onclick=\"decAct()\">Not right now</button><div style=\"display:flex;gap:8px;margin-top:8px\">";[5,10,15].forEach(function(m){h+="<button style=\"flex:1;padding:10px;border-radius:10px;border:1px solid #e8e4dc;background:#fff;color:#888;font-size:12px;cursor:pointer;font-family:inherit\" onclick=\"snzAct("+m+")\">\u23F0 "+m+"min</button>"});h+="</div></div>";x.innerHTML=h}
 
-// TIMELINE
-function rTL(x){let h="";if(sb){h+='<div class="bk-p"><div class="sec">Backup & Restore</div><button class="bp" style="margin-top:0;font-size:13px;padding:12px" onclick="cb()">📋 Copy</button><div style="border-top:1px solid #eee;margin-top:14px;padding-top:14px"><textarea class="ti" id="iA" placeholder="Paste..." style="height:60px;resize:none;font-size:12px"></textarea><button class="bsm" style="margin-top:8px;width:100%" onclick="ib()">Import</button></div><button class="bs" style="font-size:12px" onclick="tB()">Close</button>';
-if("Notification" in window){h+='<button class="bs" style="font-size:12px;margin-top:4px;color:#3d6b5e" onclick="Notification.requestPermission().then(p=>{fl(p===\x27granted\x27?\x27✅ Notifications enabled\x27:\x27❌ Notifications blocked\x27)})">🔔 '+(Notification.permission==="granted"?"Notifications ON ✅":"Enable Notifications")+'</button>'}
-h+='</div>'}
-const tr=gTr();if(tr.w&&tr.n>=3)h+='<div class="ta">⚠️ <strong>Symptoms trending up</strong> — return to Phase 1-2 foods. Use breathing/meditation to lower stress.</div>';
-if(!hM()){const hr=new Date().getHours();if(hr>=5&&hr<14){h+='<div class="m-card"><div class="m-ti">☀️ How is your gut?</div><div class="m-sub">Tap to rate</div><div class="m-sc">';MS.forEach(s=>{h+='<button class="m-btn" onclick="lM('+s.v+')">'+s.e+'</button>'});h+='</div><div class="m-lr"><span>Rough</span><span>Great</span></div></div>'}}
-if(!E.length){h+='<div class="emp"><div class="emp-i">📋</div><div class="emp-t">Start Tracking</div><div class="emp-x">Log food, meds, or symptoms below.</div></div>'}else{gE().forEach(g=>{h+='<div class="dg"><div class="dh">'+g.label+'</div>';g.items.forEach(e=>{let c,ic,ti,ec="";
-if(e.type==="morning"){c="#d4a843";ic=MS[e.score-1]?.e||"☀️";ti="Morning: "+(MS[e.score-1]?.l||"");ec=" me"}
-else if(e.type==="overnight"){c="#6a7daf";ic="🌙";ti="Night: "+(e.syms||[]).map(s=>s.label).join(", ")+(e.stool?" · "+e.stool.l:"");ec=" oe"}
-else if(e.type==="food"){c="#4a9e7d";ic=e.icon||"🍽️";ti=e.food}
-else if(e.type==="meal"){c="#4a9e7d";ic="🍽️";ti=(e.foods||[]).map(f=>f.l).join(", ")}
-else if(e.type==="med"){c="#7b5ea7";ic=e.icon||"💊";ti=e.med;ec=" mde"}
-else if(e.type==="action"){c="#2e7d32";ic=e.icon||"🌿";ti=e.action;ec=" ae"}
-else if(e.type==="symptom"){c=SV[e.sev]?.c||"#888";ic="📝";ti=(e.syms||[]).map(s=>s.label).join(", ")+(e.stool?" · "+e.stool.l:"")}
-else if(e.type==="checkin"){c="#6a8caf";ic="🔔";ti="2hr: "+e.fl}
-else{c="#888";ic="📝";ti=e.type}
-const svb=(e.type==="symptom"||e.type==="checkin"||e.type==="overnight")&&e.sev!==undefined?'<span class="sb" style="background:'+SV[e.sev]?.c+'">'+SV[e.sev]?.l+'</span>':"";
-const mb=e.type==="morning"?'<span class="sb" style="background:'+(e.score>=4?"#4a9e7d":e.score>=3?"#d4a843":"#c46a3a")+'">'+MS[e.score-1]?.l+'</span>':"";
-const nh=e.note?'<div class="eno">'+e.note+'</div>':"";
-let eh="";if(ei===e.id){eh='<div class="ep" onclick="event.stopPropagation()"><label class="el">Time</label><input type="datetime-local" class="ti" style="padding:8px 10px;font-size:13px" id="eT" value="'+tL(e.ts)+'"><label class="el" style="margin-top:8px">Note</label><input class="ti" style="padding:8px 10px;font-size:13px" id="eN" value="'+(e.note||"")+'" placeholder="Note..."><div class="er"><button class="bsm" onclick="sE(\x27'+e.id+'\x27)">💾</button><button class="bd" onclick="sD(\x27'+e.id+'\x27)">🗑</button></div></div>'}
-h+='<div class="ec'+ec+'" style="border-left:3px solid '+c+'" onclick="tE(\x27'+e.id+'\x27)"><div class="et"><span class="ei">'+ic+'</span><div class="en"><div class="eti">'+ti+'</div><div class="eme">'+ft(e.ts)+' · '+el(e.ts)+' '+svb+mb+'</div></div><span class="eei">'+(ei===e.id?"▲":"✎")+'</span></div>'+nh+eh+'</div>'});h+="</div>"});h+='<div class="th">Tap to edit</div>'}x.innerHTML=h}
+function rTL(x){var h="";if(sb){h+="<div class=\"bk-p\"><div class=\"sec\">Backup & Restore</div><button class=\"bp\" style=\"margin-top:0;font-size:13px;padding:12px\" onclick=\"cb()\">\u{1F4CB} Copy to Clipboard</button><button class=\"bp\" style=\"margin-top:8px;font-size:13px;padding:12px;background:linear-gradient(135deg,#6a8caf,#4a6d8c)\" onclick=\"dlJSON()\">\u2B07\uFE0F Download JSON File</button><div style=\"border-top:1px solid #eee;margin-top:14px;padding-top:14px\"><textarea class=\"ti\" id=\"iA\" placeholder=\"Paste data...\" style=\"height:60px;resize:none;font-size:12px\"></textarea><button class=\"bsm\" style=\"margin-top:8px;width:100%\" onclick=\"ib()\">Import</button></div><button class=\"bs\" style=\"font-size:12px\" onclick=\"tB()\">Close</button></div>"}
+var tr=gTr();if(tr.w&&tr.n>=3)h+="<div class=\"ta\">\u26A0\uFE0F <strong>Symptoms trending up</strong> \u2014 return to Phase 1-2 foods.</div>";
+if(!hM()){var hr=new Date().getHours();if(hr>=5&&hr<14){h+="<div class=\"m-card\"><div class=\"m-ti\">\u2600\uFE0F How is your gut?</div><div class=\"m-sub\">Tap to rate</div><div class=\"m-sc\">";MS.forEach(function(s){h+="<button class=\"m-btn\" onclick=\"lM("+s.v+")\">"+s.e+"</button>"});h+="</div><div class=\"m-lr\"><span>Rough</span><span>Great</span></div></div>"}}
+if(!E.length){h+="<div class=\"emp\"><div class=\"emp-i\">\u{1F4CB}</div><div class=\"emp-t\">Start Tracking</div><div class=\"emp-x\">Log food, meds, or symptoms.</div></div>"}else{
+var mealIds=new Set();E.filter(function(e){return e.type==="meal"}).forEach(function(m){var t=new Date(m.ts).getTime();E.forEach(function(e){if(e.type==="food"&&Math.abs(new Date(e.ts).getTime()-t)<5000){mealIds.add(e.id)}})});
+gE().forEach(function(g){h+="<div class=\"dg\"><div class=\"dh\">"+g.label+"</div>";g.items.forEach(function(e){if(mealIds.has(e.id))return;if(e.type==="checkin")return;var c,ic,ti,ec="";if(e.type==="morning"){c="#d4a843";ic=MS[e.score-1]?MS[e.score-1].e:"\u2600\uFE0F";ti="Morning: "+(MS[e.score-1]?MS[e.score-1].l:"");ec=" me"}else if(e.type==="overnight"){c="#6a7daf";ic="\u{1F319}";ti="Night: "+(e.syms||[]).map(function(s){return s.label}).join(", ")+(e.stool?" \u00B7 "+e.stool.l:"")}else if(e.type==="food"){c="#4a9e7d";ic=e.icon||"\u{1F37D}\uFE0F";ti=e.food}else if(e.type==="meal"){c="#4a9e7d";ic="\u{1F37D}\uFE0F";ti=(e.foods||[]).map(function(f){return f.l}).join(", ")}else if(e.type==="med"){c="#7b5ea7";ic=e.icon||"\u{1F48A}";ti=e.med;ec=" mde"}else if(e.type==="action"){c="#2e7d32";ic=e.icon||"\u{1F33F}";ti=e.action;ec=" ae"}else if(e.type==="symptom"){c=SV[e.sev]?SV[e.sev].c:"#888";ic="\u{1F4DD}";ti=(e.syms||[]).map(function(s){return s.label}).join(", ")+(e.stool?" \u00B7 "+e.stool.l:"")}else{c="#888";ic="\u{1F4DD}";ti=e.type}
+var svb=(e.type==="symptom"||e.type==="overnight")&&e.sev!==undefined?"<span class=\"sb\" style=\"background:"+SV[e.sev].c+"\">"+SV[e.sev].l+"</span>":"";var mb=e.type==="morning"?"<span class=\"sb\" style=\"background:"+(e.score>=4?"#4a9e7d":e.score>=3?"#d4a843":"#c46a3a")+"\">"+MS[e.score-1].l+"</span>":"";var nh=e.note?"<div class=\"eno\">"+e.note+"</div>":"";var eh="";if(ei===e.id){eh="<div class=\"ep\" onclick=\"event.stopPropagation()\"><label class=\"el\">Time</label><input type=\"datetime-local\" class=\"ti\" style=\"padding:8px 10px;font-size:13px\" id=\"eT\" value=\""+tL(e.ts)+"\"><label class=\"el\" style=\"margin-top:8px\">Note</label><input class=\"ti\" style=\"padding:8px 10px;font-size:13px\" id=\"eN\" value=\""+(e.note||"")+"\" placeholder=\"Note...\"><div class=\"er\"><button class=\"bsm\" onclick=\"sE('"+e.id+"')\">Save</button><button class=\"bd\" onclick=\"sD('"+e.id+"')\">Delete</button></div></div>"}
+h+="<div class=\"ec"+ec+"\" style=\"border-left:3px solid "+c+"\" onclick=\"tE('"+e.id+"')\"><div class=\"et\"><span class=\"ei\">"+ic+"</span><div class=\"en\"><div class=\"eti\">"+ti+"</div><div class=\"eme\">"+ft(e.ts)+" \u00B7 "+el(e.ts)+" "+svb+mb+"</div></div><span class=\"eei\">"+(ei===e.id?"\u25B2":"\u270E")+"</span></div>"+nh+eh+"</div>"});h+="</div>"})}x.innerHTML=h}
 
-// FOOD
-function rF(x){const tr=gTr();let h='<div class="sec">Build Your Meal</div>';if(tr.w&&tr.n>=3)h+='<div class="ta">⚠️ Stick to 🟢 Phase 1.</div>';h+='<div class="sel-meal">';if(!mf.length)h+='<span class="sel-empty">Tap foods below</span>';else mf.forEach(id=>{const f=AF.find(f=>f.id===id);if(f)h+='<span class="sel-chip">'+f.i+' '+f.l+'<button onclick="event.stopPropagation();rmMF(\x27'+id+'\x27)">×</button></span>'});h+='</div>';
-[{f:F1,l:"🟢 Phase 1 — Gut Rest",n:"Return here when symptoms flare."},{f:F2,l:"🟡 Phase 2 — Rebuild",n:"Lean protein, cooked veggies."},{f:F3,l:"🟠 Phase 3 — Expand",n:"More variety. One new food/day."},{f:F4,l:"🔴 Phase 4 — Challenge",n:"⚠️ Wheat/gluten flagged. Test carefully."},{f:F5,l:"⚫ Phase 5 — Full Diet",n:"Complex meals. Track carefully."}].forEach(s=>{h+='<div class="fc">'+s.l+'</div><div class="phase-info">'+s.n+'</div><div class="g3">';s.f.forEach(f=>{h+='<button class="pb '+(mf.includes(f.id)?"a":"")+'" onclick="tMF(\x27'+f.id+'\x27)"><span class="pi">'+f.i+'</span><span class="pl">'+f.l+'</span></button>'});h+='</div>'});
-h+='<div class="dv">— or custom —</div><input class="ti" id="cF" placeholder="Type food..." style="margin-bottom:8px"><button class="bsm" style="width:100%" onclick="addCF()">+ Add</button><input class="ti" id="fN" placeholder="Notes" style="margin-top:8px"><div class="tl2">⏰ When?</div><input type="datetime-local" class="tin" id="fT"><button class="bp" onclick="subF()" '+(mf.length?"":"disabled")+'>Log '+mf.length+' Food'+(mf.length!==1?"s":"")+'</button>';x.innerHTML=h}
+function rF(x){var tr=gTr();var h="<div class=\"sec\">Build Your Meal</div>";if(tr.w&&tr.n>=3)h+="<div class=\"ta\">\u26A0\uFE0F Stick to \u{1F7E2} Phase 1.</div>";h+="<div class=\"sel-meal\">";if(!mf.length)h+="<span class=\"sel-empty\">Tap foods below</span>";else mf.forEach(function(id){var f=AF.find(function(f2){return f2.id===id});if(f)h+="<span class=\"sel-chip\">"+f.i+" "+f.l+"<button onclick=\"event.stopPropagation();rmMF('"+id+"')\">x</button></span>"});h+="</div>";
+[{f:F1,l:"\u{1F7E2} Phase 1 \u2014 Gut Rest",n:"Return here when symptoms flare."},{f:F2,l:"\u{1F7E1} Phase 2 \u2014 Rebuild",n:"Lean protein, cooked veggies."},{f:F3,l:"\u{1F7E0} Phase 3 \u2014 Expand",n:"More variety. One new food/day."},{f:F4,l:"\u{1F534} Phase 4 \u2014 Challenge",n:"\u26A0\uFE0F Wheat/gluten flagged."},{f:F5,l:"\u26AB Phase 5 \u2014 Full Diet",n:"Complex meals. Track carefully."}].forEach(function(s){h+="<div class=\"fc\">"+s.l+"</div><div class=\"phase-info\">"+s.n+"</div><div class=\"g3\">";s.f.forEach(function(f){h+="<button class=\"pb "+(mf.includes(f.id)?"a":"")+"\" onclick=\"tMF('"+f.id+"')\"><span class=\"pi\">"+f.i+"</span><span class=\"pl\">"+f.l+"</span></button>"});h+="</div>"});
+h+="<div class=\"fc\">\u{1F964} Drinks</div><div class=\"g3\">";DRINKS.forEach(function(f){h+="<button class=\"pb "+(mf.includes(f.id)?"a":"")+"\" onclick=\"tMF('"+f.id+"')\"><span class=\"pi\">"+f.i+"</span><span class=\"pl\">"+f.l+"</span></button>"});h+="</div>";
+h+="<div class=\"dv\">\u2014 or custom \u2014</div><input class=\"ti\" id=\"cF\" placeholder=\"Type food...\" style=\"margin-bottom:8px\"><button class=\"bsm\" style=\"width:100%\" onclick=\"addCF()\">+ Add</button><input class=\"ti\" id=\"fN\" placeholder=\"Notes\" style=\"margin-top:8px\"><div class=\"tl2\">\u23F0 When?</div><input type=\"datetime-local\" class=\"tin\" id=\"fT\"><button class=\"bp\" onclick=\"subF()\" "+(mf.length?"":"disabled")+">Log "+mf.length+" item"+(mf.length!==1?"s":"")+"</button>";x.innerHTML=h}
 
-// MEDS
-function rMD(x){let h='<div class="sec">Log Medication</div><div class="g2" style="margin-bottom:12px">';MEDS.forEach(m=>{h+='<button class="med-btn '+(selMeds.includes(m.id)?"a":"")+'" onclick="tMed(\x27'+m.id+'\x27)"><span style="font-size:24px">'+m.i+'</span><span style="font-weight:600;font-size:11px">'+m.l+'</span><span style="font-size:10px;color:#999">'+m.t+'</span></button>'});h+='</div>';if(selMeds.length){h+='<input class="ti" id="medNote" placeholder="Dosage..." style="margin-bottom:8px"><div class="tl2">⏰ When?</div><input type="datetime-local" class="tin" id="medTime"><button class="bp" onclick="subMed()">Log '+selMeds.length+' Med'+(selMeds.length!==1?"s":"")+'</button>'}
-const me=E.filter(e=>e.type==="med");if(me.length){h+='<div style="margin-top:20px" class="sec">Effectiveness</div>';const ms={};me.forEach(m=>{if(!ms[m.med])ms[m.med]={n:0,h:0};ms[m.med].n++;const mT=new Date(m.ts).getTime();const b=E.filter(e=>e.type==="symptom"&&new Date(e.ts).getTime()>mT-72e5&&new Date(e.ts).getTime()<=mT);const a=E.filter(e=>e.type==="symptom"&&new Date(e.ts).getTime()>mT&&new Date(e.ts).getTime()<mT+144e5);if(a.reduce((x2,e)=>x2+(e.sev||0),0)<b.reduce((x2,e)=>x2+(e.sev||0),0))ms[m.med].h++});Object.entries(ms).forEach(([med,s])=>{const eff=s.n?Math.round(s.h/s.n*100):0;const c=eff>=60?"#4a9e7d":eff>=30?"#d4a843":"#c46a3a";h+='<div class="ic"><div style="display:flex;justify-content:space-between"><span style="font-size:13px;font-weight:600">'+med+'</span><span style="font-size:12px;color:#777">'+s.n+'×</span></div><div style="display:flex;align-items:center;gap:6px;margin-top:6px;font-size:11px;color:#777"><span>Effect:</span><div style="flex:1;height:6px;background:#eee;border-radius:3px;overflow:hidden"><div style="height:100%;width:'+eff+'%;background:'+c+';border-radius:3px"></div></div><span style="font-weight:600;color:'+c+'">'+eff+'%</span></div></div>'})}x.innerHTML=h}
+function rMD(x){var h="<div class=\"sec\">Log Medication</div><div class=\"g2\" style=\"margin-bottom:12px\">";MEDS.forEach(function(m){h+="<button class=\"med-btn "+(selMeds.includes(m.id)?"a":"")+"\" onclick=\"tMed('"+m.id+"')\"><span style=\"font-size:24px\">"+m.i+"</span><span style=\"font-weight:600;font-size:11px\">"+m.l+"</span><span style=\"font-size:10px;color:#999\">"+m.t+"</span></button>"});h+="</div>";if(selMeds.length){h+="<input class=\"ti\" id=\"medNote\" placeholder=\"Dosage...\" style=\"margin-bottom:8px\"><div class=\"tl2\">\u23F0 When?</div><input type=\"datetime-local\" class=\"tin\" id=\"medTime\"><button class=\"bp\" onclick=\"subMed()\">Log "+selMeds.length+" Med"+(selMeds.length!==1?"s":"")+"</button>"}x.innerHTML=h}
 
-// SYMPTOM
-function rS(x){let h='<div class="sec">What are you feeling?</div><div class="g2">';SY.forEach(s=>{h+='<button class="syb '+(ss.includes(s.id)?"a":"")+'" onclick="tSy(\x27'+s.id+'\x27)"><span style="font-size:18px">'+s.icon+'</span><span>'+s.label+'</span></button>'});h+='</div><div style="font-size:13px;font-weight:600;color:#666;margin-bottom:8px">Bowel movement?</div><div class="g4">';STL.forEach(s=>{h+='<button class="stb '+(sl===s.id?"a":"")+'" onclick="tSl(\x27'+s.id+'\x27)"><span style="font-size:18px">'+s.i+'</span><span>'+s.l+'</span></button>'});h+='</div>';if(ss.length||sl){h+='<div class="sec">Severity</div><div class="svr">';SV.slice(1).forEach(s=>{h+='<button class="svb '+(sv===s.v?"a":"")+'" style="'+(sv===s.v?"background:"+s.c+";color:#fff;border-color:"+s.c:"")+'" onclick="sv='+s.v+';R()">'+s.l+'</button>'});h+='</div><input class="ti" id="sN" placeholder="Notes..."><div class="tl2">⏰ When?</div><input type="datetime-local" class="tin" id="sTime"><button class="bp" onclick="subS()">Log Symptoms</button>'}x.innerHTML=h}
+function rS(x){var h="<div class=\"sec\">What are you feeling?</div><div class=\"g2\">";SY.forEach(function(s){h+="<button class=\"syb "+(ss.includes(s.id)?"a":"")+"\" onclick=\"tSy('"+s.id+"')\"><span style=\"font-size:18px\">"+s.icon+"</span><span>"+s.label+"</span></button>"});h+="</div><div style=\"font-size:13px;font-weight:600;color:#666;margin-bottom:8px\">Bowel movement?</div><div class=\"g4\">";STL.forEach(function(s){h+="<button class=\"stb "+(sl===s.id?"a":"")+"\" onclick=\"tSl('"+s.id+"')\"><span style=\"font-size:18px\">"+s.i+"</span><span>"+s.l+"</span></button>"});h+="</div>";if(ss.length||sl){h+="<div class=\"sec\">Severity</div><div class=\"svr\">";SV.slice(1).forEach(function(s){h+="<button class=\"svb "+(sv===s.v?"a":"")+"\" style=\""+(sv===s.v?"background:"+s.c+";color:#fff;border-color:"+s.c:"")+"\" onclick=\"sv="+s.v+";R()\">"+s.l+"</button>"});h+="</div><input class=\"ti\" id=\"sN\" placeholder=\"Notes...\"><div class=\"tl2\">\u23F0 When?</div><input type=\"datetime-local\" class=\"tin\" id=\"sTime\"><button class=\"bp\" onclick=\"subS()\">Log Symptoms</button>"}x.innerHTML=h}
 
-// NIGHT
-function rO(x){const ts=new Date().toLocaleTimeString([],{hour:"numeric",minute:"2-digit"});let h='<div class="on-p"><div class="on-ti">🌙 Night Log</div><div class="on-sub">'+ts+'</div><div class="on-g">';SY.forEach(s=>{h+='<button class="on-btn '+(os.includes(s.id)?"a":"")+'" onclick="tOS(\x27'+s.id+'\x27)"><span class="on-ic">'+s.icon+'</span>'+s.label+'</button>'});h+='</div><div style="font-size:13px;color:rgba(255,255,255,.5);margin-bottom:8px">Bowel?</div><div class="on-st">';STL.forEach(s=>{h+='<button class="on-stb '+(ol===s.id?"a":"")+'" onclick="tOL(\x27'+s.id+'\x27)">'+s.i+' '+s.l+'</button>'});h+='</div><div style="font-size:13px;color:rgba(255,255,255,.5);margin-bottom:8px">Severity</div><div class="on-sv">';SV.forEach(s=>{h+='<button class="on-sb '+(ov===s.v?"a":"")+'" style="'+(ov===s.v?"background:"+s.c+";border-color:"+s.c:"")+'" onclick="ov='+s.v+';R()">'+s.l+'</button>'});h+='</div><button class="on-go" onclick="subO()">Log & Sleep</button><button class="on-sk" onclick="sT(\x27tl\x27)">Cancel</button></div>';x.innerHTML=h}
+function rO(x){var ts=new Date().toLocaleTimeString([],{hour:"numeric",minute:"2-digit"});var h="<div class=\"on-p\"><div class=\"on-ti\">\u{1F319} Night Log</div><div class=\"on-sub\">"+ts+"</div><div class=\"on-g\">";SY.forEach(function(s){h+="<button class=\"on-btn "+(os.includes(s.id)?"a":"")+"\" onclick=\"tOS('"+s.id+"')\"><span class=\"on-ic\">"+s.icon+"</span>"+s.label+"</button>"});h+="</div><div style=\"font-size:13px;color:rgba(255,255,255,.5);margin-bottom:8px\">Bowel?</div><div class=\"on-st\">";STL.forEach(function(s){h+="<button class=\"on-stb "+(ol===s.id?"a":"")+"\" onclick=\"tOL('"+s.id+"')\">"+s.i+" "+s.l+"</button>"});h+="</div><div style=\"font-size:13px;color:rgba(255,255,255,.5);margin-bottom:8px\">Severity</div><div class=\"on-sv\">";SV.forEach(function(s){h+="<button class=\"on-sb "+(ov===s.v?"a":"")+"\" style=\""+(ov===s.v?"background:"+s.c+";border-color:"+s.c:"")+"\" onclick=\"ov="+s.v+";R()\">"+s.l+"</button>"});h+="</div><button class=\"on-go\" onclick=\"subO()\">Log & Sleep</button><button style=\"width:100%;padding:10px;border:none;background:none;color:rgba(255,255,255,.4);font-size:13px;cursor:pointer;margin-top:6px;font-family:inherit\" onclick=\"sT('tl')\">Cancel</button></div>";x.innerHTML=h}
 
-// CHECK-IN
-function rC(x){if(!pc.length){x.innerHTML='<div class="emp"><div class="emp-i">✅</div><div class="emp-t">No Check-ins</div></div>';return}const p=pc[0];let h='<div class="ch"><div style="font-size:40px">🔔</div><div class="cht">2hr Check-in</div><div style="font-size:14px;color:#555;margin-top:6px">'+(p.fe.food||"meal")+'</div></div><div class="sec">Reaction</div><div class="svr">';SV.forEach(s=>{h+='<button class="svb '+(sv===s.v?"a":"")+'" style="'+(sv===s.v?"background:"+s.c+";color:#fff;border-color:"+s.c:"")+'" onclick="sv='+s.v+';R()">'+s.l+'</button>'});h+='</div><div class="sec">Symptoms?</div><div class="g2">';SY.forEach(s=>{h+='<button class="syb '+(ss.includes(s.id)?"a":"")+'" onclick="tSy(\x27'+s.id+'\x27)"><span style="font-size:18px">'+s.icon+'</span><span>'+s.label+'</span></button>'});h+='</div><button class="bp" onclick="subC()">Submit</button><button class="bs" onclick="sT(\x27tl\x27)">Skip</button>';x.innerHTML=h}
-
-// INSIGHTS with Weekly Intelligence + Action Effectiveness
 function rI(x){
-const syE=E.filter(e=>e.type==="symptom"||e.type==="overnight"),chks=E.filter(e=>e.type==="checkin"),aF=E.filter(e=>e.type==="food"||e.type==="meal"),aBM=syE.filter(e=>e.stool),mo=E.filter(e=>e.type==="morning").sort((a,b)=>new Date(a.ts)-new Date(b.ts)),me=E.filter(e=>e.type==="med"),acts=E.filter(e=>e.type==="action");
-let h="";const n7=Date.now()-7*864e5;
-const r7s=E.filter(e=>(e.type==="symptom"||e.type==="overnight")&&new Date(e.ts).getTime()>n7);
-const r7b=r7s.filter(e=>e.stool);const r7m=E.filter(e=>e.type==="morning"&&new Date(e.ts).getTime()>n7);
-const r7d=new Set(E.filter(e=>new Date(e.ts).getTime()>n7).map(e=>new Date(e.ts).toDateString())).size||1;
-const c7s=r7s.reduce((a,e)=>a+(e.sev||0),0)/r7d,c7b=r7b.length/r7d,c7m=r7m.length?r7m.reduce((a,e)=>a+(e.score||0),0)/r7m.length:0;
-function trA(c,b,inv){const d=c-b;const ok=inv?d<-.3:d>.3;const bad=inv?d>.3:d<-.3;if(ok)return'<span style="color:#4a9e7d;font-weight:700">▲'+c.toFixed(1)+'</span>';if(bad)return'<span style="color:#c46a3a;font-weight:700">▼'+c.toFixed(1)+'</span>';return'<span style="color:#888;font-weight:700">●'+c.toFixed(1)+'</span>'}
-const tr=gTr();if(tr.w&&tr.n>=3)h+='<div class="ta">⚠️ <strong>3-Day: Worsening</strong> — Step back to Phase 1-2.</div>';
-else if(tr.im&&tr.n>=3)h+='<div class="ta tg">✅ <strong>3-Day: Improving</strong></div>';
+var syE=E.filter(function(e){return e.type==="symptom"||e.type==="overnight"});
+var aF=E.filter(function(e){return e.type==="food"||e.type==="meal"});
+var aBM=syE.filter(function(e){return e.stool});
+var mo=E.filter(function(e){return e.type==="morning"}).sort(function(a,b){return new Date(a.ts)-new Date(b.ts)});
+var acts=E.filter(function(e){return e.type==="action"});
+var h="";
+var n7=Date.now()-7*864e5;
+var r7s=E.filter(function(e){return(e.type==="symptom"||e.type==="overnight")&&new Date(e.ts).getTime()>n7});
+var r7b=r7s.filter(function(e){return e.stool});
+var r7m=E.filter(function(e){return e.type==="morning"&&new Date(e.ts).getTime()>n7});
+var r7d=new Set(E.filter(function(e){return new Date(e.ts).getTime()>n7}).map(function(e){return new Date(e.ts).toDateString()})).size||1;
+var c7s=r7s.reduce(function(a,e){return a+(e.sev||0)},0)/r7d;
+var c7b=r7b.length/r7d;
+var c7m=r7m.length?r7m.reduce(function(a,e){return a+(e.score||0)},0)/r7m.length:0;
 
-// Weekly Intelligence
-h+='<div class="wi"><div class="ict">🧠 Current vs Weekly Benchmark</div><div style="font-size:10px;color:rgba(255,255,255,.5);margin-bottom:8px">May 9 combined analysis</div><div class="wm">';
-h+='<div class="wmc"><div class="wmc-l">Severity</div><div class="wmc-b">Bench:'+WR.bench.avgSev+'</div><div class="wmc-v">'+trA(c7s,WR.bench.avgSev,true)+'</div></div>';
-h+='<div class="wmc"><div class="wmc-l">BMs</div><div class="wmc-b">Bench:'+WR.bench.avgBM+'</div><div class="wmc-v">'+trA(c7b,WR.bench.avgBM,true)+'</div></div>';
-h+='<div class="wmc"><div class="wmc-l">Morning</div><div class="wmc-b">Bench:'+WR.bench.avgMorn+'</div><div class="wmc-v">'+trA(c7m,WR.bench.avgMorn,false)+'</div></div>';
-h+='</div></div>';
+function bm(current,bench,label,inverse){
+var diff=current-bench;var pct=bench>0?Math.abs(diff/bench*100):0;
+var better=inverse?diff<-5:diff>0.3;var worse=inverse?diff>5:diff<-0.3;
+var status,color,word;
+if(better){status="\u2705";color="#4a9e7d";word="Better than benchmark"}
+else if(worse){status="\u26A0\uFE0F";color="#c46a3a";word="Worse than benchmark"}
+else{status="\u2796";color="#888";word="At benchmark"}
+return "<div class=\"wmc\"><div class=\"wmc-l\">"+label+"</div><div style=\"font-size:16px;font-weight:700;color:"+color+"\">"+current.toFixed(1)+"</div><div class=\"bm-label\" style=\"background:"+color+";color:#fff\">"+word+"</div><div class=\"wmc-b\">Benchmark: "+bench+"</div></div>"}
 
-// Weekly findings
-h+='<div class="ic"><div class="ict">📋 Analysis Findings</div>';WR.findings.forEach(f=>{const c=f.s==="high"?"#c46a3a":f.s==="good"?"#4a9e7d":f.s==="info"?"#6a8caf":"#d4a843";h+='<div class="wf"><span style="font-size:16px">'+f.i+'</span><div><div style="font-size:12px;font-weight:700;color:'+c+'">'+f.t+'</div><div style="font-size:11px;color:#666;line-height:1.4;margin-top:2px">'+f.b+'</div></div></div>'});h+='</div>';
+var tr=gTr();if(tr.w&&tr.n>=3)h+="<div class=\"ta\">\u26A0\uFE0F <strong>3-Day: Worsening</strong> \u2014 Step back to Phase 1-2.</div>";
+else if(tr.im&&tr.n>=3)h+="<div class=\"ta tg\">\u2705 <strong>3-Day: Improving</strong></div>";
 
-// Action effectiveness
-if(acts.length>0){h+='<div class="ic"><div class="ict">🌿 Action Effectiveness</div>';
-const as={};acts.forEach(a=>{if(!as[a.action])as[a.action]={n:0,h:0,i:a.icon};as[a.action].n++;const aT=new Date(a.ts).getTime();const bSym=E.filter(e=>e.type==="symptom"&&new Date(e.ts).getTime()>aT-36e5&&new Date(e.ts).getTime()<=aT);const aSym=E.filter(e=>e.type==="symptom"&&new Date(e.ts).getTime()>aT&&new Date(e.ts).getTime()<aT+72e5);if(aSym.reduce((x2,e)=>x2+(e.sev||0),0)<bSym.reduce((x2,e)=>x2+(e.sev||0),0))as[a.action].h++});
-Object.entries(as).forEach(([act,s])=>{const eff=s.n?Math.round(s.h/s.n*100):0;const c=eff>=60?"#4a9e7d":eff>=30?"#d4a843":"#c46a3a";
-h+='<div class="ir"><span style="font-size:16px">'+s.i+'</span><div style="font-size:13px;font-weight:600;flex:1">'+act+'</div><div class="ib"><div class="if2" style="width:'+eff+'%;background:'+c+'"></div></div><div style="font-size:12px;color:#777;width:50px;text-align:right">'+eff+'% ('+s.n+')</div></div>'});h+='</div>'}
+h+="<div class=\"wi\"><div class=\"ict\">\u{1F9E0} Your Week vs Benchmark</div><div style=\"font-size:10px;color:rgba(255,255,255,.5);margin-bottom:8px\">"+WR.gen+" combined analysis (Gut + Ring)</div><div class=\"wm\">";
+h+=bm(c7s,WR.bench.avgSev,"Daily Severity",true);
+h+=bm(c7b,WR.bench.avgBM,"Daily BMs",true);
+h+=bm(c7m,WR.bench.avgMorn,"Morning Score",false);
+h+="</div></div>";
 
-// Food risk
-h+='<div class="ic"><div class="ict">🍽️ Food Risk</div><div style="font-size:11px;color:#a83232;font-weight:600;margin:4px 0">🔴 '+WR.risk.suspect.join(", ")+'</div><div style="font-size:11px;color:#d4a843;font-weight:600;margin:4px 0">🟡 '+WR.risk.watch.join(", ")+'</div><div style="font-size:11px;color:#4a9e7d;font-weight:600;margin:4px 0">🟢 '+WR.risk.clear.join(", ")+'</div></div>';
+h+="<div class=\"ic\"><div class=\"ict\">\u{1F4CB} Analysis Findings ("+WR.gen+")</div>";
+WR.findings.forEach(function(f){var c=f.s==="high"?"#c46a3a":f.s==="good"?"#4a9e7d":f.s==="info"?"#6a8caf":"#d4a843";h+="<div class=\"wf\"><span style=\"font-size:16px\">"+f.i+"</span><div><div style=\"font-size:12px;font-weight:700;color:"+c+"\">"+f.t+"</div><div style=\"font-size:11px;color:#666;line-height:1.4;margin-top:2px\">"+f.b+"</div></div></div>"});h+="</div>";
 
-// Actions
-h+='<div class="ic" style="background:linear-gradient(135deg,#e8f5e9,#c8e6c9);border:1px solid #a5d6a7"><div class="ict" style="color:#2e7d32">🎯 Actions</div>';WR.actions.forEach((a,i)=>{h+='<div style="font-size:12px;color:#1b5e20;padding:3px 0"><strong>'+(i+1)+'.</strong> '+a+'</div>'});h+='</div>';
+if(acts.length>0){h+="<div class=\"ic\"><div class=\"ict\">\u{1F33F} Action Effectiveness</div><div style=\"font-size:10px;color:#999;margin-bottom:8px\">Symptom severity before vs 2hrs after action</div>";
+var as2={};acts.forEach(function(a){if(!as2[a.action])as2[a.action]={n:0,before:0,after:0,i:a.icon,morns:[]};as2[a.action].n++;var aT=new Date(a.ts).getTime();var bSym=E.filter(function(e){return e.type==="symptom"&&new Date(e.ts).getTime()>aT-36e5&&new Date(e.ts).getTime()<=aT});var aSym=E.filter(function(e){return e.type==="symptom"&&new Date(e.ts).getTime()>aT&&new Date(e.ts).getTime()<aT+72e5});as2[a.action].before+=bSym.reduce(function(x2,e){return x2+(e.sev||0)},0);as2[a.action].after+=aSym.reduce(function(x2,e){return x2+(e.sev||0)},0);var nextMorn=E.find(function(e){return e.type==="morning"&&new Date(e.ts).getTime()>aT&&new Date(e.ts).getTime()<aT+18*36e5});if(nextMorn)as2[a.action].morns.push(nextMorn.score)});
+Object.entries(as2).forEach(function(pair){var act=pair[0],s=pair[1];var sevChange=s.n>0?((s.after-s.before)/s.n).toFixed(1):"0";var avgMorn=s.morns.length?s.morns.reduce(function(a,b){return a+b},0)/s.morns.length:0;var c2=parseFloat(sevChange)<=0?"#4a9e7d":"#c46a3a";
+h+="<div style=\"padding:10px 0;border-bottom:1px solid #f0f0f0\"><div style=\"display:flex;align-items:center;gap:8px\"><span style=\"font-size:16px\">"+s.i+"</span><div style=\"flex:1\"><div style=\"font-size:13px;font-weight:600\">"+act+"</div><div style=\"font-size:11px;color:#999\">Used "+s.n+"x</div></div></div><div style=\"display:flex;gap:12px;margin-top:6px;font-size:11px\"><div>Severity change: <strong style=\"color:"+c2+"\">"+sevChange+"</strong></div>"+(avgMorn?"<div>Next AM: <strong style=\"color:"+(avgMorn>=3?"#4a9e7d":"#c46a3a")+"\">"+avgMorn.toFixed(1)+"/5</strong></div>":"")+"</div></div>"});h+="</div>"}
 
-// Live tracker section
-h+='<div style="margin-top:16px;padding-top:12px;border-top:2px solid #e8e4dc"><div style="font-size:11px;color:#999;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px">📊 Live Tracker</div></div>';
+h+="<div class=\"ic\"><div class=\"ict\">\u{1F37D}\uFE0F Food Risk</div><div style=\"font-size:11px;color:#a83232;font-weight:600;margin:4px 0\">\u{1F534} "+WR.risk.suspect.join(", ")+"</div><div style=\"font-size:11px;color:#d4a843;font-weight:600;margin:4px 0\">\u{1F7E1} "+WR.risk.watch.join(", ")+"</div><div style=\"font-size:11px;color:#4a9e7d;font-weight:600;margin:4px 0\">\u{1F7E2} "+WR.risk.clear.join(", ")+"</div></div>";
 
-// Morning trend
-if(mo.length>=2){h+='<div class="ic"><div class="ict">📈 Morning Trend</div><div class="chart-row">';mo.slice(-14).forEach(m=>{const p=(m.score/5)*100;const c=m.score>=4?"#4a9e7d":m.score>=3?"#d4a843":"#c46a3a";h+='<div class="chart-bar" style="height:'+p+'%;background:'+c+'"></div>'});h+='</div><div class="chart-labels">';mo.slice(-14).forEach(m=>{const d=new Date(m.ts);h+='<div class="chart-lbl">'+(d.getMonth()+1)+'/'+d.getDate()+'</div>'});h+='</div></div>'}
+h+="<div class=\"ic\" style=\"background:linear-gradient(135deg,#e8f5e9,#c8e6c9);border:1px solid #a5d6a7\"><div class=\"ict\" style=\"color:#2e7d32\">\u{1F3AF} Actions</div>";WR.actions.forEach(function(a,i){h+="<div style=\"font-size:12px;color:#1b5e20;padding:3px 0\"><strong>"+(i+1)+".</strong> "+a+"</div>"});h+="</div>";
 
-// BM dashboard
-if(aBM.length){const sc={solid:0,soft:0,loose:0,diarrhea:0};aBM.forEach(e=>{if(sc[e.stool.id]!==undefined)sc[e.stool.id]++});const tot=aBM.length;const cols={solid:"#4a9e7d",soft:"#8cb86e",loose:"#d4a843",diarrhea:"#a83232"};h+='<div class="ic"><div class="ict">🚽 BMs ('+tot+')</div><div style="display:flex;gap:12px;justify-content:center;margin:8px 0">';["solid","soft","loose","diarrhea"].forEach(k=>{const p=tot?Math.round(sc[k]/tot*100):0;h+='<div style="text-align:center"><div style="font-size:18px;font-weight:700;color:'+cols[k]+'">'+p+'%</div><div style="font-size:10px;color:#888">'+k.charAt(0).toUpperCase()+k.slice(1)+'</div></div>'});h+='</div></div>'}
+h+="<div style=\"margin-top:16px;padding-top:12px;border-top:2px solid #e8e4dc\"><div style=\"font-size:11px;color:#999;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px\">\u{1F4CA} Live Tracker</div></div>";
 
-// Symptom frequency
-const sf={};syE.forEach(e=>(e.syms||[]).forEach(s=>{sf[s.label]=(sf[s.label]||0)+1}));chks.forEach(c2=>(c2.syms||[]).forEach(s=>{sf[s.label]=(sf[s.label]||0)+1}));const sa=Object.entries(sf).sort(([,a2],[,b2])=>b2-a2);
-if(sa.length){const mx=sa[0][1];h+='<div class="ic"><div class="ict">📊 Symptom Frequency</div>';sa.forEach(([s,c2])=>{h+='<div class="ir"><div style="font-size:13px;font-weight:600;flex:1">'+s+'</div><div class="ib"><div class="if2" style="width:'+(c2/mx*100)+'%;background:#c46a3a"></div></div><div style="font-size:12px;color:#777;width:40px;text-align:right">'+c2+'×</div></div>'});h+='</div>'}
+if(mo.length>=2){h+="<div class=\"ic\"><div class=\"ict\">\u{1F4C8} Morning Trend</div><div class=\"chart-row\">";mo.slice(-14).forEach(function(m){var p=(m.score/5)*100;var c2=m.score>=4?"#4a9e7d":m.score>=3?"#d4a843":"#c46a3a";h+="<div class=\"chart-bar\" style=\"height:"+p+"%;background:"+c2+"\"></div>"});h+="</div><div class=\"chart-labels\">";mo.slice(-14).forEach(function(m){var d=new Date(m.ts);h+="<div class=\"chart-lbl\">"+(d.getMonth()+1)+"/"+d.getDate()+"</div>"});h+="</div></div>"}
 
-// Stats
-h+='<div class="ic"><div class="ict">📋 Summary</div><div class="sg"><div class="sc"><div class="sn2">'+E.length+'</div><div class="sl">Entries</div></div><div class="sc"><div class="sn2">'+acts.length+'</div><div class="sl">Actions</div></div><div class="sc"><div class="sn2">'+me.length+'</div><div class="sl">Meds</div></div></div></div>';
-if(E.length)h+='<button class="bs" style="margin-top:12px;color:#a83232" onclick="if(confirm(\x27Clear all?\x27)){E=[];sd();R()}">Reset All</button>';
+if(aBM.length){var sc2={solid:0,soft:0,loose:0,diarrhea:0};aBM.forEach(function(e){if(sc2[e.stool.id]!==undefined)sc2[e.stool.id]++});var tot=aBM.length;h+="<div class=\"ic\"><div class=\"ict\">\u{1F6BD} BMs ("+tot+")</div><div style=\"display:flex;gap:12px;justify-content:center;margin:8px 0\">";["solid","soft","loose","diarrhea"].forEach(function(k){var p=tot?Math.round(sc2[k]/tot*100):0;var cols2={solid:"#4a9e7d",soft:"#8cb86e",loose:"#d4a843",diarrhea:"#a83232"};h+="<div style=\"text-align:center\"><div style=\"font-size:18px;font-weight:700;color:"+cols2[k]+"\">"+p+"%</div><div style=\"font-size:10px;color:#888\">"+k.charAt(0).toUpperCase()+k.slice(1)+"</div></div>"});h+="</div></div>"}
+
+var sf={};syE.forEach(function(e){(e.syms||[]).forEach(function(s){sf[s.label]=(sf[s.label]||0)+1})});var sa=Object.entries(sf).sort(function(a,b){return b[1]-a[1]});
+if(sa.length){var mx=sa[0][1];h+="<div class=\"ic\"><div class=\"ict\">\u{1F4CA} Symptom Frequency</div>";sa.forEach(function(pair){h+="<div class=\"ir\"><div style=\"font-size:13px;font-weight:600;flex:1\">"+pair[0]+"</div><div class=\"ib\"><div class=\"if2\" style=\"width:"+(pair[1]/mx*100)+"%;background:#c46a3a\"></div></div><div style=\"font-size:12px;color:#777;width:40px;text-align:right\">"+pair[1]+"x</div></div>"});h+="</div>"}
+
+h+="<div class=\"ic\"><div class=\"ict\">\u{1F4CB} Summary</div><div class=\"sg\"><div class=\"sc\"><div class=\"sn2\">"+E.length+"</div><div class=\"sl\">Entries</div></div><div class=\"sc\"><div class=\"sn2\">"+acts.length+"</div><div class=\"sl\">Actions</div></div><div class=\"sc\"><div class=\"sn2\">"+aBM.length+"</div><div class=\"sl\">BMs</div></div></div></div>";
+if(E.length)h+="<button class=\"bs\" style=\"margin-top:12px;color:#a83232\" onclick=\"if(confirm('Clear all?')){E=[];sd();R()}\">Reset All</button>";
 x.innerHTML=h}
 
-ld();R();setInterval(cP,6e4);
-
-// Notification system
-function reqNotifPerm(){
-  if("Notification" in window && Notification.permission==="default"){
-    Notification.requestPermission();
-  }
-}
-reqNotifPerm();
-
-function sendNotif(title, body, onclick){
-  if("Notification" in window && Notification.permission==="granted"){
-    try{
-      const n=new Notification(title,{body:body,icon:"🌱",badge:"🌱",tag:"gut-reset-"+Date.now(),requireInteraction:true});
-      if(onclick) n.onclick=function(){window.focus();onclick();n.close()};
-      return true;
-    }catch(e){
-      // Fallback for contexts where Notification constructor fails
-      if("serviceWorker" in navigator && navigator.serviceWorker.controller){
-        navigator.serviceWorker.controller.postMessage({type:"notify",title,body});
-        return true;
-      }
-    }
-  }
-  return false;
-}
-
-// Also check for pending 2hr check-ins and notify
-function checkAndNotify(){
-  cP();
-  if(pc.length>0){
-    sendNotif("🔔 2hr Check-in Due","How do you feel after "+(pc[0].fe.food||"your meal")+"?",function(){sPC();R()});
-  }
-}
-setInterval(checkAndNotify, 120000); // Check every 2 min
-
+ld();R();
+if("Notification" in window&&Notification.permission==="default")Notification.requestPermission();
 </script></body></html>
