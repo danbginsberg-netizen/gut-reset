@@ -92,31 +92,43 @@ actions:["Dinner before 6:30pm","3-day gluten test","Evening stress protocol dai
 
 const WR_ARCHIVE=[
 {id:1,date:"May 9, 2026",days:"Apr 14 - May 9",entries:585,
-metrics:{sev:"10.0/day",bm:"3.0/day",morn:"3.3/5",stool:"3.5",stress:"18.8 (P1:6.9 P2:37.2)",sleep:"53"},
+kpis:[{l:"Entries",v:"585",c:"#3d6b5e"},{l:"Days",v:"26",c:"#3d6b5e"},{l:"Ring Stress",v:"18.8",c:"#d4a843"}],
+comparisons:[
+{l:"Phase 1 Stress",w1:"6.9",c:"#4a9e7d"},{l:"Phase 2 Stress",w1:"37.2",c:"#c46a3a"},
+{l:"Overnight Stress",w1:"17.9",c:"#d4a843"},{l:"Sleep Score",w1:"53",c:"#d4a843"},
+{l:"Stool",w1:"3.5",c:"#4a9e7d"},{l:"Morning Score",w1:"3.3",c:"#d4a843"}],
 findings:[
-"Stress surged 562% (7 to 39) starting Apr 30 — dominant driver",
-"Bimodal reaction: Wave 1 at 0-2hr, Wave 2 at 7-9hr",
-"82% of overnight wakes cluster at 4-6am",
-"Overnight stress strongest predictor of morning gut (r=-0.56)",
-"42% of urgency signals are false alarms",
-"Wheat/gluten pattern: pizza, bread, breadsticks flagged",
-"Stool consistency held solid (3.4-3.6) despite stress surge",
-"Snoring paradox: more snoring = fewer wakes (deep sleep marker)"
-],
-actions:["Dinner before 6:30pm","3-day gluten test","Evening stress protocol","Retrain urgency signals","Weekly data review"]},
+{i:"\u26A0\uFE0F",t:"Stress 562% Surge",b:"Ring stress 7\u219239 starting Apr 30.",s:"high"},
+{i:"\u{1F319}",t:"Overnight Stress r=-0.56",b:"Strongest predictor of morning gut score.",s:"high"},
+{i:"\u23F0",t:"4am Wake Cluster",b:"82% of significant wakes at 4-6am.",s:"high"},
+{i:"\u{1F52C}",t:"Bimodal Reaction",b:"Wave 1 at 0-2hr, Wave 2 at 7-9hr.",s:"med"},
+{i:"\u{1F355}",t:"Wheat/Gluten Flag",b:"Pizza, breadsticks, bread all elevated.",s:"high"},
+{i:"\u2705",t:"Stool Held Solid",b:"3.4-3.6 despite stress surge.",s:"good"},
+{i:"\u{1F4A4}",t:"Snoring Paradox",b:"More snoring = fewer wakes.",s:"info"},
+{i:"\u{1F493}",t:"Vagus Nerve",b:"Lower HR = more gut symptoms (r=-0.43).",s:"info"}],
+symChanges:[{l:"Gas",v:65},{l:"Pain",v:74},{l:"Bloating",v:38},{l:"Cramps",v:28},{l:"Urgency",v:13},{l:"Burning",v:13}],
+actions:["Dinner before 6:30pm","3-day gluten test","Evening stress protocol","Retrain urgency signals","Weekly data review"],
+stressPhases:[{l:"Phase 1",v:6.9,c:"#4a9e7d"},{l:"Phase 2",v:37.2,c:"#c46a3a"}]},
+
 {id:2,date:"May 15, 2026",days:"May 10 - May 15",entries:790,
-metrics:{sev:"11.6/day",bm:"3.0/day",morn:"3.2/5",stool:"3.6",stress:"34.3 (16 days at 5x)",sleep:"46 (down from 53)"},
+kpis:[{l:"Entries",v:"790",c:"#3d6b5e"},{l:"Actions",v:"36",c:"#d4a843"},{l:"Ring Stress",v:"34.3",c:"#c46a3a"}],
+comparisons:[
+{l:"Severity/day",w1:"10.0",w2:"11.6",d:"worse"},{l:"Morning",w1:"3.3",w2:"3.2",d:"flat"},
+{l:"BMs/day",w1:"3.0",w2:"3.0",d:"flat"},{l:"Stool",w1:"3.5",w2:"3.6",d:"better"},
+{l:"Ring Stress",w1:"37.2",w2:"34.3",d:"flat"},{l:"Sleep",w1:"53",w2:"46",d:"worse"}],
 findings:[
-"Stress plateau: 34.3 — barely down from 37.2, no regime break after 16 days",
-"Symptom frequency DOWN across all types (gas -62%, bloating -63%, cramps -100%)",
-"But severity per event UP (10.0 to 11.6) — fewer but harder episodes",
-"36 wellness actions taken vs 0 prior — compound interest building",
-"Sleep declining: 53 to 46, May 13 was 31 (worst recorded)",
-"Phase 4 foods introduced (bread, cereal, coffee) during peak stress",
-"Lag effect confirmed: actions reduce symptoms in hours, trend reversal takes 24-48hr",
-"May 11 worst day (sev 24) despite 8 actions — stress was pre-loaded"
-],
-actions:["Evening protocol (highest priority)","Pull back to Phase 2 diet","Maintain 6+ daily actions","Dinner before 6:30pm","Defer gluten test until stress <20","Sunday weekly export"]}
+{i:"\u26A0\uFE0F",t:"Stress Still Elevated",b:"34.3 \u2014 16 days at 5x baseline, no regime break.",s:"high"},
+{i:"\u{1F62A}",t:"Sleep Declining",b:"53\u219246. May 13 was 31 (worst recorded).",s:"high"},
+{i:"\u{1F4C9}",t:"Sym Frequency DOWN",b:"Gas -62%, Bloating -63%, Cramps -100%.",s:"good"},
+{i:"\u{1F4C8}",t:"Severity Per Event UP",b:"10.0\u219211.6. Fewer but harder episodes.",s:"med"},
+{i:"\u{1F4AA}",t:"36 Actions Taken",b:"Compound interest building. Keep going.",s:"good"},
+{i:"\u{1F35E}",t:"Phase 4 Diet Risk",b:"Bread, cereal, coffee during peak stress.",s:"high"},
+{i:"\u{1F550}",t:"Lag Confirmed",b:"Actions reduce symptoms in hours, trend reversal 24-48hr.",s:"info"},
+{i:"\u2705",t:"Stool Improved",b:"3.5\u21923.6. Diet protocol is durable.",s:"good"}],
+symChanges:[{l:"Gas",v:25,p:65},{l:"Pain",v:45,p:74},{l:"Bloating",v:14,p:38},{l:"Cramps",v:0,p:28},{l:"Constipation",v:20,p:28},{l:"Urgency",v:4,p:13},{l:"Burning",v:11,p:13}],
+actions:["Evening protocol (highest priority)","Pull back to Phase 2 diet","Maintain 6+ daily actions","Dinner before 6:30pm","Defer gluten test until stress <20","Sunday weekly export"],
+stressPhases:[{l:"Phase 1",v:6.9,c:"#4a9e7d"},{l:"Phase 2",v:37.2,c:"#c46a3a"},{l:"Phase 3",v:34.3,c:"#c46a3a"}],
+dailyDetail:[{d:"May 10",sev:12,acts:4,morn:4},{d:"May 11",sev:24,acts:8,morn:3},{d:"May 12",sev:11,acts:7,morn:3},{d:"May 13",sev:13,acts:6,morn:2},{d:"May 14",sev:10,acts:6,morn:4},{d:"May 15",sev:10,acts:5,morn:3}]}
 ];
 
 
@@ -276,17 +288,59 @@ h+="<div class=\"ic\" style=\"background:linear-gradient(135deg,#e8f5e9,#c8e6c9)
 
 h+="<div class=\"ic\"><div class=\"ict\">\u{1F4D1} Weekly Reports Archive</div>";
 WR_ARCHIVE.slice().reverse().forEach(function(rpt){
-h+="<div style=\"border:1px solid #e8e4dc;border-radius:10px;padding:12px;margin-bottom:10px;cursor:pointer\" onclick=\"this.querySelector(\'._det\').style.display=this.querySelector(\'._det\').style.display===\'none\'?\'block\':\'none\'\"><div style=\"display:flex;justify-content:space-between;align-items:center\"><div><div style=\"font-size:14px;font-weight:700;color:#3d6b5e\">\u{1F4CA} "+rpt.date+"</div><div style=\"font-size:11px;color:#888\">"+rpt.days+" \u00B7 "+rpt.entries+" entries</div></div><span style=\"font-size:12px;color:#bbb\">\u25BC</span></div>";
-h+="<div class=\"_det\" style=\"display:none;margin-top:10px\">";
-h+="<div style=\"display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:8px\">";
-Object.entries(rpt.metrics).forEach(function(pair){h+="<div style=\"background:#f7f5f0;border-radius:6px;padding:6px 8px;font-size:11px\"><span style=\"color:#888\">"+pair[0]+": </span><strong>"+pair[1]+"</strong></div>"});
+h+="<div style=\"border:1px solid #e8e4dc;border-radius:12px;margin-bottom:12px;overflow:hidden\">";
+h+="<div style=\"padding:14px;cursor:pointer;background:#f7f5f0\" onclick=\"var d=this.nextElementSibling;d.style.display=d.style.display===\x27none\x27?\x27block\x27:\x27none\x27\">";
+h+="<div style=\"display:flex;justify-content:space-between;align-items:center\"><div><div style=\"font-size:15px;font-weight:700;color:#3d6b5e\">\u{1F4CA} "+rpt.date+"</div><div style=\"font-size:11px;color:#888\">"+rpt.days+" \u00B7 "+rpt.entries+" entries</div></div><span style=\"font-size:12px;color:#bbb\">\u25BC Tap to expand</span></div></div>";
+h+="<div style=\"display:none;padding:0 14px 14px\">";
+
+// KPIs
+h+="<div style=\"display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin:10px 0\">";
+rpt.kpis.forEach(function(k){h+="<div style=\"background:#fff;border-radius:8px;padding:10px;text-align:center;box-shadow:0 1px 2px rgba(0,0,0,.05)\"><div style=\"font-size:22px;font-weight:800;color:"+k.c+"\">"+k.v+"</div><div style=\"font-size:9px;color:#888;text-transform:uppercase\">"+k.l+"</div></div>"});
 h+="</div>";
-h+="<div style=\"font-size:12px;font-weight:600;color:#3d6b5e;margin:8px 0 4px\">Key Findings:</div>";
-rpt.findings.forEach(function(f){h+="<div style=\"font-size:11px;color:#555;padding:3px 0;padding-left:12px;position:relative\"><span style=\"position:absolute;left:0\">\u2022</span>"+f+"</div>"});
-h+="<div style=\"font-size:12px;font-weight:600;color:#2e7d32;margin:8px 0 4px\">Actions:</div>";
+
+// Stress phases bar
+if(rpt.stressPhases){
+h+="<div style=\"background:#fff;border-radius:8px;padding:10px;margin:8px 0;box-shadow:0 1px 2px rgba(0,0,0,.05)\"><div style=\"font-size:11px;font-weight:600;color:#3d6b5e;margin-bottom:6px\">Stress Phases (Ring)</div><div style=\"display:flex;gap:6px;align-items:end;height:60px\">";
+var spMax=Math.max.apply(null,rpt.stressPhases.map(function(p){return p.v}));
+rpt.stressPhases.forEach(function(p){var h2=Math.round(p.v/spMax*100);h+="<div style=\"flex:1;text-align:center\"><div style=\"font-size:12px;font-weight:700;color:"+p.c+"\">"+p.v+"</div><div style=\"height:"+h2+"%;background:"+p.c+";border-radius:4px 4px 0 0;min-height:4px;margin:4px auto;width:80%\"></div><div style=\"font-size:9px;color:#888\">"+p.l+"</div></div>"});
+h+="</div></div>"}
+
+// Week-over-week comparisons
+if(rpt.comparisons){
+h+="<div style=\"background:#fff;border-radius:8px;padding:10px;margin:8px 0;box-shadow:0 1px 2px rgba(0,0,0,.05)\"><div style=\"font-size:11px;font-weight:600;color:#3d6b5e;margin-bottom:6px\">Week-over-Week</div>";
+rpt.comparisons.forEach(function(c){var dc=c.d==="better"?"#4a9e7d":c.d==="worse"?"#c46a3a":"#888";
+h+="<div style=\"display:flex;align-items:center;gap:6px;padding:4px 0;border-bottom:1px solid #f5f5f5;font-size:11px\"><span style=\"width:90px;color:#555;font-weight:500\">"+c.l+"</span><span style=\"font-weight:700;width:40px;text-align:center\">"+c.w1+"</span>"+(c.w2?"<span>\u2192</span><span style=\"font-weight:700;width:40px;text-align:center\">"+c.w2+"</span><span style=\"font-size:10px;font-weight:600;padding:1px 6px;border-radius:8px;color:#fff;background:"+dc+"\">"+c.d+"</span>":"")+"</div>"});
+h+="</div>"}
+
+// Symptom frequency
+if(rpt.symChanges){
+h+="<div style=\"background:#fff;border-radius:8px;padding:10px;margin:8px 0;box-shadow:0 1px 2px rgba(0,0,0,.05)\"><div style=\"font-size:11px;font-weight:600;color:#3d6b5e;margin-bottom:6px\">Symptom Frequency</div>";
+var symMax=Math.max.apply(null,rpt.symChanges.map(function(s){return Math.max(s.v,s.p||s.v)}));
+rpt.symChanges.forEach(function(s){var w=Math.round(s.v/symMax*100);var pw=s.p?Math.round(s.p/symMax*100):0;
+h+="<div style=\"display:flex;align-items:center;gap:6px;padding:3px 0;font-size:11px\"><span style=\"width:80px;color:#555\">"+s.l+"</span><div style=\"flex:1;height:12px;background:#f0f0f0;border-radius:4px;overflow:hidden;position:relative\">"+(pw?"<div style=\"height:100%;width:"+pw+"%;background:rgba(196,106,58,.2);border-radius:4px;position:absolute\"></div>":"")+"<div style=\"height:100%;width:"+w+"%;background:#c46a3a;border-radius:4px;position:relative\"></div></div><span style=\"width:30px;font-weight:600;text-align:right\">"+s.v+"</span>"+(s.p?"<span style=\"font-size:9px;color:#4a9e7d\">\u2193"+Math.round((1-s.v/s.p)*100)+"%</span>":"")+"</div>"});
+h+="</div>"}
+
+// Daily detail (week 2 only)
+if(rpt.dailyDetail){
+h+="<div style=\"background:#fff;border-radius:8px;padding:10px;margin:8px 0;box-shadow:0 1px 2px rgba(0,0,0,.05)\"><div style=\"font-size:11px;font-weight:600;color:#3d6b5e;margin-bottom:6px\">Daily Breakdown</div>";
+rpt.dailyDetail.forEach(function(d){var sc=d.sev>15?"#c46a3a":d.sev>10?"#d4a843":"#4a9e7d";var mc=d.morn>=4?"#4a9e7d":d.morn>=3?"#d4a843":"#c46a3a";
+h+="<div style=\"display:flex;align-items:center;gap:8px;padding:3px 0;font-size:11px;border-bottom:1px solid #f5f5f5\"><span style=\"width:50px;font-weight:600;color:#555\">"+d.d+"</span><span style=\"color:"+sc+";font-weight:600\">Sev:"+d.sev+"</span><span style=\"color:#4a9e7d\">Acts:"+d.acts+"</span><span style=\"color:"+mc+"\">AM:"+d.morn+"/5</span></div>"});
+h+="</div>"}
+
+// Findings
+h+="<div style=\"margin:8px 0\"><div style=\"font-size:11px;font-weight:600;color:#3d6b5e;margin-bottom:6px\">Key Findings</div>";
+rpt.findings.forEach(function(f){var c2=f.s==="high"?"#c46a3a":f.s==="good"?"#4a9e7d":f.s==="info"?"#6a8caf":"#d4a843";
+h+="<div style=\"display:flex;gap:6px;padding:4px 0;border-bottom:1px solid #f5f5f5;font-size:11px\"><span style=\"font-size:14px\">"+f.i+"</span><div><span style=\"font-weight:600;color:"+c2+"\">"+f.t+"</span> <span style=\"color:#666\">"+f.b+"</span></div></div>"});
+h+="</div>";
+
+// Actions
+h+="<div style=\"background:linear-gradient(135deg,#e8f5e9,#c8e6c9);border-radius:8px;padding:10px;margin:8px 0\"><div style=\"font-size:11px;font-weight:600;color:#2e7d32;margin-bottom:4px\">Action Plan</div>";
 rpt.actions.forEach(function(a,i){h+="<div style=\"font-size:11px;color:#1b5e20;padding:2px 0\">"+(i+1)+". "+a+"</div>"});
+h+="</div>";
+
 h+="</div></div>"});
 h+="</div>";
+
 
 h+="<div style=\"margin-top:16px;padding-top:12px;border-top:2px solid #e8e4dc\"><div style=\"font-size:11px;color:#999;text-transform:uppercase;letter-spacing:1px;margin-bottom:12px\">\u{1F4CA} Live Tracker</div></div>";
 
